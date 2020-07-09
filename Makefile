@@ -13,12 +13,9 @@ help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 publish:
+	@rm -rf docs; mkdir docs; rm -rf build/html
 	@make html
-	@git rm -rf docs
-	@git commit -m "Removed old docs"
-	@mkdir docs; cp -a _build/html/. docs
-	@git add docs
-	@git commit -m "Added new docs"
+	@cp -ra build/html/* docs; cp CNAME docs
 
 .PHONY: help Makefile
 
