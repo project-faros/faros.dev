@@ -64,7 +64,9 @@ Infrastructure
     balance requests for the cluster API, machine configurations, and the
     OpenShift ingress router. For this the bastion node will run HAProxy. Also
     included are the `farosctl` command and the Cockpit web interface for
-    managing the cluster.
+    managing the cluster. Finally, NTP services are provided by the
+    infrastructure node. The DHCP server will announce the availability of the
+    NTP services and the cluster nodes will synchronize with the bastion.
 
 Virtual Machines
     During the Faros installation, the bastion node will be configured to allow

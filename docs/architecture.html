@@ -243,7 +243,9 @@ They can be shutdown during normal operation of the cluster.</p>
 balance requests for the cluster API, machine configurations, and the
 OpenShift ingress router. For this the bastion node will run HAProxy. Also
 included are the <cite>farosctl</cite> command and the Cockpit web interface for
-managing the cluster.</p>
+managing the cluster. Finally, NTP services are provided by the
+infrastructure node. The DHCP server will announce the availability of the
+NTP services and the cluster nodes will synchronize with the bastion.</p>
 </dd>
 <dt>Virtual Machines</dt><dd><p>During the Faros installation, the bastion node will be configured to allow
 it to host virtual machines on the internal LAN. By default, only a
