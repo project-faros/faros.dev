@@ -56,8 +56,8 @@ html_theme = 'sphinx_rtd_theme'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-html_logo = '_static/logo_name_white.svg'
-html_favicon = '_static/favicon.ico'
+html_logo = '_static/images/logo_name_white.svg'
+html_favicon = '_static/images/favicon.ico'
 html_baseurl = 'faros.dev'
 html_theme_options = {
     'canonical_url': 'https://faros.dev',

@@ -15,7 +15,7 @@ help:
 publish:
 	@rm -rf docs; mkdir docs; rm -rf build/html
 	@make html
-	@cp -ra build/html/* docs; cp CNAME docs
+	@cp -ra build/html/* docs; cp CNAME docs; touch docs/.nojekyll
 
 .PHONY: help Makefile
 
