@@ -18,6 +18,7 @@
 
     repos <https://faros.dev>
     devenv <https://faros.dev>
+    ansiblefacts <https://faros.dev>
     deploys <https://faros.dev>
     docs <https://faros.dev>
 
