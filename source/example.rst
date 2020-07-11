@@ -6,8 +6,8 @@ Verified Implimentation
 
     Fedora for scale
 
-Hardware Specification
-----------------------
+Hardware specifications
+-----------------------
 
 The HPE EL8000 makes a great hardware platform for Faros deployed OpenShift
 clusters. A single, 5U, half-width chassis can four blades that can all be
@@ -33,7 +33,7 @@ The cluster used as a reference platform has the following specifications:
     | NVME (per blade)  | 4x 2TB NVME                           |
     +-------------------+---------------------------------------+
 
-Chassis Wiring
+Chassis wiring
 --------------
 
 As mentioned, the integrated switches on the EL8000 are used extensively to
@@ -114,7 +114,6 @@ Extra DNS/DHCP Records
       :MAC Address: `ff:ff:ff:ff:ff:ff`
     - :Node Name: `wifi`
       :MAC Address: `ff:ff:ff:ff:ff:ff`
-
 :Ignored MAC Addresses:
     - :Entry Name: `node-0-1g`
       :MAC Address: `ff:ff:ff:ff:ff:ff`

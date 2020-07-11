@@ -9,8 +9,8 @@
     architecture
     installation
     configuration
-    deploy <https://faros.dev>
-    operate <https://faros.dev>
+    deploy
+    operate
     example
 
 .. toctree::
