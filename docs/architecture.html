@@ -40,6 +40,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Faros Installation" href="installation.html" />
     <link rel="prev" title="Faros Documentation" href="index.html" /> 
 </head>
 
@@ -97,16 +98,16 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Cluster Architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#philosophy">Philosophy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#bastion-node-detail">Bastion Node Detail</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#network-detail">Network Detail</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dns-requirements">DNS Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#node-bios-settings">Node BIOS Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bastion-node-detail">Bastion node detail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network-detail">Network detail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dns-requirements">DNS requirements</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference external" href="https://faros.dev">installation</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://faros.dev">configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Faros Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Cluster Configuration</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">deploy</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">operate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Verified Example Platform</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing</span></p>
 <ul>
@@ -216,8 +217,8 @@ bastion node runs Red Hat Enterprise Linux 8 whereas the other three nodes will
 run Red Hat CoreOS.</p>
 </div>
 <div class="section" id="bastion-node-detail">
-<h2>Bastion Node Detail<a class="headerlink" href="#bastion-node-detail" title="Permalink to this headline">¶</a></h2>
-<p>The bastion node serves multiple purposes in the cluster architecture.</p>
+<h2>Bastion node detail<a class="headerlink" href="#bastion-node-detail" title="Permalink to this headline">¶</a></h2>
+<p>The bastion node serves four primary services to the cluster.</p>
 <dl class="simple">
 <dt>Router</dt><dd><p>The bastion node connects directly to the upstream public network and is
 responsible for routing traffic and applying firewall policies. For
@@ -247,7 +248,7 @@ managing the cluster. Finally, NTP services are provided by the
 infrastructure node. The DHCP server will announce the availability of the
 NTP services and the cluster nodes will synchronize with the bastion.</p>
 </dd>
-<dt>Virtual Machines</dt><dd><p>During the Faros installation, the bastion node will be configured to allow
+<dt>Hypervisor</dt><dd><p>During the Faros installation, the bastion node will be configured to allow
 it to host virtual machines on the internal LAN. By default, only a
 virtual bootstrap server will be created on the bastion node. This node is
 used to host a minimal Kubernetes API that allows the cluster installation
@@ -259,13 +260,47 @@ after installation.</p>
 </dl>
 </div>
 <div class="section" id="network-detail">
-<h2>Network Detail<a class="headerlink" href="#network-detail" title="Permalink to this headline">¶</a></h2>
+<h2>Network detail<a class="headerlink" href="#network-detail" title="Permalink to this headline">¶</a></h2>
+<p>There are only two network requirements for a Faros deployed cluster. One
+uplink/WAN connection to the bastion node and a layer 2 switch connecting all
+of the nodes and management ports. The bastion node will act as a gateway for
+ingress and egress traffic. During install, the gateway can be configured in
+one of two ways:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>NAT Gateway - Nodes outside of the cluster may use the bastion node as part
+of a static route to contact the cluster nodes directly. This is only
+recomended when the bastion node is connected to a trusted enterprise
+network as it allows direct access to the cluster nodes.</p></li>
+<li><p>PAT Gateway - The bastion node will only forward traffic from the cluster
+network to the public network. The bastion node’s firewall will port
+forward the cluster services to make them available outisde of the cluster.
+This is safer because only the bastion node is reachable from outside of
+the cluster. This configuration is very similar in function to a consumer
+router.</p></li>
+</ul>
+</div></blockquote>
 </div>
 <div class="section" id="dns-requirements">
-<h2>DNS Requirements<a class="headerlink" href="#dns-requirements" title="Permalink to this headline">¶</a></h2>
+<h2>DNS requirements<a class="headerlink" href="#dns-requirements" title="Permalink to this headline">¶</a></h2>
+<p>Setting up a cluster requires a DNS domain and a cluster name. The cluster will
+be configured to use a subdomain of *.CLUSTER_NAME.CLUSTER_DOMAIN. For
+example, if your cluster name is <cite>edge</cite> and your cluster domain is
+<cite>example.com</cite>, then your bastion node would have a FQDN of
+<cite>bastion.edge.example.com</cite>. If you would like your cluster to be reachable
+externally (usually desired, but not necessary), you must have the ability to
+create DNS records in the DNS zone that defines your domain. It is not required
+to edit the DNS zone until the installation is complete.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>In order to contact the cluster externally, you must be able to create 3
+public DNS A records:</p>
+<ul class="simple">
+<li><p>bastion.CLUSTER_NAME.CLUSTER_DOMAIN</p></li>
+<li><p>api.CLUSTER_NAME.CLUSTER_DOMAIN</p></li>
+<li><p>*.apps.CLUSTER_NAME.CLUSTER_DOMAIN</p></li>
+</ul>
 </div>
-<div class="section" id="node-bios-settings">
-<h2>Node BIOS Settings<a class="headerlink" href="#node-bios-settings" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -276,6 +311,8 @@ after installation.</p>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="installation.html" class="btn btn-neutral float-right" title="Faros Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="Faros Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

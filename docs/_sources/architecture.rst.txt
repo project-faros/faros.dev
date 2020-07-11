@@ -17,7 +17,7 @@ on other infrastructure.
 Overview
 --------
 
-.. figure:: _static/images/architecture/overview.svg
+.. figure:: _images/architecture/overview.svg
     :alt: Faros Cluster Overview
     :align: center
 
@@ -32,10 +32,10 @@ interface that is on the same layer 2 network as the nodes themselves. The
 bastion node runs Red Hat Enterprise Linux 8 whereas the other three nodes will
 run Red Hat CoreOS.
 
-Bastion Node Detail
+Bastion node detail
 -------------------
 
-The bastion node serves multiple purposes in the cluster architecture.
+The bastion node serves four primary services to the cluster.
 
 Router
     The bastion node connects directly to the upstream public network and is
@@ -68,7 +68,7 @@ Infrastructure
     infrastructure node. The DHCP server will announce the availability of the
     NTP services and the cluster nodes will synchronize with the bastion.
 
-Virtual Machines
+Hypervisor
     During the Faros installation, the bastion node will be configured to allow
     it to host virtual machines on the internal LAN. By default, only a
     virtual bootstrap server will be created on the bastion node. This node is
@@ -78,12 +78,43 @@ Virtual Machines
     created on the bastion node, but virtual machines can be manually created
     after installation.
 
-Network Detail
+Network detail
 --------------
 
+There are only two network requirements for a Faros deployed cluster. One
+uplink/WAN connection to the bastion node and a layer 2 switch connecting all
+of the nodes and management ports. The bastion node will act as a gateway for
+ingress and egress traffic. During install, the gateway can be configured in
+one of two ways:
 
-DNS Requirements
+  * NAT Gateway - Nodes outside of the cluster may use the bastion node as part
+    of a static route to contact the cluster nodes directly. This is only
+    recomended when the bastion node is connected to a trusted enterprise
+    network as it allows direct access to the cluster nodes.
+  * PAT Gateway - The bastion node will only forward traffic from the cluster
+    network to the public network. The bastion node's firewall will port
+    forward the cluster services to make them available outisde of the cluster.
+    This is safer because only the bastion node is reachable from outside of
+    the cluster. This configuration is very similar in function to a consumer
+    router.
+
+DNS requirements
 ----------------
 
-Node BIOS Settings
-------------------
+Setting up a cluster requires a DNS domain and a cluster name. The cluster will
+be configured to use a subdomain of \*.CLUSTER_NAME.CLUSTER_DOMAIN. For
+example, if your cluster name is `edge` and your cluster domain is
+`example.com`, then your bastion node would have a FQDN of
+`bastion.edge.example.com`. If you would like your cluster to be reachable
+externally (usually desired, but not necessary), you must have the ability to
+create DNS records in the DNS zone that defines your domain. It is not required
+to edit the DNS zone until the installation is complete.
+
+.. important::
+
+    In order to contact the cluster externally, you must be able to create 3
+    public DNS A records:
+
+    * bastion.CLUSTER_NAME.CLUSTER_DOMAIN
+    * api.CLUSTER_NAME.CLUSTER_DOMAIN
+    * \*.apps.CLUSTER_NAME.CLUSTER_DOMAIN

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; Faros 0.5.0 documentation</title>
+  <title>Cluster Configuration &mdash; Faros 0.5.0 documentation</title>
   
 
   
@@ -39,7 +39,9 @@
 
     
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Verified Example Platform" href="example.html" />
+    <link rel="prev" title="Faros Installation" href="installation.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -92,12 +94,24 @@
             
             
               <p class="caption"><span class="caption-text">Documentation</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Cluster Architecture</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://faros.dev">installation</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://faros.dev">configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Faros Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cluster Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#node-prerequisites">Node prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network-initial-condition">Network initial condition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#openshift-cluster-configuration">OpenShift cluster configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#router-configuration">Router Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Cluster Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#host-record-configuration">Host Record Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extra-dns-dhcp-records">Extra DNS/DHCP Records</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">deploy</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">operate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Verified Example Platform</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing</span></p>
 <ul>
@@ -158,7 +172,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>&lt;no title&gt;</li>
+      <li>Cluster Configuration</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -179,12 +193,173 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
+  <div class="section" id="cluster-configuration">
+<h1>Cluster Configuration<a class="headerlink" href="#cluster-configuration" title="Permalink to this headline">¶</a></h1>
+<p>Before begining the cluster deployement, it is necessary to confirm the
+hardware and network setup. Then, the cluster configuration options can be set.</p>
+<div class="section" id="node-prerequisites">
+<h2>Node prerequisites<a class="headerlink" href="#node-prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>The BIOS configuration of the nodes will largely not impact the Faros
+deployment process. However, it is mandatory that the boot order of each node
+be the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>OS hard drive</p></li>
+<li><p>Cluster connected NIC</p></li>
+<li><p>Everything else</p></li>
+</ul>
+</div></blockquote>
+<p>It is also required that each node in the cluster use the same username and
+password for their out-of-band management interface.</p>
+</div>
+<div class="section" id="network-initial-condition">
+<h2>Network initial condition<a class="headerlink" href="#network-initial-condition" title="Permalink to this headline">¶</a></h2>
+<p>Before starting the cluster deployement, it is required that each node is
+connected to the layer 2 switch that will be used by the cluster. It is highly
+recomended to leave the out-of-band management NICs disconnected when starting
+the deployment. During the deployment process, you will be instructed to when
+connect them.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is possible to leave the management interfaces connected during the
+entire install process, but there may be a delay waiting for them to get
+properly addressed.</p>
+</div>
+</div>
+<div class="section" id="openshift-cluster-configuration">
+<h2>OpenShift cluster configuration<a class="headerlink" href="#openshift-cluster-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The Faros CLI provides a TUI to make configuring the cluster easy. To launch
+the configuration interface, run the following command as the administrative
+user:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">farosctl</span> <span class="n">config</span>
+</pre></div>
+</div>
+<div class="section" id="router-configuration">
+<h3>Router Configuration<a class="headerlink" href="#router-configuration" title="Permalink to this headline">¶</a></h3>
+<p>The following options are available:</p>
+<dl>
+<dt>LAN Interfaces</dt><dd><p>Select which NICs on the bastion node should be put onto the cluster
+network. Selecting more than one NIC allows connecting more devices to the
+cluster network. For example, you may select a 10gbe NIC and a 1gbe NIC to
+be on the cluster network so that you can attach a 1gbe switch and a 10gbe
+switch to the network.</p>
+</dd>
+<dt>Subnet</dt><dd><p>The subnet IP definition that should be used for cluster nodes. When using
+the gateway in PAT mode, this decision is far less impactful.</p>
+</dd>
+<dt>Subnet Mask</dt><dd><p>The CIDR prefix for the subnet.</p>
+</dd>
+<dt>Premitted Ingress Traffic</dt><dd><p>These options control the firewall configuration. They control what traffic
+is allowed into the cluster. The following modes are available and can be
+toggled on/off individually</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><em>SSH to Bastion</em> - Allow external nodes to SSH to the bastion</p></li>
+<li><p><em>HTTPS to Cluster API</em> - Allow external nodes to contact the OpenShift
+API</p></li>
+<li><p><em>HTTP to Cluster Apps</em> - Allow external nodes to contact applications
+running in the OpenShift cluster via HTTP</p></li>
+<li><p><em>HTTPS to Cluster Apps</em> - Allow external nodes to contact applications
+running in the OpenShift cluster via HTTPS</p></li>
+<li><p><em>HTTPS to Cockpit Panel</em> - Allow external nodes to connect to the
+Cockpit control plane running on port 9090 on the bastion via HTTPS</p></li>
+<li><p><em>External to Internal Routing - DANGER</em> - This configures the gateway
+in NAT mode as opposed to PAT mode. USE WITH CAUTION.</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="id1">
+<h3>Cluster Configuration<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>The following options are available:</p>
+<dl class="simple">
+<dt>Administrator Password</dt><dd><p>The password required for the administrator user on the bastion node. This
+is used to allow the installer to use sudo.</p>
+</dd>
+<dt>Pull Secret</dt><dd><p>Your pull secret from <a class="reference external" href="https://cloud.redhat.com">cloud.redhat.com</a></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="host-record-configuration">
+<h3>Host Record Configuration<a class="headerlink" href="#host-record-configuration" title="Permalink to this headline">¶</a></h3>
+<p>The following options are available:</p>
+<dl>
+<dt>Machine Management Provider</dt><dd><p>The protocol used to talk to the hosts’ management interface. Currently
+only iLo can be used.</p>
+</dd>
+<dt>Machine Management User</dt><dd><p>The user with access to the hosts’ management interface</p>
+</dd>
+<dt>Machine Management Password</dt><dd><p>The password associated with the management user</p>
+</dd>
+<dt>Bastion Node Management MAC Address</dt><dd><p>The MAC address of the network interface on the bastion node’s management
+interface</p>
+</dd>
+<dt>Control Plane Machines</dt><dd><p>This interface allows configuration of each of the bare metal machines that
+will be used to create the OpenShift control plane. Each node requires
+three values:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><em>Node Name</em>: The hostname that will be given to the node. Note: This is
+not the FQDN, just the hostname.</p></li>
+<li><p><em>MAC Address</em>: The MAC address for the node’s cluster connected NIC</p></li>
+<li><p><em>Management MAC Address</em>: The MAC address for the node’s management
+interface</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+<div class="section" id="extra-dns-dhcp-records">
+<h3>Extra DNS/DHCP Records<a class="headerlink" href="#extra-dns-dhcp-records" title="Permalink to this headline">¶</a></h3>
+<p>These options allow for additional configuration of the DNS and DHCP services
+beyond the minimum required for a cluster deployment. They exist, mostly, for
+convenience.</p>
+<dl>
+<dt>Extra Records</dt><dd><p>Any additional static records that should be configured in the DNS and DHCP
+servers. For example, WiFi access points, chassis management interfaces,
+additional custom servers. Each extra record requires the following
+information:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><em>Node Name</em>: The hostname that will be given to the node. Note: This is
+not the FQDN, just the hostname.</p></li>
+<li><p><em>MAC Address</em>: The MAC address for the node’s cluster connected NIC</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>Ignored MAC Addresses</dt><dd><p>If there are any interfaces on the cluster layer 2 network that you do not
+want to be able to dynamically obtain an IP address, you must configure
+them here. The entries here will be ignored when making DHCP requests.
+Note: This does not provide the security of forcing them off the network.
+It only precents them from obtaining the network details dynamically. These
+records require the following information:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><em>Entry Name</em>: A unique name for the record to make it recognizable</p></li>
+<li><p><em>MAC Address</em>: The MAC address for the node’s cluster connected NIC</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="example.html" class="btn btn-neutral float-right" title="Verified Example Platform" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Faros Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

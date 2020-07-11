@@ -1,0 +1,472 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Verified Example Platform &mdash; Faros 0.5.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+    <link rel="canonical" href="https://faros.devexample.html"/>
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Cluster Configuration" href="configuration.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #19647E" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo_name_white.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Cluster Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Faros Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Cluster Configuration</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://faros.dev">deploy</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://faros.dev">operate</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Verified Example Platform</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#hardware-specification">Hardware Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#chassis-wiring">Chassis Wiring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#openshift-cluster-configuration">OpenShift cluster configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#router-configuration">Router Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cluster-configuration">Cluster Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#host-record-configuration">Host Record Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extra-dns-dhcp-records">Extra DNS/DHCP Records</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://faros.dev">repos</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://faros.dev">devenv</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://faros.dev">ansiblefacts</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://faros.dev">deploys</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://faros.dev">docs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/projects/1">Roadmap</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/issues">Bug Report</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros">GitHub</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Faros</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Verified Example Platform</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com///blob/example.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="verified-example-platform">
+<h1>Verified Example Platform<a class="headerlink" href="#verified-example-platform" title="Permalink to this headline">¶</a></h1>
+<div class="figure align-center" id="id1">
+<img alt="_images/portrait.jpg" src="_images/portrait.jpg" />
+<p class="caption"><span class="caption-text">Fedora for scale</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="hardware-specification">
+<h2>Hardware Specification<a class="headerlink" href="#hardware-specification" title="Permalink to this headline">¶</a></h2>
+<p>The HPE EL8000 makes a great hardware platform for Faros deployed OpenShift
+clusters. A single, 5U, half-width chassis can four blades that can all be
+equipped with 2xSSDs, 4xNVMEs, and 1xGPU. Additionally, the chassis includes
+one 1gbe integrated switch and up to two 10gbe switches. This allows most of
+the wiring to stay internal to the chassis.</p>
+<p>The cluster used as a reference platform has the following specifications:</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 67%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Blades</p></td>
+<td><p>4x server blades</p></td>
+</tr>
+<tr class="row-even"><td><p>CPU (per blade)</p></td>
+<td><p>24 core 2.4 GHz Intel proc</p></td>
+</tr>
+<tr class="row-odd"><td><p>vCPU (per blade)</p></td>
+<td><p>48 vCPUs (with HT enabled)</p></td>
+</tr>
+<tr class="row-even"><td><p>RAM (per blade)</p></td>
+<td><p>192 GB</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU (per blade)</p></td>
+<td><p>NVIDIA T4 (coming soon) (not bastion)</p></td>
+</tr>
+<tr class="row-even"><td><p>SSD (per blade)</p></td>
+<td><p>2x 256GB SSD</p></td>
+</tr>
+<tr class="row-odd"><td><p>NVME (per blade)</p></td>
+<td><p>4x 2TB NVME</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="chassis-wiring">
+<h2>Chassis Wiring<a class="headerlink" href="#chassis-wiring" title="Permalink to this headline">¶</a></h2>
+<p>As mentioned, the integrated switches on the EL8000 are used extensively to
+minimize external wiring. In total, the example implementation here uses 3
+network cables. The first network cable connects to the WAN port on the bastion
+node. The second connects the bastion node to a wireless access point for local
+network access. The third cable bridges the integrated 1g switch and the
+integrated management switch.</p>
+<p>Because the 1gbe and 10gbe integrated switches are used, by default every
+cluster node will have two network connections (in addition to their management
+connections) to the cluster network. This is not ideal as it cannot be
+guaranteed which interface will be used by OpenShift, and one is substantially
+slower than the other. To prevent issues, the 1gbe links on all of the cluster
+nodes will be added to the ignore list.</p>
+<p>The following diagram shows the logical network layout. Note that black lines
+indicate physical connections that are not integrated into the chassis.</p>
+<div class="figure align-center" id="id2">
+<img alt="_images/wiring.svg" src="_images/wiring.svg" /><p class="caption"><span class="caption-text">Logical wiring diagram</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>For reference, the following image shows the physical chassis wiring with WAN
+connection, wireless access point, 1gbe switch bridge, and power. It is
+difficult to see the 1gbe switch bridging cable. It is a 6 inch black ethernet
+cable on the bottom right of the chassis.</p>
+<div class="figure align-center" id="id3">
+<img alt="_images/wiring.jpg" src="_images/wiring.jpg" />
+<p class="caption"><span class="caption-text">Physical cluster wiring</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="openshift-cluster-configuration">
+<h2>OpenShift cluster configuration<a class="headerlink" href="#openshift-cluster-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The following values were used for the verified Faros deployment.</p>
+<div class="section" id="router-configuration">
+<h3>Router Configuration<a class="headerlink" href="#router-configuration" title="Permalink to this headline">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">LAN Interfaces</dt>
+<dd class="field-odd"><p><cite>[‘eno1’, ‘eno2’, ‘eno3’, ‘eno4’, ‘eno5’]</cite></p>
+</dd>
+<dt class="field-even">Subnet</dt>
+<dd class="field-even"><p><cite>192.168.8.0</cite></p>
+</dd>
+<dt class="field-odd">Subnet Mask</dt>
+<dd class="field-odd"><p><cite>24</cite></p>
+</dd>
+<dt class="field-even">Premitted Ingress Traffic</dt>
+<dd class="field-even"><p><cite>[‘SSH to Bastion’, ‘HTTPS to Cluster API’, ‘HTTP to Cluster Apps’, ‘HTTPS to Cluster Apps’]</cite></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="cluster-configuration">
+<h3>Cluster Configuration<a class="headerlink" href="#cluster-configuration" title="Permalink to this headline">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Administrator Password</dt>
+<dd class="field-odd"><p><cite>**********</cite></p>
+</dd>
+<dt class="field-even">Pull Secret</dt>
+<dd class="field-even"><p><cite>**********</cite></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="host-record-configuration">
+<h3>Host Record Configuration<a class="headerlink" href="#host-record-configuration" title="Permalink to this headline">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Machine Management Provider</dt>
+<dd class="field-odd"><p><cite>ilo</cite></p>
+</dd>
+<dt class="field-even">Machine Management User</dt>
+<dd class="field-even"><p><cite>Administrator</cite></p>
+</dd>
+<dt class="field-odd">Machine Management Password</dt>
+<dd class="field-odd"><p><cite>**********</cite></p>
+</dd>
+<dt class="field-even">Bastion Node Management MAC Address</dt>
+<dd class="field-even"><p><cite>ff:ff:ff:ff:ff:ff</cite></p>
+</dd>
+<dt class="field-odd">Control Plane Machines</dt>
+<dd class="field-odd"><ul class="simple">
+<li><dl class="field-list simple">
+<dt class="field-odd">Node Name</dt>
+<dd class="field-odd"><p><cite>node-0</cite></p>
+</dd>
+<dt class="field-even">MAC Address</dt>
+<dd class="field-even"><p><cite>ff:ff:ff:ff:ff:ff</cite></p>
+</dd>
+<dt class="field-odd">Management MAC Address</dt>
+<dd class="field-odd"><p><cite>ff:ff:ff:ff:ff:ff</cite></p>
+</dd>
+</dl>
+</li>
+<li><dl class="field-list simple">
+<dt class="field-odd">Node Name</dt>
+<dd class="field-odd"><p><cite>node-1</cite></p>
+</dd>
+<dt class="field-even">MAC Address</dt>
+<dd class="field-even"><p><cite>ff:ff:ff:ff:ff:ff</cite></p>
+</dd>
+<dt class="field-odd">Management MAC Address</dt>
+<dd class="field-odd"><p><cite>ff:ff:ff:ff:ff:ff</cite></p>
+</dd>
+</dl>
+</li>
+<li><dl class="field-list simple">
+<dt class="field-odd">Node Name</dt>
+<dd class="field-odd"><p><cite>node-2</cite></p>
+</dd>
+<dt class="field-even">MAC Address</dt>
+<dd class="field-even"><p><cite>ff:ff:ff:ff:ff:ff</cite></p>
+</dd>
+<dt class="field-odd">Management MAC Address</dt>
+<dd class="field-odd"><p><cite>ff:ff:ff:ff:ff:ff</cite></p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="extra-dns-dhcp-records">
+<h3>Extra DNS/DHCP Records<a class="headerlink" href="#extra-dns-dhcp-records" title="Permalink to this headline">¶</a></h3>
+<dl class="field-list simple">
+<dt class="field-odd">Extra Records</dt>
+<dd class="field-odd"><ul class="simple">
+<li><dl class="field-list simple">
+<dt class="field-odd">Node Name</dt>
+<dd class="field-odd"><p><cite>chassis</cite></p>
+</dd>
+<dt class="field-even">MAC Address</dt>
+<dd class="field-even"><p><cite>ff:ff:ff:ff:ff:ff</cite></p>
+</dd>
+</dl>
+</li>
+<li><dl class="field-list simple">
+<dt class="field-odd">Node Name</dt>
+<dd class="field-odd"><p><cite>wifi</cite></p>
+</dd>
+<dt class="field-even">MAC Address</dt>
+<dd class="field-even"><p><cite>ff:ff:ff:ff:ff:ff</cite></p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt class="field-odd">Ignored MAC Addresses</dt>
+<dd class="field-odd"><ul class="simple">
+<li><dl class="field-list simple">
+<dt class="field-odd">Entry Name</dt>
+<dd class="field-odd"><p><cite>node-0-1g</cite></p>
+</dd>
+<dt class="field-even">MAC Address</dt>
+<dd class="field-even"><p><cite>ff:ff:ff:ff:ff:ff</cite></p>
+</dd>
+</dl>
+</li>
+<li><dl class="field-list simple">
+<dt class="field-odd">Entry Name</dt>
+<dd class="field-odd"><p><cite>node-1-1g</cite></p>
+</dd>
+<dt class="field-even">MAC Address</dt>
+<dd class="field-even"><p><cite>ff:ff:ff:ff:ff:ff</cite></p>
+</dd>
+</dl>
+</li>
+<li><dl class="field-list simple">
+<dt class="field-odd">Entry Name</dt>
+<dd class="field-odd"><p><cite>node-2-1g</cite></p>
+</dd>
+<dt class="field-even">MAC Address</dt>
+<dd class="field-even"><p><cite>ff:ff:ff:ff:ff:ff</cite></p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="configuration.html" class="btn btn-neutral float-left" title="Cluster Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Project Faros Team
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
