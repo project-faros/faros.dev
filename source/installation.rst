@@ -29,8 +29,7 @@ Install the CLI
 To install the Faros tooling and dependencies, as the administrative user, run
 the following command::
 
-    /bin/bash -c "$(curl -fsSL
-    https://raw.githubusercontent.com/project-faros/cluster-manager/master/bin/bootstrap_bastion.sh)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/project-faros/cluster-manager/master/bin/bootstrap_bastion.sh)"
 
 This command will request the user's password to enable sudo access. The
 command requires sudo in order to `dnf install` dependencies, configure
