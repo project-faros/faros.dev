@@ -7,10 +7,11 @@
     :caption: Documentation
 
     architecture
-    installation <https://faros.dev>
-    configuration <https://faros.dev>
+    installation
+    configuration
     deploy <https://faros.dev>
     operate <https://faros.dev>
+    example
 
 .. toctree::
     :maxdepth: 2
