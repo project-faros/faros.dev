@@ -101,11 +101,15 @@
 <li class="toctree-l1"><a class="reference internal" href="deploy.html">Cluster Deployment</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Day 2 Cluster Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#start-up-and-shutdown-procedures">Start up and shutdown procedures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#patching-the-cluster">Patching the cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#updating-the-cluster">Updating the cluster</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#patch-the-cluster">Patch the cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#patch-the-bastion-node">Patch the bastion node</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#deploying-container-storage">Deploying container storage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#enable-cluster-registry">Enable cluster registry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-user-accounts">Configure user accounts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#deploying-data-science-demo">Deploying data science demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deploying-open-data-hub-demo">Deploying Open Data Hub demo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-cluster-https-certs">Configure cluster HTTPS certs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#add-nodes-to-the-cluster">Add nodes to the cluster</a></li>
 </ul>
@@ -165,6 +169,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -178,7 +184,8 @@
         
             
             
-              <a href="https://github.com///blob/operate.rst" class="fa fa-github"> Edit on GitHub</a>
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com/project-faros/faros.dev/blob/master/source/operate.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -196,33 +203,99 @@
 <h1>Day 2 Cluster Operation<a class="headerlink" href="#day-2-cluster-operation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="start-up-and-shutdown-procedures">
 <h2>Start up and shutdown procedures<a class="headerlink" href="#start-up-and-shutdown-procedures" title="Permalink to this headline">¶</a></h2>
+<p>The Faros tooling includes scripts for automated cluster shutdown and startup:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Safely stop and bring down the cluster</span>
+farosctl shutdown
+<span class="c1"># Shutdown the bastion node</span>
+poweroff
+
+<span class="c1"># Bring the cluster up and wait for it to be healthy</span>
+farosctl startup
+</pre></div>
 </div>
-<div class="section" id="patching-the-cluster">
-<h2>Patching the cluster<a class="headerlink" href="#patching-the-cluster" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="updating-the-cluster">
+<h2>Updating the cluster<a class="headerlink" href="#updating-the-cluster" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="patch-the-cluster">
+<h3>Patch the cluster<a class="headerlink" href="#patch-the-cluster" title="Permalink to this headline">¶</a></h3>
+<p>The OpenShift cluster may be patched by following the standard procedures. It
+is recomened to use the GUI for patching. The official Red Hat documentation
+containers detailed <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/updating/updating-cluster.html">OpenShift updating instructions</a>.</p>
+</div>
+<div class="section" id="patch-the-bastion-node">
+<h3>Patch the bastion node<a class="headerlink" href="#patch-the-bastion-node" title="Permalink to this headline">¶</a></h3>
+<p>To patch the bastion node, simply:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf -y update
+reboot
+</pre></div>
+</div>
+<p>Please note, there will be a cluster disruption while the bastion node is
+patched. Cluster services will continue to run, but they will be unavailable.</p>
+</div>
 </div>
 <div class="section" id="deploying-container-storage">
 <h2>Deploying container storage<a class="headerlink" href="#deploying-container-storage" title="Permalink to this headline">¶</a></h2>
+<p>There are many options for persistent cluster storage, but OpenShift Container
+Storage (OCS) is preferred for a few reasons:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>farosctl deploy</p></li>
-<li><p>set default storage class</p></li>
+<li><p>OCS is gauranteed to work with OpenShift</p></li>
+<li><p>OCS provides file, block, and object storage support RWX</p></li>
+<li><p>OCS runs on the cluster nodes and does not require additional hardware</p></li>
 </ul>
 </div></blockquote>
+<p>To run through an automated storage deployment, use the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl deploy container-storage
+</pre></div>
+</div>
+<p>This will launch an interactive menu to choose which nodes should be used for
+storage and then which drives on those nodes should be dedicated to storage.
+OCS requires full block devices on the nodes and cannot simply use part of a
+partitioned drive. The drive must be wipped prior to building the storage
+cluster.</p>
+<p>Once storage is available to the cluster, it is a good practice to set the
+default StorageClass. Official documentation is here for <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/storage/dynamic-provisioning.html#change-default-storage-class_dynamic-provisioning">changing the default
+StorageClass</a>.</p>
 </div>
 <div class="section" id="enable-cluster-registry">
 <h2>Enable cluster registry<a class="headerlink" href="#enable-cluster-registry" title="Permalink to this headline">¶</a></h2>
+<p>Because storage is not originally available in a bare metal deployment, the
+cluster image registry cannot be created until after storage is made available.
+Now the storage is available, it is time to <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/registry/configuring-registry-operator.html#registry-removed_configuring-registry-operator">enable the cluster registry</a>.</p>
 </div>
 <div class="section" id="configure-user-accounts">
 <h2>Configure user accounts<a class="headerlink" href="#configure-user-accounts" title="Permalink to this headline">¶</a></h2>
+<p>There are many options for configuring user accounts in OpenShift. Two common
+methods are <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/authentication/identity_providers/configuring-ldap-identity-provider.html">using LDAP authentication</a>
+or <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/authentication/identity_providers/configuring-htpasswd-identity-provider.html">using an HTPasswd file</a>.</p>
 </div>
-<div class="section" id="deploying-data-science-demo">
-<h2>Deploying data science demo<a class="headerlink" href="#deploying-data-science-demo" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="deploying-open-data-hub-demo">
+<h2>Deploying Open Data Hub demo<a class="headerlink" href="#deploying-open-data-hub-demo" title="Permalink to this headline">¶</a></h2>
+<p>To demonstrate the capabilities of OpenShift for data scientists, a demo Open
+Data Hub environment can be quickly deployed using the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl deploy odh-demo
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Open Data Hub is a community supported project and not a Red Hat product.
+Deployment of this demo requires that storge and the cluster registry have
+both been configured.</p>
+</div>
 </div>
 <div class="section" id="configure-cluster-https-certs">
 <h2>Configure cluster HTTPS certs<a class="headerlink" href="#configure-cluster-https-certs" title="Permalink to this headline">¶</a></h2>
+<p>Not strictly necessary, but often desireable, official documentation is
+available on how to <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/authentication/certificates/replacing-default-ingress-certificate.html">update the application HTTPS certificate</a>
+and on how to <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/authentication/certificates/api-server.html">update the API HTTPS certificate</a>.</p>
 </div>
 <div class="section" id="add-nodes-to-the-cluster">
 <h2>Add nodes to the cluster<a class="headerlink" href="#add-nodes-to-the-cluster" title="Permalink to this headline">¶</a></h2>
+<p>To add additional application nodes to the cluster, the DHCP and DNS zones on
+the bastion must be manually updated to add records for that host and configure
+them to PXE boot to the CoreOS installer with the worker ignition file.
+Detailed instructions are available for <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/installing/installing_bare_metal/installing-bare-metal.html#installation-user-infra-machines-pxe_installing-bare-metal">creating RHCOS machines with PXE
+booting</a>.</p>
 </div>
 </div>
 

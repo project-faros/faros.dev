@@ -1,3 +1,5 @@
+:github_url: https://github.com/project-faros/faros.dev/blob/master/source/installation.rst
+
 Faros Installation
 ==================
 
