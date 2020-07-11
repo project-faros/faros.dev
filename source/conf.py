@@ -69,3 +69,6 @@ html_context = {
     'version': release,
     'display_github': True,
 }
+html_css_files = [
+    'css/custom.css',
+]
