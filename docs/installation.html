@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Faros Installation &mdash; Faros 0.5.0 documentation</title>
+  <title>Faros Installation &mdash; Faros 0.5 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.5
               </div>
             
           
@@ -102,9 +102,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Cluster Configuration</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://faros.dev">deploy</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://faros.dev">operate</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example.html">Verified Example Platform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">Cluster Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operate.html">Day 2 Cluster Operation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Verified Implimentation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing</span></p>
 <ul>
@@ -211,8 +211,7 @@ the latest set of patches. Reboot the system.</p>
 <h2>Install the CLI<a class="headerlink" href="#install-the-cli" title="Permalink to this headline">¶</a></h2>
 <p>To install the Faros tooling and dependencies, as the administrative user, run
 the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;$(curl -fsSL</span>
-<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">project</span><span class="o">-</span><span class="n">faros</span><span class="o">/</span><span class="n">cluster</span><span class="o">-</span><span class="n">manager</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bootstrap_bastion</span><span class="o">.</span><span class="n">sh</span><span class="p">)</span><span class="s2">&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;$(curl -fsSL https://raw.githubusercontent.com/project-faros/cluster-manager/master/bin/bootstrap_bastion.sh)&quot;</span>
 </pre></div>
 </div>
 <p>This command will request the user’s password to enable sudo access. The

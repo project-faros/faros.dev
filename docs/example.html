@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Verified Example Platform &mdash; Faros 0.5.0 documentation</title>
+  <title>Verified Implimentation &mdash; Faros 0.5 documentation</title>
   
 
   
@@ -40,7 +40,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Cluster Configuration" href="configuration.html" /> 
+    <link rel="prev" title="Day 2 Cluster Operation" href="operate.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.5
               </div>
             
           
@@ -97,11 +97,11 @@
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Cluster Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Faros Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Cluster Configuration</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://faros.dev">deploy</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://faros.dev">operate</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Verified Example Platform</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#hardware-specification">Hardware Specification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#chassis-wiring">Chassis Wiring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">Cluster Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operate.html">Day 2 Cluster Operation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Verified Implimentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#hardware-specifications">Hardware specifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#chassis-wiring">Chassis wiring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#openshift-cluster-configuration">OpenShift cluster configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#router-configuration">Router Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cluster-configuration">Cluster Configuration</a></li>
@@ -171,7 +171,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Verified Example Platform</li>
+      <li>Verified Implimentation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -192,14 +192,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="verified-example-platform">
-<h1>Verified Example Platform<a class="headerlink" href="#verified-example-platform" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="verified-implimentation">
+<h1>Verified Implimentation<a class="headerlink" href="#verified-implimentation" title="Permalink to this headline">¶</a></h1>
 <div class="figure align-center" id="id1">
 <img alt="_images/portrait.jpg" src="_images/portrait.jpg" />
 <p class="caption"><span class="caption-text">Fedora for scale</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
-<div class="section" id="hardware-specification">
-<h2>Hardware Specification<a class="headerlink" href="#hardware-specification" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="hardware-specifications">
+<h2>Hardware specifications<a class="headerlink" href="#hardware-specifications" title="Permalink to this headline">¶</a></h2>
 <p>The HPE EL8000 makes a great hardware platform for Faros deployed OpenShift
 clusters. A single, 5U, half-width chassis can four blades that can all be
 equipped with 2xSSDs, 4xNVMEs, and 1xGPU. Additionally, the chassis includes
@@ -239,7 +239,7 @@ the wiring to stay internal to the chassis.</p>
 </div></blockquote>
 </div>
 <div class="section" id="chassis-wiring">
-<h2>Chassis Wiring<a class="headerlink" href="#chassis-wiring" title="Permalink to this headline">¶</a></h2>
+<h2>Chassis wiring<a class="headerlink" href="#chassis-wiring" title="Permalink to this headline">¶</a></h2>
 <p>As mentioned, the integrated switches on the EL8000 are used extensively to
 minimize external wiring. In total, the example implementation here uses 3
 network cables. The first network cable connects to the WAN port on the bastion
@@ -424,7 +424,7 @@ cable on the bottom right of the chassis.</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="configuration.html" class="btn btn-neutral float-left" title="Cluster Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="operate.html" class="btn btn-neutral float-left" title="Day 2 Cluster Operation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

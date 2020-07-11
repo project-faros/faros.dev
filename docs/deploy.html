@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; Faros 0.5.0 documentation</title>
+  <title>Cluster Deployment &mdash; Faros 0.5 documentation</title>
   
 
   
@@ -39,7 +39,9 @@
 
     
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Day 2 Cluster Operation" href="operate.html" />
+    <link rel="prev" title="Cluster Configuration" href="configuration.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -66,7 +68,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.5
               </div>
             
           
@@ -92,13 +94,20 @@
             
             
               <p class="caption"><span class="caption-text">Documentation</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Cluster Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Faros Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Cluster Configuration</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://faros.dev">deploy</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://faros.dev">operate</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example.html">Verified Example Platform</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cluster Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#deploy-the-cluster">Deploy the cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#public-dns-records">Public DNS records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#connecting-to-the-cluster">Connecting to the cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node-auth-certificates">Node auth certificates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging-installation">Debugging installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="operate.html">Day 2 Cluster Operation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Verified Implimentation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing</span></p>
 <ul>
@@ -159,7 +168,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>&lt;no title&gt;</li>
+      <li>Cluster Deployment</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -180,12 +189,112 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
+  <div class="section" id="cluster-deployment">
+<h1>Cluster Deployment<a class="headerlink" href="#cluster-deployment" title="Permalink to this headline">¶</a></h1>
+<p>Now that the hardware has been wired and the Faros has been configured, the
+cluster can be deployed.</p>
+<div class="section" id="deploy-the-cluster">
+<h2>Deploy the cluster<a class="headerlink" href="#deploy-the-cluster" title="Permalink to this headline">¶</a></h2>
+<p>Run the following commands as your administrative user. (Not root)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Apply configuration to the router components.</span>
+<span class="c1">#   - Gateway, Firewall, DNS, DHCP, and NTP</span>
+farosctl apply router
+
+<span class="c1"># Create necessary virtual machines. Currently just the bootstrap.</span>
+farosctl create machines
+
+<span class="c1"># Configue cluster nodes in network services.</span>
+<span class="c1">#   - DNS, DHCP, and Cockpit</span>
+farosctl apply host-records
+
+<span class="c1">#</span>
+<span class="c1"># It is now safe to connect the management interfaces to the network</span>
+<span class="c1">#</span>
+
+<span class="c1"># Wait for maangement interfaces to become available.</span>
+farosctl wait-for management-interfaces
+
+<span class="c1"># Create the cluster load balancer.</span>
+farosctl create load-balancer
+
+<span class="c1"># Create the installation sources and machine config repositories.</span>
+farosctl create install-repos
+
+<span class="c1"># Create the OpenShift cluster.</span>
+<span class="c1"># This will boot all of the cluster nodes, install Red Hat CoreOS on each</span>
+<span class="c1"># node, and install OpenShift.</span>
+farosctl create cluster
+</pre></div>
+</div>
+<p><em>Voila!</em></p>
+</div>
+<div class="section" id="public-dns-records">
+<h2>Public DNS records<a class="headerlink" href="#public-dns-records" title="Permalink to this headline">¶</a></h2>
+<p>This step is not required, but will usually be desired. If you would like to
+reach the cluster from an external machine, you will need to create a few
+public DNS records. The content of the records will be slightly difference
+depending on the gatway routing method used (NAT or PAT). Use the following
+command to determine what your records should be:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl get public-dns-records
+</pre></div>
+</div>
+<p>For a NATed network, you will get output like this:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>; Public DNS records for faros.site zone.
+bastion.edge.example.com.   IN  A   192.168.5.16
+api.edge.example.com.       IN  A   192.168.8.2
+*.apps.edge.example.com.    IN  A   192.168.8.2
+</pre></div>
+</div>
+<p>For a PATed network, you will get output like this:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>; Public DNS records for faros.site zone.
+bastion.edge.example.com.   IN  A   192.168.5.16
+api.edge.example.com.       IN  A   192.168.5.16
+*.apps.edge.example.com.    IN  A   192.168.5.16
+</pre></div>
+</div>
+</div>
+<div class="section" id="connecting-to-the-cluster">
+<h2>Connecting to the cluster<a class="headerlink" href="#connecting-to-the-cluster" title="Permalink to this headline">¶</a></h2>
+<p>The cluster credentials are displayed at the end of the cluster deployment
+process. If you need to retreive them again, use the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl get credentials
+</pre></div>
+</div>
+<p>This will return the cluster API domain, the cluster console domain, and the
+kubeadmin password. You may use these to login to the OpenShift GUI or the
+OpenShift CLI.</p>
+</div>
+<div class="section" id="node-auth-certificates">
+<h2>Node auth certificates<a class="headerlink" href="#node-auth-certificates" title="Permalink to this headline">¶</a></h2>
+<p>Kubernetes uses OpenSSL certificates for internode authentication. The initial
+set of these certificates are only valid for 24 hours. At that point, they are
+automatically rotated by the cluster. Every subsequent set of certificates is
+valid for 30 days. To avoid issues, do not shutdown the cluster in the first 24
+hours. After that, do not leave the cluster powered off for longer than 30
+days.</p>
+</div>
+<div class="section" id="debugging-installation">
+<h2>Debugging installation<a class="headerlink" href="#debugging-installation" title="Permalink to this headline">¶</a></h2>
+<p>If issues are encountered during the cluster deployment process, add a <cite>-v</cite>
+flag to the <cite>farosctl</cite> command for increased verbosity. Adding more v’s will
+increase the verbosity futher.</p>
+</div>
+</div>
+
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="operate.html" class="btn btn-neutral float-right" title="Day 2 Cluster Operation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="configuration.html" class="btn btn-neutral float-left" title="Cluster Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
