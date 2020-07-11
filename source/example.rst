@@ -1,5 +1,5 @@
-Verified Example Platform
-=========================
+Verified Implimentation
+=======================
 
 .. figure:: _images/example/portrait.jpg
     :align: center
