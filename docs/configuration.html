@@ -204,17 +204,18 @@ hardware and network setup. Then, the cluster configuration options can be set.<
 <div class="section" id="node-prerequisites">
 <h2>Node prerequisites<a class="headerlink" href="#node-prerequisites" title="Permalink to this headline">¶</a></h2>
 <p>The BIOS configuration of the nodes will largely not impact the Faros
-deployment process. However, it is mandatory that the boot order of each node
-be the following:</p>
+deployment process. However, it is mandatory to properly configure the boot
+devices and out of band management.</p>
+<p>The boot order of each node must be the following:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>OS hard drive</p></li>
-<li><p>Cluster connected NIC</p></li>
+<li><p>PXE using the cluster connected NIC</p></li>
 <li><p>Everything else</p></li>
 </ul>
 </div></blockquote>
-<p>It is also required that each node in the cluster use the same username and
-password for their out-of-band management interface.</p>
+<p>For the out of band management, each node must use the same username/password
+for control and be configured to use DHCP when joining the network.</p>
 </div>
 <div class="section" id="network-initial-condition">
 <h2>Network initial condition<a class="headerlink" href="#network-initial-condition" title="Permalink to this headline">¶</a></h2>
@@ -223,8 +224,10 @@ connected to the layer 2 switch that will be used by the cluster. It is highly
 recomended to leave the out-of-band management NICs disconnected when starting
 the deployment. During the deployment process, you will be instructed to when
 connect them.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>It is highly recomended to leave the out of band management interfaces
+disconnected when begining cluster deployement.</p>
 <p>It is possible to leave the management interfaces connected during the
 entire install process, but there may be a delay waiting for them to get
 properly addressed.</p>

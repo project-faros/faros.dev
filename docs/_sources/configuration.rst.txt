@@ -10,15 +10,17 @@ Node prerequisites
 ------------------
 
 The BIOS configuration of the nodes will largely not impact the Faros
-deployment process. However, it is mandatory that the boot order of each node
-be the following:
+deployment process. However, it is mandatory to properly configure the boot
+devices and out of band management.
+
+The boot order of each node must be the following:
 
   * OS hard drive
-  * Cluster connected NIC
+  * PXE using the cluster connected NIC
   * Everything else
 
-It is also required that each node in the cluster use the same username and
-password for their out-of-band management interface.
+For the out of band management, each node must use the same username/password
+for control and be configured to use DHCP when joining the network.
 
 Network initial condition
 -------------------------
@@ -29,7 +31,10 @@ recomended to leave the out-of-band management NICs disconnected when starting
 the deployment. During the deployment process, you will be instructed to when
 connect them.
 
-.. note::
+.. important::
+
+    It is highly recomended to leave the out of band management interfaces
+    disconnected when begining cluster deployement.
 
     It is possible to leave the management interfaces connected during the
     entire install process, but there may be a delay waiting for them to get
