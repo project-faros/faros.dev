@@ -84,6 +84,31 @@ Because storage is not originally available in a bare metal deployment, the
 cluster image registry cannot be created until after storage is made available.
 Now the storage is available, it is time to `enable the cluster registry <https://docs.openshift.com/container-platform/4.4/registry/configuring-registry-operator.html#registry-removed_configuring-registry-operator>`_.
 
+Here is an example *imageregistry.operator.openshift.io/default* resource.
+
+```
+apiVersion: imageregistry.operator.openshift.io/v1
+kind: Config
+metadata:
+  finalizers:
+  - imageregistry.operator.openshift.io/finalizer
+  name: cluster
+spec:
+  logging: 2
+  managementState: Managed
+  proxy: {}
+  replicas: 1
+  requests:
+    read:
+      maxWaitInQueue: 0s
+    write:
+      maxWaitInQueue: 0s
+  rolloutStrategy: RollingUpdate
+  storage:
+    pvc:
+      claim:
+```
+
 Configure user accounts
 -----------------------
 
