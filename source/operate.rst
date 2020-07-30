@@ -66,6 +66,11 @@ cluster.
 Once storage is available to the cluster, it is a good practice to set the
 default StorageClass. Official documentation is here for `changing the default
 StorageClass <https://docs.openshift.com/container-platform/4.4/storage/dynamic-provisioning.html#change-default-storage-class_dynamic-provisioning>`_.
+To set the CephFS storage class to be the default, use the following command:
+
+```
+oc patch storageclass ocs-storagecluster-cephfs -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "false"}}}'
+```
 
 There is currently a known issue with storage that causes some nuisance
 warnings to be thrown. If the *lib-bucket-provisioner* operator is flapping on
