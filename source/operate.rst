@@ -109,6 +109,28 @@ Here is an example *imageregistry.operator.openshift.io/default* resource.
         pvc:
         claim:
 
+Enable registry pruning
+-----------------------
+
+Once the registry is enabled, image pruning should also be enabled to reduce
+clutter.
+
+The *imagepruner.imageregistry.operator.openshift.io/cluster* resource
+definition should look like the following.
+
+.. code-block:: bash
+
+  apiVersion: imageregistry.operator.openshift.io/v1
+  kind: ImagePruner
+  metadata:
+    name: cluster
+  spec:
+    failedJobsHistoryLimit: 3
+    keepTagRevisions: 3
+    schedule: ""
+    successfulJobsHistoryLimit: 3
+    suspend: false
+
 Configure user accounts
 -----------------------
 
