@@ -84,7 +84,7 @@ Because storage is not originally available in a bare metal deployment, the
 cluster image registry cannot be created until after storage is made available.
 Now the storage is available, it is time to `enable the cluster registry <https://docs.openshift.com/container-platform/4.4/registry/configuring-registry-operator.html#registry-removed_configuring-registry-operator>`_.
 
-Here is an example *imageregistry.operator.openshift.io/default* resource.
+Here is an example *config.imageregistry.operator.openshift.io/default* resource.
 
 .. code-block:: bash
 
@@ -115,7 +115,7 @@ Enable registry pruning
 Once the registry is enabled, image pruning should also be enabled to reduce
 clutter.
 
-The *imagepruner.imageregistry.operator.openshift.io/cluster* resource
+The *config.imagepruner.imageregistry.operator.openshift.io/cluster* resource
 definition should look like the following.
 
 .. code-block:: bash
