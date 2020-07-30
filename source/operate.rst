@@ -70,7 +70,7 @@ To set the CephFS storage class to be the default, use the following command:
 
 .. code-block:: bash
 
-  oc patch storageclass ocs-storagecluster-cephfs -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "false"}}}'
+  oc patch storageclass ocs-storagecluster-cephfs -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "true"}}}'
 
 There is currently a known issue with storage that causes some nuisance
 warnings to be thrown. If the *lib-bucket-provisioner* operator is flapping on
