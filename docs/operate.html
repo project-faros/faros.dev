@@ -109,6 +109,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#deploying-container-storage">Deploying container storage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#enable-cluster-registry">Enable cluster registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enable-registry-pruning">Enable registry pruning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-user-accounts">Configure user accounts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deploying-open-data-hub-demo">Deploying Open Data Hub demo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-cluster-https-certs">Configure cluster HTTPS certs</a></li>
@@ -256,13 +257,63 @@ partitioned drive. The drive must be wipped prior to building the storage
 cluster.</p>
 <p>Once storage is available to the cluster, it is a good practice to set the
 default StorageClass. Official documentation is here for <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/storage/dynamic-provisioning.html#change-default-storage-class_dynamic-provisioning">changing the default
-StorageClass</a>.</p>
+StorageClass</a>.
+To set the CephFS storage class to be the default, use the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc patch storageclass ocs-storagecluster-cephfs -p <span class="s1">&#39;{&quot;metadata&quot;: {&quot;annotations&quot;: {&quot;storageclass.kubernetes.io/is-default-class&quot;: &quot;true&quot;}}}&#39;</span>
+</pre></div>
+</div>
+<p>There is currently a known issue with storage that causes some nuisance
+warnings to be thrown. If the <em>lib-bucket-provisioner</em> operator is flapping on
+your cluster after a storage install, the instructions to fix this can be found
+<cite>here &lt;https://access.redhat.com/solutions/5221881&gt;</cite>.</p>
 </div>
 <div class="section" id="enable-cluster-registry">
 <h2>Enable cluster registry<a class="headerlink" href="#enable-cluster-registry" title="Permalink to this headline">¶</a></h2>
 <p>Because storage is not originally available in a bare metal deployment, the
 cluster image registry cannot be created until after storage is made available.
 Now the storage is available, it is time to <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/registry/configuring-registry-operator.html#registry-removed_configuring-registry-operator">enable the cluster registry</a>.</p>
+<p>Here is an example <em>config.imageregistry.operator.openshift.io/default</em> resource.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apiVersion: imageregistry.operator.openshift.io/v1
+kind: Config
+metadata:
+finalizers:
+- imageregistry.operator.openshift.io/finalizer
+name: cluster
+spec:
+logging: <span class="m">2</span>
+managementState: Managed
+proxy: <span class="o">{}</span>
+replicas: <span class="m">1</span>
+requests:
+    read:
+    maxWaitInQueue: 0s
+    write:
+    maxWaitInQueue: 0s
+rolloutStrategy: RollingUpdate
+storage:
+    pvc:
+    claim:
+</pre></div>
+</div>
+</div>
+<div class="section" id="enable-registry-pruning">
+<h2>Enable registry pruning<a class="headerlink" href="#enable-registry-pruning" title="Permalink to this headline">¶</a></h2>
+<p>Once the registry is enabled, image pruning should also be enabled to reduce
+clutter.</p>
+<p>The <em>config.imagepruner.imageregistry.operator.openshift.io/cluster</em> resource
+definition should look like the following.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apiVersion: imageregistry.operator.openshift.io/v1
+kind: ImagePruner
+metadata:
+  name: cluster
+spec:
+  failedJobsHistoryLimit: <span class="m">3</span>
+  keepTagRevisions: <span class="m">3</span>
+  schedule: <span class="s2">&quot;&quot;</span>
+  successfulJobsHistoryLimit: <span class="m">3</span>
+  suspend: <span class="nb">false</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="configure-user-accounts">
 <h2>Configure user accounts<a class="headerlink" href="#configure-user-accounts" title="Permalink to this headline">¶</a></h2>
