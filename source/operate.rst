@@ -68,9 +68,9 @@ default StorageClass. Official documentation is here for `changing the default
 StorageClass <https://docs.openshift.com/container-platform/4.4/storage/dynamic-provisioning.html#change-default-storage-class_dynamic-provisioning>`_.
 To set the CephFS storage class to be the default, use the following command:
 
-```
-oc patch storageclass ocs-storagecluster-cephfs -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "false"}}}'
-```
+.. code-block:: bash
+
+  oc patch storageclass ocs-storagecluster-cephfs -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "false"}}}'
 
 There is currently a known issue with storage that causes some nuisance
 warnings to be thrown. If the *lib-bucket-provisioner* operator is flapping on
@@ -86,28 +86,28 @@ Now the storage is available, it is time to `enable the cluster registry <https:
 
 Here is an example *imageregistry.operator.openshift.io/default* resource.
 
-```
-apiVersion: imageregistry.operator.openshift.io/v1
-kind: Config
-metadata:
-  finalizers:
-  - imageregistry.operator.openshift.io/finalizer
-  name: cluster
-spec:
-  logging: 2
-  managementState: Managed
-  proxy: {}
-  replicas: 1
-  requests:
-    read:
-      maxWaitInQueue: 0s
-    write:
-      maxWaitInQueue: 0s
-  rolloutStrategy: RollingUpdate
-  storage:
-    pvc:
-      claim:
-```
+.. code-block:: bash
+
+    apiVersion: imageregistry.operator.openshift.io/v1
+    kind: Config
+    metadata:
+    finalizers:
+    - imageregistry.operator.openshift.io/finalizer
+    name: cluster
+    spec:
+    logging: 2
+    managementState: Managed
+    proxy: {}
+    replicas: 1
+    requests:
+        read:
+        maxWaitInQueue: 0s
+        write:
+        maxWaitInQueue: 0s
+    rolloutStrategy: RollingUpdate
+    storage:
+        pvc:
+        claim:
 
 Configure user accounts
 -----------------------
