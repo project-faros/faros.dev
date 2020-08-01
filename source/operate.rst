@@ -51,6 +51,16 @@ Storage (OCS) is preferred for a few reasons:
   - OCS provides file, block, and object storage support RWX
   - OCS runs on the cluster nodes and does not require additional hardware
 
+OCS requires full block devices on the nodes and cannot simply use part of a
+partitioned drive.
+Before deploying the cluster storage, you must ensure the drives to be used for
+storage are wiped. Wiping the drives has been automated. Use the following
+command and select the drives you would like to wipe.
+
+.. code-block:: bash
+
+  farosctl deploy wipefs
+
 To run through an automated storage deployment, use the following command:
 
 .. code-block:: bash
@@ -59,9 +69,6 @@ To run through an automated storage deployment, use the following command:
 
 This will launch an interactive menu to choose which nodes should be used for
 storage and then which drives on those nodes should be dedicated to storage.
-OCS requires full block devices on the nodes and cannot simply use part of a
-partitioned drive. The drive must be wipped prior to building the storage
-cluster.
 
 Once storage is available to the cluster, it is a good practice to set the
 default StorageClass. Official documentation is here for `changing the default
