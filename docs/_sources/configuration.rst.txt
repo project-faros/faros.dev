@@ -6,21 +6,23 @@ Cluster Configuration
 Before begining the cluster deployement, it is necessary to confirm the
 hardware and network setup. Then, the cluster configuration options can be set.
 
-Node prerequisites
-------------------
-
-The BIOS configuration of the nodes will largely not impact the Faros
-deployment process. However, it is mandatory to properly configure the boot
-devices and out of band management.
+Hardware configuration
+----------------------
 
 The boot order of each node must be the following:
 
   * OS hard drive
-  * PXE using the cluster connected NIC
+  * IPv4 PXE using the cluster connected NIC
   * Everything else
+
+Both UEFI and legacy booting are supported.
 
 For the out of band management, each node must use the same username/password
 for control and be configured to use DHCP when joining the network.
+
+All drives in the nodes should be blank before begining the installation. There
+should not be an operating system installed on any drive of the cluster nodes
+as this can cause issues booting CoreOS, particularly in UEFI mode.
 
 Network initial condition
 -------------------------
@@ -28,7 +30,7 @@ Network initial condition
 Before starting the cluster deployement, it is required that each node is
 connected to the layer 2 switch that will be used by the cluster. It is highly
 recomended to leave the out-of-band management NICs disconnected when starting
-the deployment. During the deployment process, you will be instructed to when
+the deployment. During the deployment process, you will be instructed when to
 connect them.
 
 .. important::

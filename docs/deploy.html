@@ -282,6 +282,26 @@ days.</p>
 <p>If issues are encountered during the cluster deployment process, add a <cite>-v</cite>
 flag to the <cite>farosctl</cite> command for increased verbosity. Adding more v’s will
 increase the verbosity futher.</p>
+<p>If the installlation times out waiting for the cluster nodes to start
+provisioning, connect to the nodes’ management interfaces and ensure they have
+PXE booted. This is typically indicative of the boot order not being properly
+set. If the nodes have PXE booted and CoreOS has been installed, watch the
+nodes’ consoles as they boot for errors. If there are errors about certificate
+verification errors, the cluster’s bootstrap CA has probably expired. To
+generate a noot boostrap CA certificate, recreate the install repos.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl create install-repos
+</pre></div>
+</div>
+<p>If the installation times out waiting for the bootstrapping to complete, the
+bootstrap node will likely have the most informative logs. To get the bootstrap
+logs, ssh to the bootstrap node and monitor the bootkube service.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl ssh bootstrap
+journalctl -b -f -u bootkube.service
+</pre></div>
+</div>
+<p>If the installer times out waiting for the cluster install to complete, you
+will need to log into the cluster and determine which services were unable to
+come up healthy.</p>
 </div>
 </div>
 

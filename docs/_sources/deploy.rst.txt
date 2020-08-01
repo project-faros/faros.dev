@@ -105,3 +105,28 @@ Debugging installation
 If issues are encountered during the cluster deployment process, add a `-v`
 flag to the `farosctl` command for increased verbosity. Adding more v's will
 increase the verbosity futher.
+
+If the installlation times out waiting for the cluster nodes to start
+provisioning, connect to the nodes' management interfaces and ensure they have
+PXE booted. This is typically indicative of the boot order not being properly
+set. If the nodes have PXE booted and CoreOS has been installed, watch the
+nodes' consoles as they boot for errors. If there are errors about certificate
+verification errors, the cluster's bootstrap CA has probably expired. To
+generate a noot boostrap CA certificate, recreate the install repos.
+
+.. code-block:: bash
+
+  farosctl create install-repos
+
+If the installation times out waiting for the bootstrapping to complete, the
+bootstrap node will likely have the most informative logs. To get the bootstrap
+logs, ssh to the bootstrap node and monitor the bootkube service.
+
+.. code-block:: bash
+
+  farosctl ssh bootstrap
+  journalctl -b -f -u bootkube.service
+
+If the installer times out waiting for the cluster install to complete, you
+will need to log into the cluster and determine which services were unable to
+come up healthy.

@@ -99,7 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Cluster Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Faros Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Cluster Configuration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#node-prerequisites">Node prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hardware-configuration">Hardware configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#network-initial-condition">Network initial condition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#openshift-cluster-configuration">OpenShift cluster configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#router-configuration">Router Configuration</a></li>
@@ -201,28 +201,29 @@
 <h1>Cluster Configuration<a class="headerlink" href="#cluster-configuration" title="Permalink to this headline">¶</a></h1>
 <p>Before begining the cluster deployement, it is necessary to confirm the
 hardware and network setup. Then, the cluster configuration options can be set.</p>
-<div class="section" id="node-prerequisites">
-<h2>Node prerequisites<a class="headerlink" href="#node-prerequisites" title="Permalink to this headline">¶</a></h2>
-<p>The BIOS configuration of the nodes will largely not impact the Faros
-deployment process. However, it is mandatory to properly configure the boot
-devices and out of band management.</p>
+<div class="section" id="hardware-configuration">
+<h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Permalink to this headline">¶</a></h2>
 <p>The boot order of each node must be the following:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>OS hard drive</p></li>
-<li><p>PXE using the cluster connected NIC</p></li>
+<li><p>IPv4 PXE using the cluster connected NIC</p></li>
 <li><p>Everything else</p></li>
 </ul>
 </div></blockquote>
+<p>Both UEFI and legacy booting are supported.</p>
 <p>For the out of band management, each node must use the same username/password
 for control and be configured to use DHCP when joining the network.</p>
+<p>All drives in the nodes should be blank before begining the installation. There
+should not be an operating system installed on any drive of the cluster nodes
+as this can cause issues booting CoreOS, particularly in UEFI mode.</p>
 </div>
 <div class="section" id="network-initial-condition">
 <h2>Network initial condition<a class="headerlink" href="#network-initial-condition" title="Permalink to this headline">¶</a></h2>
 <p>Before starting the cluster deployement, it is required that each node is
 connected to the layer 2 switch that will be used by the cluster. It is highly
 recomended to leave the out-of-band management NICs disconnected when starting
-the deployment. During the deployment process, you will be instructed to when
+the deployment. During the deployment process, you will be instructed when to
 connect them.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
