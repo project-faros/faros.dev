@@ -18,7 +18,7 @@ publish:
 	@make html
 	@cp -ra build/html/* docs; cp CNAME docs; touch docs/.nojekyll
 	@git add * &>/dev/null || echo
-	@git commit -m "Publishing new content."
+	@git commit -m "Publishing new content." || echo
 	@git push
 
 .PHONY: help Makefile
