@@ -104,7 +104,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#public-dns-records">Public DNS records</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#connecting-to-the-cluster">Connecting to the cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#node-auth-certificates">Node auth certificates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#debugging-installation">Debugging installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging-deployment">Debugging deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#restarting-deployment">Restarting deployment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="operate.html">Day 2 Cluster Operation</a></li>
@@ -277,8 +278,8 @@ valid for 30 days. To avoid issues, do not shutdown the cluster in the first 24
 hours. After that, do not leave the cluster powered off for longer than 30
 days.</p>
 </div>
-<div class="section" id="debugging-installation">
-<h2>Debugging installation<a class="headerlink" href="#debugging-installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="debugging-deployment">
+<h2>Debugging deployment<a class="headerlink" href="#debugging-deployment" title="Permalink to this headline">¶</a></h2>
 <p>If issues are encountered during the cluster deployment process, add a <cite>-v</cite>
 flag to the <cite>farosctl</cite> command for increased verbosity. Adding more v’s will
 increase the verbosity futher.</p>
@@ -302,6 +303,25 @@ journalctl -b -f -u bootkube.service
 <p>If the installer times out waiting for the cluster install to complete, you
 will need to log into the cluster and determine which services were unable to
 come up healthy.</p>
+</div>
+<div class="section" id="restarting-deployment">
+<h2>Restarting deployment<a class="headerlink" href="#restarting-deployment" title="Permalink to this headline">¶</a></h2>
+<p>After a failed cluster deployment, the deployment can be easily restarted
+without starting over. First, fix the issue that caused the deployment to fail.
+If a change to the cluster configuration was required, first re-apply the
+configuration settings.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl apply
+</pre></div>
+</div>
+<p>Then, regenerate the ignition files and CA certificates used for the
+deployment.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl create install-repos
+</pre></div>
+</div>
+<p>Finally, restart the cluster deployment.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl create cluster
+</pre></div>
+</div>
 </div>
 </div>
 

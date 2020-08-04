@@ -99,7 +99,7 @@ valid for 30 days. To avoid issues, do not shutdown the cluster in the first 24
 hours. After that, do not leave the cluster powered off for longer than 30
 days.
 
-Debugging installation
+Debugging deployment
 ----------------------
 
 If issues are encountered during the cluster deployment process, add a `-v`
@@ -130,3 +130,28 @@ logs, ssh to the bootstrap node and monitor the bootkube service.
 If the installer times out waiting for the cluster install to complete, you
 will need to log into the cluster and determine which services were unable to
 come up healthy.
+
+Restarting deployment
+---------------------
+
+After a failed cluster deployment, the deployment can be easily restarted
+without starting over. First, fix the issue that caused the deployment to fail.
+If a change to the cluster configuration was required, first re-apply the
+configuration settings.
+
+.. code-block:: bash
+
+  farosctl apply
+
+Then, regenerate the ignition files and CA certificates used for the
+deployment.
+
+.. code-block:: bash
+
+  farosctl create install-repos
+
+Finally, restart the cluster deployment.
+
+.. code-block:: bash
+
+  farosctl create cluster
