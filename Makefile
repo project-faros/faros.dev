@@ -17,7 +17,7 @@ publish:
 	@rm -rf docs; mkdir docs; rm -rf build/html
 	@make html
 	@cp -ra build/html/* docs; cp CNAME docs; touch docs/.nojekyll
-	@git add * &>/dev/null
+	@git add * &>/dev/null || echo
 	@git commit -m "Publishing new content."
 	@git push
 
