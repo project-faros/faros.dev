@@ -250,6 +250,9 @@ Now that the storage is available, it is time to <a class="reference external" h
 </div>
 <p>First, change the value for <code class="code docutils literal notranslate"><span class="pre">spec.managementState</span></code> to <em>Managed</em>. Then
 configure <code class="code docutils literal notranslate"><span class="pre">spec.storage</span></code> to create a PersistentVolumeClaim.</p>
+<p>After making these changes, watch the operator status indicator on the
+OpenShift console. When the indicator goes green and doesn’t show anymore
+cluster operators pending, the configuration change is complete.</p>
 <p>Here is an example <code class="code docutils literal notranslate"><span class="pre">config.imageregistry.operator.openshift.io/cluster</span></code> resource.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">imageregistry.operator.openshift.io/v1</span>
 <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Config</span>
@@ -283,6 +286,9 @@ clutter. To enable cluster storage, edit the
 </pre></div>
 </div>
 <p>The value for <code class="code docutils literal notranslate"><span class="pre">spec.suspended</span></code> should be set to <em>false</em>.</p>
+<p>After making this change, watch the operator status indicator on the
+OpenShift console. When the indicator goes green and doesn’t show anymore
+cluster operators pending, the configuration change is complete.</p>
 <p>The <code class="code docutils literal notranslate"><span class="pre">imagepruner.imageregistry.operator.openshift.io/cluster</span></code> resource
 definition should look like the following.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">imageregistry.operator.openshift.io/v1</span>

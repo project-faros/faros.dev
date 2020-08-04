@@ -70,6 +70,10 @@ To enable cluster storage, edit the
 First, change the value for :code:`spec.managementState` to *Managed*. Then
 configure :code:`spec.storage` to create a PersistentVolumeClaim.
 
+After making these changes, watch the operator status indicator on the
+OpenShift console. When the indicator goes green and doesn't show anymore
+cluster operators pending, the configuration change is complete.
+
 Here is an example :code:`config.imageregistry.operator.openshift.io/cluster` resource.
 
 .. code-block:: yaml
@@ -107,6 +111,10 @@ clutter. To enable cluster storage, edit the
   oc edit imagepruner.imageregistry.operator.openshift.io/cluster
 
 The value for :code:`spec.suspended` should be set to *false*.
+
+After making this change, watch the operator status indicator on the
+OpenShift console. When the indicator goes green and doesn't show anymore
+cluster operators pending, the configuration change is complete.
 
 The :code:`imagepruner.imageregistry.operator.openshift.io/cluster` resource
 definition should look like the following.
