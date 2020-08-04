@@ -10,6 +10,7 @@
     installation
     configuration
     deploy
+    storage
     operate
     example
 

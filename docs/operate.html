@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Verified Implimentation" href="example.html" />
-    <link rel="prev" title="Cluster Deployment" href="deploy.html" /> 
+    <link rel="prev" title="Cluster Persistent Storage" href="storage.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -100,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Faros Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Cluster Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deploy.html">Cluster Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Cluster Persistent Storage</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Day 2 Cluster Operation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#start-up-and-shutdown-procedures">Start up and shutdown procedures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#updating-the-cluster">Updating the cluster</a><ul>
@@ -107,9 +108,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#patch-the-bastion-node">Patch the bastion node</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#deploying-container-storage">Deploying container storage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#enable-cluster-registry">Enable cluster registry</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#enable-registry-pruning">Enable registry pruning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-user-accounts">Configure user accounts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deploying-open-data-hub-demo">Deploying Open Data Hub demo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-cluster-https-certs">Configure cluster HTTPS certs</a></li>
@@ -235,91 +233,6 @@ reboot
 patched. Cluster services will continue to run, but they will be unavailable.</p>
 </div>
 </div>
-<div class="section" id="deploying-container-storage">
-<h2>Deploying container storage<a class="headerlink" href="#deploying-container-storage" title="Permalink to this headline">¶</a></h2>
-<p>There are many options for persistent cluster storage, but OpenShift Container
-Storage (OCS) is preferred for a few reasons:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>OCS is gauranteed to work with OpenShift</p></li>
-<li><p>OCS provides file, block, and object storage support RWX</p></li>
-<li><p>OCS runs on the cluster nodes and does not require additional hardware</p></li>
-</ul>
-</div></blockquote>
-<p>OCS requires full block devices on the nodes and cannot simply use part of a
-partitioned drive.
-Before deploying the cluster storage, you must ensure the drives to be used for
-storage are wiped. Wiping the drives has been automated. Use the following
-command and select the drives you would like to wipe.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl deploy wipefs
-</pre></div>
-</div>
-<p>To run through an automated storage deployment, use the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl deploy container-storage
-</pre></div>
-</div>
-<p>This will launch an interactive menu to choose which nodes should be used for
-storage and then which drives on those nodes should be dedicated to storage.</p>
-<p>Once storage is available to the cluster, it is a good practice to set the
-default StorageClass. Official documentation is here for <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/storage/dynamic-provisioning.html#change-default-storage-class_dynamic-provisioning">changing the default
-StorageClass</a>.
-To set the CephFS storage class to be the default, use the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc patch storageclass ocs-storagecluster-cephfs -p <span class="s1">&#39;{&quot;metadata&quot;: {&quot;annotations&quot;: {&quot;storageclass.kubernetes.io/is-default-class&quot;: &quot;true&quot;}}}&#39;</span>
-</pre></div>
-</div>
-<p>There is currently a known issue with storage that causes some nuisance
-warnings to be thrown. If the <em>lib-bucket-provisioner</em> operator is flapping on
-your cluster after a storage install, the instructions to fix this can be found
-<cite>here &lt;https://access.redhat.com/solutions/5221881&gt;</cite>.</p>
-</div>
-<div class="section" id="enable-cluster-registry">
-<h2>Enable cluster registry<a class="headerlink" href="#enable-cluster-registry" title="Permalink to this headline">¶</a></h2>
-<p>Because storage is not originally available in a bare metal deployment, the
-cluster image registry cannot be created until after storage is made available.
-Now the storage is available, it is time to <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/registry/configuring-registry-operator.html#registry-removed_configuring-registry-operator">enable the cluster registry</a>.</p>
-<p>Here is an example <em>config.imageregistry.operator.openshift.io/default</em> resource.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apiVersion: imageregistry.operator.openshift.io/v1
-kind: Config
-metadata:
-finalizers:
-- imageregistry.operator.openshift.io/finalizer
-name: cluster
-spec:
-logging: <span class="m">2</span>
-managementState: Managed
-proxy: <span class="o">{}</span>
-replicas: <span class="m">1</span>
-requests:
-    read:
-    maxWaitInQueue: 0s
-    write:
-    maxWaitInQueue: 0s
-rolloutStrategy: RollingUpdate
-storage:
-    pvc:
-    claim:
-</pre></div>
-</div>
-</div>
-<div class="section" id="enable-registry-pruning">
-<h2>Enable registry pruning<a class="headerlink" href="#enable-registry-pruning" title="Permalink to this headline">¶</a></h2>
-<p>Once the registry is enabled, image pruning should also be enabled to reduce
-clutter.</p>
-<p>The <em>config.imagepruner.imageregistry.operator.openshift.io/cluster</em> resource
-definition should look like the following.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apiVersion: imageregistry.operator.openshift.io/v1
-kind: ImagePruner
-metadata:
-  name: cluster
-spec:
-  failedJobsHistoryLimit: <span class="m">3</span>
-  keepTagRevisions: <span class="m">3</span>
-  schedule: <span class="s2">&quot;&quot;</span>
-  successfulJobsHistoryLimit: <span class="m">3</span>
-  suspend: <span class="nb">false</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="configure-user-accounts">
 <h2>Configure user accounts<a class="headerlink" href="#configure-user-accounts" title="Permalink to this headline">¶</a></h2>
 <p>There are many options for configuring user accounts in OpenShift. Two common
@@ -367,7 +280,7 @@ booting</a>.</p>
         <a href="example.html" class="btn btn-neutral float-right" title="Verified Implimentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="deploy.html" class="btn btn-neutral float-left" title="Cluster Deployment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="storage.html" class="btn btn-neutral float-left" title="Cluster Persistent Storage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
