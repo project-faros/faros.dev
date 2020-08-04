@@ -13,9 +13,13 @@ help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 publish:
+	@if ! git status | grep "nothing to commit" &>/dev/null; then echo 'Commit all changes first.'; exit 1; fi
 	@rm -rf docs; mkdir docs; rm -rf build/html
 	@make html
 	@cp -ra build/html/* docs; cp CNAME docs; touch docs/.nojekyll
+	@git add * &>/dev/null
+	@git commit -m "Publishing new content."
+	@git push
 
 .PHONY: help Makefile
 
