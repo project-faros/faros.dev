@@ -116,6 +116,8 @@ Extra DNS/DHCP Records
       :MAC Address: `ff:ff:ff:ff:ff:ff`
     - :Node Name: `wifi`
       :MAC Address: `ff:ff:ff:ff:ff:ff`
+    - :Node Name: `bastion-mgmt`
+      :MAC Address: `ff:ff:ff:ff:ff:ff`
 :Ignored MAC Addresses:
     - :Entry Name: `node-0-1g`
       :MAC Address: `ff:ff:ff:ff:ff:ff`

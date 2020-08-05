@@ -9,7 +9,16 @@ cluster can be deployed.
 Deploy the cluster
 ------------------
 
-Run the following commands as your administrative user. (Not root)
+Run the following command as your administrative user (Not root). Connect the
+management interfaces to the network when prompted.
+
+.. code-block:: bash
+
+    farosctl install-plan cluster
+
+*Voila!*
+
+This install plan is the equivalent to running all of the following commands.
 
 .. code-block:: bash
 
@@ -42,7 +51,6 @@ Run the following commands as your administrative user. (Not root)
     # node, and install OpenShift.
     farosctl create cluster
 
-*Voila!*
 
 Public DNS records
 ------------------

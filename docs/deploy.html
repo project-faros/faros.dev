@@ -201,7 +201,13 @@
 cluster can be deployed.</p>
 <div class="section" id="deploy-the-cluster">
 <h2>Deploy the cluster<a class="headerlink" href="#deploy-the-cluster" title="Permalink to this headline">¶</a></h2>
-<p>Run the following commands as your administrative user. (Not root)</p>
+<p>Run the following command as your administrative user (Not root). Connect the
+management interfaces to the network when prompted.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl install-plan cluster
+</pre></div>
+</div>
+<p><em>Voila!</em></p>
+<p>This install plan is the equivalent to running all of the following commands.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Apply configuration to the router components.</span>
 <span class="c1">#   - Gateway, Firewall, DNS, DHCP, and NTP</span>
 farosctl apply router
@@ -232,7 +238,6 @@ farosctl create install-repos
 farosctl create cluster
 </pre></div>
 </div>
-<p><em>Voila!</em></p>
 </div>
 <div class="section" id="public-dns-records">
 <h2>Public DNS records<a class="headerlink" href="#public-dns-records" title="Permalink to this headline">¶</a></h2>
