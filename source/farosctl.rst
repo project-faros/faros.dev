@@ -1,7 +1,7 @@
 :github_url: https://github.com/project-faros/faros.dev/blob/master/source/farosctl.rst
 
-farosctl Documentation
-======================
+farosctl Usage
+==============
 
 :code:`farosctl COMMAND [OPTIONS]`
 
