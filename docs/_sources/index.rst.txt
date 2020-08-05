@@ -13,6 +13,7 @@
     storage
     operate
     example
+    farosctl
 
 .. toctree::
     :maxdepth: 2

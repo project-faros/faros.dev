@@ -1,0 +1,464 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>farosctl Documentation &mdash; Faros 0.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+    <link rel="canonical" href="https://faros.devfarosctl.html"/>
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Verified Implimentation" href="example.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #19647E" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo_name_white.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Cluster Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Faros Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Cluster Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">Cluster Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Cluster Persistent Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operate.html">Day 2 Cluster Operation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Verified Implimentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">farosctl Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dir">dir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#help">help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shell">shell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#update">update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apply">apply</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#config">config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create">create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deploy">deploy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get">get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#identify">identify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-plan">install-plan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#oc">oc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#poweroff-shutdown">poweroff / shutdown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#poweron-startup">poweron / startup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssh">ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version">version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wait-for">wait-for</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#version-pinning">Version pinning</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://faros.dev">repos</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://faros.dev">devenv</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://faros.dev">ansiblefacts</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://faros.dev">deploys</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://faros.dev">docs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Community</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/projects/1">Roadmap</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/issues">Bug Report</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros">GitHub</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Faros</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>farosctl Documentation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com/project-faros/faros.dev/blob/master/source/farosctl.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="farosctl-documentation">
+<h1>farosctl Documentation<a class="headerlink" href="#farosctl-documentation" title="Permalink to this headline">¶</a></h1>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">COMMAND</span> <span class="pre">[OPTIONS]</span></code></p>
+<p>The farosctl command is responsible for configuring the bastion node/router,
+configuring the OpenShift cluster, and performing some day 2 operations on the
+cluster.</p>
+<div class="section" id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
+<p>The following commands are available.</p>
+<div class="section" id="dir">
+<h3>dir<a class="headerlink" href="#dir" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">dir</span></code></p>
+<p>Print the directory used for storing the cluster configuration.</p>
+</div>
+<div class="section" id="help">
+<h3>help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">[SUBCOMMAND]</span> <span class="pre">help</span></code></p>
+<p>Print help documentation.</p>
+</div>
+<div class="section" id="shell">
+<h3>shell<a class="headerlink" href="#shell" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">shell</span></code></p>
+<p>Launch a farosctl managment shell. Useful for debugging issues.</p>
+</div>
+<div class="section" id="update">
+<h3>update<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">update</span></code></p>
+<p>Update faros to the newest version.</p>
+</div>
+<div class="section" id="apply">
+<h3>apply<a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">apply</span> <span class="pre">[SUBCOMMAND]</span> <span class="pre">[FLAGS]</span></code></p>
+<p>Apply commands are idempotent and safe to run at any time, even after the
+cluster has been created.</p>
+<dl class="field-list simple">
+<dt class="field-odd">all</dt>
+<dd class="field-odd"><p><em>[DEFAULT]</em> Apply all configuration</p>
+</dd>
+<dt class="field-even">host-records</dt>
+<dd class="field-even"><p>Apply DNS and DHCP reservations</p>
+</dd>
+<dt class="field-odd">router</dt>
+<dd class="field-odd"><p>Apply the network routing and firewall configuration</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="config">
+<h3>config<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">config</span></code></p>
+<p>Launch the configuration TUI to set the parameters that control the final
+cluster behavior.</p>
+</div>
+<div class="section" id="create">
+<h3>create<a class="headerlink" href="#create" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">create</span> <span class="pre">SUBCOMMAND</span> <span class="pre">[FLAGS]</span></code></p>
+<p>Create commands are not to be considered idempotent and should (generally) not
+be run after the cluster has been created. These commands are potentially
+destructive actions that are taken in order to create the initial cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">cluster</dt>
+<dd class="field-odd"><p>Perform the final step of install OpenShift</p>
+</dd>
+<dt class="field-even">install-repos</dt>
+<dd class="field-even"><p>Create the internal sources for the RHCOS images and Ignition
+files</p>
+</dd>
+<dt class="field-odd">load-balancer</dt>
+<dd class="field-odd"><p>Create the cluster load balancer</p>
+</dd>
+<dt class="field-even">machines</dt>
+<dd class="field-even"><p>Create any virtual machines required for install (eg: Bootstrap
+node)</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="deploy">
+<h3>deploy<a class="headerlink" href="#deploy" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">deploy</span> <span class="pre">SUBCOMMAND</span> <span class="pre">[FLAGS]</span></code></p>
+<p>Deploy commands are generally run after the cluster has been created and are
+responsible for adding services to the OpenShift cluster and performing
+post-install configuration of the cluster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">container-storage</dt>
+<dd class="field-odd"><p>Deploy OpenShift Container Storage</p>
+</dd>
+<dt class="field-even">hosted-loadbalancer</dt>
+<dd class="field-even"><p><em>[EXPERIMENTAL]</em> Deploy the cluster load balancer as a
+service on the cluster</p>
+</dd>
+<dt class="field-odd">odh-demo</dt>
+<dd class="field-odd"><p>Deploy an example Open Data Hub workflow</p>
+</dd>
+<dt class="field-even">wipefs</dt>
+<dd class="field-even"><p>Wipe the filesystem of select drives on select nodes</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="get">
+<h3>get<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">get</span> <span class="pre">SUBCOMMAND</span> <span class="pre">[FLAGS]</span></code></p>
+<p>These commands return information about the cluster for convenience.</p>
+<dl class="field-list simple">
+<dt class="field-odd">credentials</dt>
+<dd class="field-odd"><p>Return the URLs and passwords required to login to the cluster</p>
+</dd>
+<dt class="field-even">oc-login</dt>
+<dd class="field-even"><p>Returns the oc command used to login to the cluster</p>
+</dd>
+<dt class="field-odd">public-dns-records</dt>
+<dd class="field-odd"><p>Returns the DNS records that are required external to the
+cluster</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="identify">
+<h3>identify<a class="headerlink" href="#identify" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">identify</span> <span class="pre">HOST_LIST</span></code></p>
+<p>Blink the identification light on the hosts specified via a comma seperated
+list.</p>
+</div>
+<div class="section" id="install-plan">
+<h3>install-plan<a class="headerlink" href="#install-plan" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">install-plan</span> <span class="pre">SUBCOMMAND</span> <span class="pre">[FLAGS]</span></code></p>
+<p>Installation plans are a series of farosctl commands that are commonly run
+together to accomplish a larger task.</p>
+<dl class="field-list simple">
+<dt class="field-odd">cluster</dt>
+<dd class="field-odd"><p>Apply configuration, create machines, and do everything else required
+to make a cluster from scratch</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="oc">
+<h3>oc<a class="headerlink" href="#oc" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">oc</span> <span class="pre">[OC</span> <span class="pre">FLAGS</span> <span class="pre">AND</span> <span class="pre">ARGUMENTS]</span></code></p>
+<p>This command runs oc as the kubeadmin user with full cluster rights. This is
+provided for convenience and some oc commands may not work properly (oc patch,
+for example). It is recomended to login to the cluster natively from the
+command line instead of relying on farosctl os.</p>
+</div>
+<div class="section" id="poweroff-shutdown">
+<h3>poweroff / shutdown<a class="headerlink" href="#poweroff-shutdown" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">poweroff</span></code>
+<code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">shutdown</span></code></p>
+<p>Safely shutdown the cluster.</p>
+</div>
+<div class="section" id="poweron-startup">
+<h3>poweron / startup<a class="headerlink" href="#poweron-startup" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">poweron</span></code>
+<code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">startup</span></code></p>
+<p>Bring the cluster up.</p>
+</div>
+<div class="section" id="ssh">
+<h3>ssh<a class="headerlink" href="#ssh" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">ssh</span> <span class="pre">NODE_NAME</span></code></p>
+<p>Use SSH to make a connection to any of the nodes in the cluster. Use the
+hostnames for the nodes, not the FQDN.</p>
+</div>
+<div class="section" id="version">
+<h3>version<a class="headerlink" href="#version" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">version</span></code></p>
+<p>Print the version of the current farosctl code.</p>
+</div>
+<div class="section" id="wait-for">
+<h3>wait-for<a class="headerlink" href="#wait-for" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">wait-for</span> <span class="pre">SUBCOMMAND</span> <span class="pre">[FLAGS]</span></code></p>
+<p>Wait for commands are designed to block the prompt until a condition is met.</p>
+<dl class="field-list simple">
+<dt class="field-odd">management-interfaces</dt>
+<dd class="field-odd"><p>Wait for the management interfaces on the cluster nodes
+to come online with the expected IP addresses</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="version-pinning">
+<h2>Version pinning<a class="headerlink" href="#version-pinning" title="Permalink to this headline">¶</a></h2>
+<p>If it is desired to lock farosctl to a specific release, this can be easily
+done by creating a symbolic link to the farosctl executable with the desired
+version appended to the executable name.</p>
+<p>For example, in order to pin to version 0.5.6:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/bin
+ln -s farosctl farosctl.0.5.6
+farosctl.0.5.6 version
+</pre></div>
+</div>
+<p>Even if an update is run, this link will always run the 0.5.6 release.</p>
+<p>The same technique can also be used to run the latest development build of the
+farosctl.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/bin
+ln -s farosctl farosctl.dev
+farosctl.dev version
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="example.html" class="btn btn-neutral float-left" title="Verified Implimentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Project Faros Team
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

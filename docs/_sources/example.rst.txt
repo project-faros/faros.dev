@@ -96,7 +96,6 @@ Host Record Configuration
 :Machine Management Provider: `ilo`
 :Machine Management User: `Administrator`
 :Machine Management Password: `**********`
-:Bastion Node Management MAC Address: `ff:ff:ff:ff:ff:ff`
 :Control Plane Machines:
     - :Node Name: `node-0`
       :MAC Address: `ff:ff:ff:ff:ff:ff`
