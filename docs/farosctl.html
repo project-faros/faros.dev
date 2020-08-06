@@ -105,6 +105,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">farosctl Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#dir">dir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extract">extract</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#help">help</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#shell">shell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#update">update</a></li>
@@ -224,6 +225,17 @@ cluster.</p>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">dir</span></code></p>
 <p>Print the directory used for storing the cluster configuration.</p>
 </div>
+<div class="section" id="extract">
+<h3>extract<a class="headerlink" href="#extract" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">extract</span> <span class="pre">SOURCE</span> <span class="pre">DEST</span></code></p>
+<p>Search for the <code class="code docutils literal notranslate"><span class="pre">SOURCE</span></code> file in the binary and export it to <code class="code docutils literal notranslate"><span class="pre">DEST</span></code>
+on the host. This is useful for extracting new versions of the <cite>oc</cite> or
+<cite>farosctl</cite> commands.</p>
+<dl class="simple">
+<dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">extract</span> <span class="pre">oc</span> <span class="pre">~/bin/oc</span></code></p>
+</dd>
+</dl>
+</div>
 <div class="section" id="help">
 <h3>help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">[SUBCOMMAND]</span> <span class="pre">help</span></code></p>
@@ -244,7 +256,8 @@ cluster.</p>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">apply</span> <span class="pre">[SUBCOMMAND]</span> <span class="pre">[FLAGS]</span></code></p>
 <p>Apply commands are idempotent and safe to run at any time, even after the
 cluster has been created.</p>
-<dl class="field-list simple">
+<dl class="simple">
+<dt><strong>Subcommands</strong></dt><dd><dl class="field-list simple">
 <dt class="field-odd">all</dt>
 <dd class="field-odd"><p><em>[DEFAULT]</em> Apply all configuration</p>
 </dd>
@@ -253,6 +266,10 @@ cluster has been created.</p>
 </dd>
 <dt class="field-odd">router</dt>
 <dd class="field-odd"><p>Apply the network routing and firewall configuration</p>
+</dd>
+</dl>
+</dd>
+<dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">apply</span> <span class="pre">host-records</span></code></p>
 </dd>
 </dl>
 </div>
@@ -268,7 +285,8 @@ cluster behavior.</p>
 <p>Create commands are not to be considered idempotent and should (generally) not
 be run after the cluster has been created. These commands are potentially
 destructive actions that are taken in order to create the initial cluster.</p>
-<dl class="field-list simple">
+<dl class="simple">
+<dt><strong>Subcommands</strong></dt><dd><dl class="field-list simple">
 <dt class="field-odd">cluster</dt>
 <dd class="field-odd"><p>Perform the final step of install OpenShift</p>
 </dd>
@@ -284,6 +302,10 @@ files</p>
 node)</p>
 </dd>
 </dl>
+</dd>
+<dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">create</span> <span class="pre">install-repos</span></code></p>
+</dd>
+</dl>
 </div>
 <div class="section" id="deploy">
 <h3>deploy<a class="headerlink" href="#deploy" title="Permalink to this headline">¶</a></h3>
@@ -291,7 +313,8 @@ node)</p>
 <p>Deploy commands are generally run after the cluster has been created and are
 responsible for adding services to the OpenShift cluster and performing
 post-install configuration of the cluster.</p>
-<dl class="field-list simple">
+<dl class="simple">
+<dt><strong>Subcommands</strong></dt><dd><dl class="field-list simple">
 <dt class="field-odd">container-storage</dt>
 <dd class="field-odd"><p>Deploy OpenShift Container Storage</p>
 </dd>
@@ -306,12 +329,17 @@ service on the cluster</p>
 <dd class="field-even"><p>Wipe the filesystem of select drives on select nodes</p>
 </dd>
 </dl>
+</dd>
+<dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">deploy</span> <span class="pre">container-storage</span></code></p>
+</dd>
+</dl>
 </div>
 <div class="section" id="get">
 <h3>get<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">get</span> <span class="pre">SUBCOMMAND</span> <span class="pre">[FLAGS]</span></code></p>
 <p>These commands return information about the cluster for convenience.</p>
-<dl class="field-list simple">
+<dl class="simple">
+<dt><strong>Subcommands</strong></dt><dd><dl class="field-list simple">
 <dt class="field-odd">credentials</dt>
 <dd class="field-odd"><p>Return the URLs and passwords required to login to the cluster</p>
 </dd>
@@ -323,22 +351,35 @@ service on the cluster</p>
 cluster</p>
 </dd>
 </dl>
+</dd>
+<dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">get</span> <span class="pre">credentials</span></code></p>
+</dd>
+</dl>
 </div>
 <div class="section" id="identify">
 <h3>identify<a class="headerlink" href="#identify" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">identify</span> <span class="pre">HOST_LIST</span></code></p>
 <p>Blink the identification light on the hosts specified via a comma seperated
 list.</p>
+<dl class="simple">
+<dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">identify</span> <span class="pre">node-0</span></code></p>
+</dd>
+</dl>
 </div>
 <div class="section" id="install-plan">
 <h3>install-plan<a class="headerlink" href="#install-plan" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">install-plan</span> <span class="pre">SUBCOMMAND</span> <span class="pre">[FLAGS]</span></code></p>
 <p>Installation plans are a series of farosctl commands that are commonly run
 together to accomplish a larger task.</p>
-<dl class="field-list simple">
+<dl class="simple">
+<dt><strong>Subcommands</strong></dt><dd><dl class="field-list simple">
 <dt class="field-odd">cluster</dt>
 <dd class="field-odd"><p>Apply configuration, create machines, and do everything else required
 to make a cluster from scratch</p>
+</dd>
+</dl>
+</dd>
+<dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">install-plan</span> <span class="pre">cluster</span></code></p>
 </dd>
 </dl>
 </div>
@@ -349,6 +390,10 @@ to make a cluster from scratch</p>
 provided for convenience and some oc commands may not work properly (oc patch,
 for example). It is recomended to login to the cluster natively from the
 command line instead of relying on farosctl os.</p>
+<dl class="simple">
+<dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">oc</span> <span class="pre">get</span> <span class="pre">nodes</span></code></p>
+</dd>
+</dl>
 </div>
 <div class="section" id="poweroff-shutdown">
 <h3>poweroff / shutdown<a class="headerlink" href="#poweroff-shutdown" title="Permalink to this headline">¶</a></h3>
@@ -367,6 +412,10 @@ command line instead of relying on farosctl os.</p>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">ssh</span> <span class="pre">NODE_NAME</span></code></p>
 <p>Use SSH to make a connection to any of the nodes in the cluster. Use the
 hostnames for the nodes, not the FQDN.</p>
+<dl class="simple">
+<dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">ssh</span> <span class="pre">node-0</span></code></p>
+</dd>
+</dl>
 </div>
 <div class="section" id="version">
 <h3>version<a class="headerlink" href="#version" title="Permalink to this headline">¶</a></h3>
@@ -377,10 +426,15 @@ hostnames for the nodes, not the FQDN.</p>
 <h3>wait-for<a class="headerlink" href="#wait-for" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">wait-for</span> <span class="pre">SUBCOMMAND</span> <span class="pre">[FLAGS]</span></code></p>
 <p>Wait for commands are designed to block the prompt until a condition is met.</p>
-<dl class="field-list simple">
+<dl class="simple">
+<dt><strong>Subcommands</strong></dt><dd><dl class="field-list simple">
 <dt class="field-odd">management-interfaces</dt>
 <dd class="field-odd"><p>Wait for the management interfaces on the cluster nodes
 to come online with the expected IP addresses</p>
+</dd>
+</dl>
+</dd>
+<dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">wait-for</span> <span class="pre">management-interfaces</span></code></p>
 </dd>
 </dl>
 </div>
