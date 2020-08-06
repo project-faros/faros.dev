@@ -21,6 +21,18 @@ dir
 
 Print the directory used for storing the cluster configuration.
 
+extract
+-------
+
+:code:`farosctl extract SOURCE DEST`
+
+Search for the :code:`SOURCE` file in the binary and export it to :code:`DEST`
+on the host. This is useful for extracting new versions of the `oc` or
+`farosctl` commands.
+
+**Example**
+    :code:`farosctl extract oc ~/bin/oc`
+
 help
 ----
 
@@ -50,9 +62,13 @@ apply
 Apply commands are idempotent and safe to run at any time, even after the
 cluster has been created.
 
-:all: *[DEFAULT]* Apply all configuration
-:host-records: Apply DNS and DHCP reservations
-:router: Apply the network routing and firewall configuration
+**Subcommands**
+    :all: *[DEFAULT]* Apply all configuration
+    :host-records: Apply DNS and DHCP reservations
+    :router: Apply the network routing and firewall configuration
+
+**Example**
+    :code:`farosctl apply host-records`
 
 config
 ------
@@ -71,12 +87,16 @@ Create commands are not to be considered idempotent and should (generally) not
 be run after the cluster has been created. These commands are potentially
 destructive actions that are taken in order to create the initial cluster.
 
-:cluster: Perform the final step of install OpenShift
-:install-repos: Create the internal sources for the RHCOS images and Ignition
-                files
-:load-balancer: Create the cluster load balancer
-:machines: Create any virtual machines required for install (eg: Bootstrap
-           node)
+**Subcommands**
+    :cluster: Perform the final step of install OpenShift
+    :install-repos: Create the internal sources for the RHCOS images and Ignition
+                    files
+    :load-balancer: Create the cluster load balancer
+    :machines: Create any virtual machines required for install (eg: Bootstrap
+            node)
+
+**Example**
+    :code:`farosctl create install-repos`
 
 deploy
 ------
@@ -87,11 +107,15 @@ Deploy commands are generally run after the cluster has been created and are
 responsible for adding services to the OpenShift cluster and performing
 post-install configuration of the cluster.
 
-:container-storage: Deploy OpenShift Container Storage
-:hosted-loadbalancer: *[EXPERIMENTAL]* Deploy the cluster load balancer as a
-                      service on the cluster
-:odh-demo: Deploy an example Open Data Hub workflow
-:wipefs: Wipe the filesystem of select drives on select nodes
+**Subcommands**
+    :container-storage: Deploy OpenShift Container Storage
+    :hosted-loadbalancer: *[EXPERIMENTAL]* Deploy the cluster load balancer as a
+                        service on the cluster
+    :odh-demo: Deploy an example Open Data Hub workflow
+    :wipefs: Wipe the filesystem of select drives on select nodes
+
+**Example**
+    :code:`farosctl deploy container-storage`
 
 get
 ---
@@ -100,10 +124,14 @@ get
 
 These commands return information about the cluster for convenience.
 
-:credentials: Return the URLs and passwords required to login to the cluster
-:oc-login: Returns the oc command used to login to the cluster
-:public-dns-records: Returns the DNS records that are required external to the
-                     cluster
+**Subcommands**
+    :credentials: Return the URLs and passwords required to login to the cluster
+    :oc-login: Returns the oc command used to login to the cluster
+    :public-dns-records: Returns the DNS records that are required external to the
+                        cluster
+
+**Example**
+    :code:`farosctl get credentials`
 
 identify
 --------
@@ -113,6 +141,9 @@ identify
 Blink the identification light on the hosts specified via a comma seperated
 list.
 
+**Example**
+    :code:`farosctl identify node-0`
+
 install-plan
 ------------
 
@@ -121,8 +152,12 @@ install-plan
 Installation plans are a series of farosctl commands that are commonly run
 together to accomplish a larger task.
 
-:cluster: Apply configuration, create machines, and do everything else required
-          to make a cluster from scratch
+**Subcommands**
+    :cluster: Apply configuration, create machines, and do everything else required
+            to make a cluster from scratch
+
+**Example**
+    :code:`farosctl install-plan cluster`
 
 oc
 --
@@ -133,6 +168,9 @@ This command runs oc as the kubeadmin user with full cluster rights. This is
 provided for convenience and some oc commands may not work properly (oc patch,
 for example). It is recomended to login to the cluster natively from the
 command line instead of relying on farosctl os.
+
+**Example**
+    :code:`farosctl oc get nodes`
 
 poweroff / shutdown
 -------------------
@@ -158,6 +196,9 @@ ssh
 Use SSH to make a connection to any of the nodes in the cluster. Use the
 hostnames for the nodes, not the FQDN.
 
+**Example**
+    :code:`farosctl ssh node-0`
+
 version
 -------
 
@@ -172,8 +213,12 @@ wait-for
 
 Wait for commands are designed to block the prompt until a condition is met.
 
-:management-interfaces: Wait for the management interfaces on the cluster nodes
-                        to come online with the expected IP addresses
+**Subcommands**
+    :management-interfaces: Wait for the management interfaces on the cluster nodes
+                            to come online with the expected IP addresses
+
+**Example**
+    :code:`farosctl wait-for management-interfaces`
 
 Version pinning
 +++++++++++++++
