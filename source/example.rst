@@ -1,6 +1,6 @@
 :github_url: https://github.com/project-faros/faros.dev/blob/master/source/example.rst
 
-Verified Implimentation
+Verified Implementation
 =======================
 
 .. figure:: _images/example/portrait.jpg
