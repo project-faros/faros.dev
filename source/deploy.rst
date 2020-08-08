@@ -3,7 +3,7 @@
 Cluster Deployment
 ==================
 
-Now that the hardware has been wired and the Faros has been configured, the
+Now that the hardware has been wired and the cluster has been configured, the
 cluster can be deployed.
 
 Deploy the cluster
@@ -117,7 +117,12 @@ increase the verbosity futher.
 If the installlation times out waiting for the cluster nodes to start
 provisioning, connect to the nodes' management interfaces and ensure they have
 PXE booted. This is typically indicative of the boot order not being properly
-set. If the nodes have PXE booted and CoreOS has been installed, watch the
+set. If the nodes are failing to PXE boot, ensure that their MAC address has
+been properly set in the `farosctl config` interface. The syslog on the bastion
+node is also a good source for verifying MAC addresses while they are DHCP
+booting.
+
+If the nodes have PXE booted and CoreOS has been installed, watch the
 nodes' consoles as they boot for errors. If there are errors about certificate
 verification errors, the cluster's bootstrap CA has probably expired. To
 generate a noot boostrap CA certificate, recreate the install repos.
