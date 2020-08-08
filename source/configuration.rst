@@ -58,7 +58,8 @@ The following options are available:
 
 LAN Interfaces
     Select which NICs on the bastion node should be put onto the cluster
-    network. Selecting more than one NIC allows connecting more devices to the
+    internal network.
+    Selecting more than one NIC allows connecting more devices to the
     cluster network. For example, you may select a 10gbe NIC and a 1gbe NIC to
     be on the cluster network so that you can attach a 1gbe switch and a 10gbe
     switch to the network.
@@ -105,18 +106,16 @@ Host Record Configuration
 The following options are available:
 
 Machine Management Provider
-    The protocol used to talk to the hosts' management interface. Currently
-    only iLo can be used.
+    The protocol used to talk to the hosts' out-of-bandmanagement interface.
+    Currently only iLo can be used.
 
 Machine Management User
-    The user with access to the hosts' management interface
+    The username that should be used when accessing the out-of-band management
+    interfaces.
 
 Machine Management Password
-    The password associated with the management user
-
-Bastion Node Management MAC Address
-    The MAC address of the network interface on the bastion node's management
-    interface
+    The password that should be used when accessing the out-of-band management
+    interfaces.
 
 Control Plane Machines
     This interface allows configuration of each of the bare metal machines that
@@ -126,8 +125,8 @@ Control Plane Machines
       * *Node Name*: The hostname that will be given to the node. Note: This is
         not the FQDN, just the hostname.
       * *MAC Address*: The MAC address for the node's cluster connected NIC
-      * *Management MAC Address*: The MAC address for the node's management
-        interface
+      * *Management MAC Address*: The MAC address for the node's out-of-bande
+        management interface
 
 Extra DNS/DHCP Records
 ++++++++++++++++++++++
@@ -136,17 +135,21 @@ These options allow for additional configuration of the DNS and DHCP services
 beyond the minimum required for a cluster deployment. They exist, mostly, for
 convenience.
 
-Extra Records
+Static IP Reservations
     Any additional static records that should be configured in the DNS and DHCP
     servers. For example, WiFi access points, chassis management interfaces,
-    additional custom servers. Each extra record requires the following
-    information:
+    bastion node out-of-band management, and any additional custom servers.
+    Each extra record requires the following information:
 
       * *Node Name*: The hostname that will be given to the node. Note: This is
         not the FQDN, just the hostname.
       * *MAC Address*: The MAC address for the node's cluster connected NIC
+      * *Requested IP Address*: The IP address that is desired for the record.
+        The request will be ignored if the IP address has already been asigned
+        on the network. This can be left blank to have an available static IP
+        address automatically assigned.
 
-Ignored MAC Addresses
+DHCP Ignored MAC Addresses
     If there are any interfaces on the cluster layer 2 network that you do not
     want to be able to dynamically obtain an IP address, you must configure
     them here. The entries here will be ignored when making DHCP requests.
