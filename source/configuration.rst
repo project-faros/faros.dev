@@ -97,7 +97,7 @@ Administrator Password
     is used to allow the installer to use sudo.
 
 Pull Secret
-    Your pull secret from `cloud.redhat.com <https://cloud.redhat.com>`_
+    Your pull secret from `cloud.redhat.com <https://cloud.redhat.com/openshift/install/pull-secret>`_
 
 Host Record Configuration
 +++++++++++++++++++++++++

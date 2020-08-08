@@ -36,8 +36,8 @@ the latest set of patches. Reboot the system.
 Install the CLI
 ---------------
 
-To install the Faros tooling and dependencies, as the administrative user, run
-the following command::
+To install the Faros tooling and dependencies, as the administrative user (not
+the root user), run the following command::
 
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/project-faros/farosctl/master/bin/bootstrap_bastion.sh)"
 
