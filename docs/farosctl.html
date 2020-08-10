@@ -100,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Cluster Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deploy.html">Cluster Deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Cluster Persistent Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nvidia.html">NVIDIA Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operate.html">Day 2 Cluster Operation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Verified Implementation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">farosctl Usage</a><ul>
@@ -322,8 +323,16 @@ post-install configuration of the cluster.</p>
 <dd class="field-even"><p><em>[EXPERIMENTAL]</em> Deploy the cluster load balancer as a
 service on the cluster</p>
 </dd>
-<dt class="field-odd">odh-demo</dt>
-<dd class="field-odd"><p>Deploy an example Open Data Hub workflow</p>
+<dt class="field-odd">nvidia-drivers</dt>
+<dd class="field-odd"><p>Deploy NVIDIA operator to install drivers on cluster
+nodes.</p>
+</dd>
+<dt class="field-even">odh-demo</dt>
+<dd class="field-even"><p>Deploy an example Open Data Hub workflow</p>
+</dd>
+<dt class="field-odd">redhat-entitlements</dt>
+<dd class="field-odd"><p>Deploy entitlement certificates to the cluster nodes
+to allow the cluster to build UBI images.</p>
 </dd>
 <dt class="field-even">wipefs</dt>
 <dd class="field-even"><p>Wipe the filesystem of select drives on select nodes</p>
@@ -376,6 +385,10 @@ together to accomplish a larger task.</p>
 <dt class="field-odd">cluster</dt>
 <dd class="field-odd"><p>Apply configuration, create machines, and do everything else required
 to make a cluster from scratch</p>
+</dd>
+<dt class="field-even">nvidia-support</dt>
+<dd class="field-even"><p>Ensure the cluster nodes are properly entitled and then
+configure them to support NVIDIA GPUs.</p>
 </dd>
 </dl>
 </dd>

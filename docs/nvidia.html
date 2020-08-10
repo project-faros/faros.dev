@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Search &mdash; Faros 0.5 documentation</title>
+  <title>NVIDIA Support &mdash; Faros 0.5 documentation</title>
   
 
   
@@ -21,11 +21,10 @@
   
   
   
-    <link rel="canonical" href="https://faros.devsearch.html"/>
+    <link rel="canonical" href="https://faros.devnvidia.html"/>
   
 
   
-    
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -40,9 +39,10 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-    <script type="text/javascript" src="_static/searchtools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Day 2 Cluster Operation" href="operate.html" />
+    <link rel="prev" title="Cluster Persistent Storage" href="storage.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -76,7 +76,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -95,13 +95,13 @@
             
             
               <p class="caption"><span class="caption-text">Documentation</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Cluster Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Faros Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Cluster Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="deploy.html">Cluster Deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Cluster Persistent Storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nvidia.html">NVIDIA Support</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NVIDIA Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operate.html">Day 2 Cluster Operation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Verified Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="farosctl.html">farosctl Usage</a></li>
@@ -159,20 +159,23 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Search</li>
+      <li>NVIDIA Support</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
             
-              <a href="https://github.com///blob/search" class="fa fa-github"> Edit on GitHub</a>
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com/project-faros/faros.dev/blob/master/source/nvidia.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -186,23 +189,44 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search functionality.
-    </p>
-  </div>
-  </noscript>
+  <div class="section" id="nvidia-support">
+<h1>NVIDIA Support<a class="headerlink" href="#nvidia-support" title="Permalink to this headline">¶</a></h1>
+<p>In order to consume GPU resources on the cluster, the NVIDIA GPU support must
+be deployed. NVIDIA support requires that all nodes in the cluster are
+entitled to pull RHEL content. In order to set this up, the bastion node must
+be running RHEL. These entitlements will be copied to the cluster.</p>
+<p>To setup NVIDIA Support:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl install-plan nvidia-support
+</pre></div>
+</div>
+<p>This install plan is the equivalent to running all of the following commands.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># deploy red hat entitlements to the cluster</span>
+farosctl deploy redhat-entitlements
 
-  
-  <div id="search-results">
-  
-  </div>
+<span class="c1"># install nvidia drivers on the cluster nodes</span>
+farosctl deploy nvidia-drivers
+</pre></div>
+</div>
+<p>After the install is completed, it will take quite some time for all of the
+changes to be applied. Each node will need to have their configuration updated
+and be restarted. Watch the cluster console and wait for the operators to
+finish.</p>
+</div>
+
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="operate.html" class="btn btn-neutral float-right" title="Day 2 Cluster Operation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="storage.html" class="btn btn-neutral float-left" title="Cluster Persistent Storage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -242,14 +266,7 @@
   
   
     
-  
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
-
 
 </body>
 </html>

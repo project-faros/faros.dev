@@ -110,8 +110,12 @@ post-install configuration of the cluster.
 **Subcommands**
     :container-storage: Deploy OpenShift Container Storage
     :hosted-loadbalancer: *[EXPERIMENTAL]* Deploy the cluster load balancer as a
-                        service on the cluster
+                          service on the cluster
+    :nvidia-drivers: Deploy NVIDIA operator to install drivers on cluster
+                     nodes.
     :odh-demo: Deploy an example Open Data Hub workflow
+    :redhat-entitlements: Deploy entitlement certificates to the cluster nodes
+                          to allow the cluster to build UBI images.
     :wipefs: Wipe the filesystem of select drives on select nodes
 
 **Example**
@@ -155,6 +159,8 @@ together to accomplish a larger task.
 **Subcommands**
     :cluster: Apply configuration, create machines, and do everything else required
             to make a cluster from scratch
+    :nvidia-support: Ensure the cluster nodes are properly entitled and then
+                     configure them to support NVIDIA GPUs.
 
 **Example**
     :code:`farosctl install-plan cluster`
