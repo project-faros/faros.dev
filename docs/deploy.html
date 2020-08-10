@@ -198,12 +198,14 @@
             
   <div class="section" id="cluster-deployment">
 <h1>Cluster Deployment<a class="headerlink" href="#cluster-deployment" title="Permalink to this headline">¶</a></h1>
-<p>Now that the hardware has been wired and the Faros has been configured, the
+<p>Now that the hardware has been wired and the cluster has been configured, the
 cluster can be deployed.</p>
 <div class="section" id="deploy-the-cluster">
 <h2>Deploy the cluster<a class="headerlink" href="#deploy-the-cluster" title="Permalink to this headline">¶</a></h2>
-<p>Run the following command as your administrative user (Not root). Connect the
-management interfaces to the network when prompted.</p>
+<p>Run the following command as your administrative user (Not root). During the
+deployment process, you will first be prompted to connect the cluster node out
+of band management links. You will then be prompted to verify the firmware
+configuration of each node.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl install-plan cluster
 </pre></div>
 </div>
@@ -226,6 +228,9 @@ farosctl apply host-records
 
 <span class="c1"># Wait for maangement interfaces to become available.</span>
 farosctl wait-for management-interfaces
+
+<span class="c1"># Wait for firmware settings to be verified.</span>
+farosctl wait-for firmware-config
 
 <span class="c1"># Create the cluster load balancer.</span>
 farosctl create load-balancer
@@ -293,7 +298,11 @@ increase the verbosity futher.</p>
 <p>If the installlation times out waiting for the cluster nodes to start
 provisioning, connect to the nodes’ management interfaces and ensure they have
 PXE booted. This is typically indicative of the boot order not being properly
-set. If the nodes have PXE booted and CoreOS has been installed, watch the
+set. If the nodes are failing to PXE boot, ensure that their MAC address has
+been properly set in the <cite>farosctl config</cite> interface. The syslog on the bastion
+node is also a good source for verifying MAC addresses while they are DHCP
+booting.</p>
+<p>If the nodes have PXE booted and CoreOS has been installed, watch the
 nodes’ consoles as they boot for errors. If there are errors about certificate
 verification errors, the cluster’s bootstrap CA has probably expired. To
 generate a noot boostrap CA certificate, recreate the install repos.</p>

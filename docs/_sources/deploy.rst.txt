@@ -3,14 +3,16 @@
 Cluster Deployment
 ==================
 
-Now that the hardware has been wired and the Faros has been configured, the
+Now that the hardware has been wired and the cluster has been configured, the
 cluster can be deployed.
 
 Deploy the cluster
 ------------------
 
-Run the following command as your administrative user (Not root). Connect the
-management interfaces to the network when prompted.
+Run the following command as your administrative user (Not root). During the
+deployment process, you will first be prompted to connect the cluster node out
+of band management links. You will then be prompted to verify the firmware
+configuration of each node.
 
 .. code-block:: bash
 
@@ -39,6 +41,9 @@ This install plan is the equivalent to running all of the following commands.
 
     # Wait for maangement interfaces to become available.
     farosctl wait-for management-interfaces
+
+    # Wait for firmware settings to be verified.
+    farosctl wait-for firmware-config
 
     # Create the cluster load balancer.
     farosctl create load-balancer
@@ -117,7 +122,12 @@ increase the verbosity futher.
 If the installlation times out waiting for the cluster nodes to start
 provisioning, connect to the nodes' management interfaces and ensure they have
 PXE booted. This is typically indicative of the boot order not being properly
-set. If the nodes have PXE booted and CoreOS has been installed, watch the
+set. If the nodes are failing to PXE boot, ensure that their MAC address has
+been properly set in the `farosctl config` interface. The syslog on the bastion
+node is also a good source for verifying MAC addresses while they are DHCP
+booting.
+
+If the nodes have PXE booted and CoreOS has been installed, watch the
 nodes' consoles as they boot for errors. If there are errors about certificate
 verification errors, the cluster's bootstrap CA has probably expired. To
 generate a noot boostrap CA certificate, recreate the install repos.

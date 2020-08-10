@@ -249,7 +249,8 @@ user:</p>
 <p>The following options are available:</p>
 <dl>
 <dt>LAN Interfaces</dt><dd><p>Select which NICs on the bastion node should be put onto the cluster
-network. Selecting more than one NIC allows connecting more devices to the
+internal network.
+Selecting more than one NIC allows connecting more devices to the
 cluster network. For example, you may select a 10gbe NIC and a 1gbe NIC to
 be on the cluster network so that you can attach a 1gbe switch and a 10gbe
 switch to the network.</p>
@@ -295,15 +296,14 @@ is used to allow the installer to use sudo.</p>
 <h3>Host Record Configuration<a class="headerlink" href="#host-record-configuration" title="Permalink to this headline">¶</a></h3>
 <p>The following options are available:</p>
 <dl>
-<dt>Machine Management Provider</dt><dd><p>The protocol used to talk to the hosts’ management interface. Currently
-only iLo can be used.</p>
+<dt>Machine Management Provider</dt><dd><p>The protocol used to talk to the hosts’ out-of-bandmanagement interface.
+Currently only iLo can be used.</p>
 </dd>
-<dt>Machine Management User</dt><dd><p>The user with access to the hosts’ management interface</p>
+<dt>Machine Management User</dt><dd><p>The username that should be used when accessing the out-of-band management
+interfaces.</p>
 </dd>
-<dt>Machine Management Password</dt><dd><p>The password associated with the management user</p>
-</dd>
-<dt>Bastion Node Management MAC Address</dt><dd><p>The MAC address of the network interface on the bastion node’s management
-interface</p>
+<dt>Machine Management Password</dt><dd><p>The password that should be used when accessing the out-of-band management
+interfaces.</p>
 </dd>
 <dt>Control Plane Machines</dt><dd><p>This interface allows configuration of each of the bare metal machines that
 will be used to create the OpenShift control plane. Each node requires
@@ -313,8 +313,8 @@ three values:</p>
 <li><p><em>Node Name</em>: The hostname that will be given to the node. Note: This is
 not the FQDN, just the hostname.</p></li>
 <li><p><em>MAC Address</em>: The MAC address for the node’s cluster connected NIC</p></li>
-<li><p><em>Management MAC Address</em>: The MAC address for the node’s management
-interface</p></li>
+<li><p><em>Management MAC Address</em>: The MAC address for the node’s out-of-bande
+management interface</p></li>
 </ul>
 </div></blockquote>
 </dd>
@@ -326,19 +326,23 @@ interface</p></li>
 beyond the minimum required for a cluster deployment. They exist, mostly, for
 convenience.</p>
 <dl>
-<dt>Extra Records</dt><dd><p>Any additional static records that should be configured in the DNS and DHCP
+<dt>Static IP Reservations</dt><dd><p>Any additional static records that should be configured in the DNS and DHCP
 servers. For example, WiFi access points, chassis management interfaces,
-additional custom servers. Each extra record requires the following
-information:</p>
+bastion node out-of-band management, and any additional custom servers.
+Each extra record requires the following information:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><em>Node Name</em>: The hostname that will be given to the node. Note: This is
 not the FQDN, just the hostname.</p></li>
 <li><p><em>MAC Address</em>: The MAC address for the node’s cluster connected NIC</p></li>
+<li><p><em>Requested IP Address</em>: The IP address that is desired for the record.
+The request will be ignored if the IP address has already been asigned
+on the network. This can be left blank to have an available static IP
+address automatically assigned.</p></li>
 </ul>
 </div></blockquote>
 </dd>
-<dt>Ignored MAC Addresses</dt><dd><p>If there are any interfaces on the cluster layer 2 network that you do not
+<dt>DHCP Ignored MAC Addresses</dt><dd><p>If there are any interfaces on the cluster layer 2 network that you do not
 want to be able to dynamically obtain an IP address, you must configure
 them here. The entries here will be ignored when making DHCP requests.
 Note: This does not provide the security of forcing them off the network.
