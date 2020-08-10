@@ -22,7 +22,7 @@ copyright = '2020, Project Faros Team'
 author = 'Project Faros Team'
 
 # The full version, including alpha/beta/rc tags
-release = '0.5'
+release = '0.6'
 
 
 # -- General configuration ---------------------------------------------------
