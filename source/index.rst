@@ -11,6 +11,7 @@
     configuration
     deploy
     storage
+    nvidia
     operate
     example
     farosctl
