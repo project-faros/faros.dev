@@ -9,8 +9,10 @@ cluster can be deployed.
 Deploy the cluster
 ------------------
 
-Run the following command as your administrative user (Not root). Connect the
-management interfaces to the network when prompted.
+Run the following command as your administrative user (Not root). During the
+deployment process, you will first be prompted to connect the cluster node out
+of band management links. You will then be prompted to verify the firmware
+configuration of each node.
 
 .. code-block:: bash
 
@@ -39,6 +41,9 @@ This install plan is the equivalent to running all of the following commands.
 
     # Wait for maangement interfaces to become available.
     farosctl wait-for management-interfaces
+
+    # Wait for firmware settings to be verified.
+    farosctl wait-for firmware-config
 
     # Create the cluster load balancer.
     farosctl create load-balancer

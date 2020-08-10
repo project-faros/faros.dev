@@ -216,6 +216,8 @@ Wait for commands are designed to block the prompt until a condition is met.
 **Subcommands**
     :management-interfaces: Wait for the management interfaces on the cluster nodes
                             to come online with the expected IP addresses
+    :firmware-config: Wait for the cluster node firmware configuration to be
+                      manually verified by the user.
 
 **Example**
     :code:`farosctl wait-for management-interfaces`
