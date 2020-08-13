@@ -305,8 +305,10 @@ node is also a good source for verifying MAC addresses while they are DHCP
 booting.</p>
 <p>If the nodes have PXE booted and CoreOS has been installed, watch the
 nodes’ consoles as they boot for errors. If there are errors about certificate
-verification errors, the cluster’s bootstrap CA has probably expired. To
-generate a noot boostrap CA certificate, recreate the install repos.</p>
+verification errors, either the cluster’s bootstrap CA hs expired of the
+system’s hardware clock is wrong. Veryify the hardware clock in the system’s
+settings. To generate a noot boostrap CA certificate, recreate the install
+repos.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl create install-repos
 </pre></div>
 </div>

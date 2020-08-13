@@ -129,8 +129,10 @@ booting.
 
 If the nodes have PXE booted and CoreOS has been installed, watch the
 nodes' consoles as they boot for errors. If there are errors about certificate
-verification errors, the cluster's bootstrap CA has probably expired. To
-generate a noot boostrap CA certificate, recreate the install repos.
+verification errors, either the cluster's bootstrap CA hs expired of the
+system's hardware clock is wrong. Veryify the hardware clock in the system's
+settings. To generate a noot boostrap CA certificate, recreate the install
+repos.
 
 .. code-block:: bash
 

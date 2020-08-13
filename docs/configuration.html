@@ -206,20 +206,34 @@
 hardware and network setup. Then, the cluster configuration options can be set.</p>
 <div class="section" id="hardware-configuration">
 <h2>Hardware configuration<a class="headerlink" href="#hardware-configuration" title="Permalink to this headline">¶</a></h2>
-<p>The boot order of each node must be the following:</p>
+<p>A few settings on the hardware of the cluster node firmware must be properly
+configured for the installation to work.</p>
+<ol class="arabic">
+<li><p>Both UEFI and Legacy/BIOS booting are supported, however, the boot order of
+each node must be the following:</p>
 <blockquote>
-<div><ul class="simple">
+<div><ol class="arabic simple">
 <li><p>OS hard drive</p></li>
 <li><p>IPv4 PXE using the cluster connected NIC</p></li>
 <li><p>Everything else</p></li>
-</ul>
+</ol>
 </div></blockquote>
-<p>Both UEFI and legacy booting are supported.</p>
-<p>For the out of band management, each node must use the same username/password
-for control and be configured to use DHCP when joining the network.</p>
-<p>All drives in the nodes should be blank before begining the installation. There
-should not be an operating system installed on any drive of the cluster nodes
-as this can cause issues booting CoreOS, particularly in UEFI mode.</p>
+</li>
+<li><p>For the out of band management, each node must use the same username
+and password for control.</p></li>
+<li><p>The out of band management interface must be configured to use DHCP when
+joining the network.</p></li>
+<li><p>All drives in the nodes should be blank before begining the installation.
+There should not be an operating system installed on any drive of the
+cluster nodes as this can cause issues booting CoreOS, particularly in UEFI
+mode.</p></li>
+<li><p>The hardware system clock must be properly set.</p></li>
+</ol>
+<p>These settings can be configured before starting the deployment or during. If
+you require access to the cluster nodes’ out-of-band management interfaces to
+perform this configuration then wait until during the deployment. The
+deployment will pause once the out-of-band management interfaces have an IP
+Address.</p>
 </div>
 <div class="section" id="network-initial-condition">
 <h2>Network initial condition<a class="headerlink" href="#network-initial-condition" title="Permalink to this headline">¶</a></h2>

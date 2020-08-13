@@ -9,20 +9,34 @@ hardware and network setup. Then, the cluster configuration options can be set.
 Hardware configuration
 ----------------------
 
-The boot order of each node must be the following:
+A few settings on the hardware of the cluster node firmware must be properly
+configured for the installation to work.
 
-  * OS hard drive
-  * IPv4 PXE using the cluster connected NIC
-  * Everything else
+1. Both UEFI and Legacy/BIOS booting are supported, however, the boot order of
+   each node must be the following:
 
-Both UEFI and legacy booting are supported.
+    1. OS hard drive
+    2. IPv4 PXE using the cluster connected NIC
+    3. Everything else
 
-For the out of band management, each node must use the same username/password
-for control and be configured to use DHCP when joining the network.
+2. For the out of band management, each node must use the same username
+   and password for control.
 
-All drives in the nodes should be blank before begining the installation. There
-should not be an operating system installed on any drive of the cluster nodes
-as this can cause issues booting CoreOS, particularly in UEFI mode.
+3. The out of band management interface must be configured to use DHCP when
+   joining the network.
+
+4. All drives in the nodes should be blank before begining the installation.
+   There should not be an operating system installed on any drive of the
+   cluster nodes as this can cause issues booting CoreOS, particularly in UEFI
+   mode.
+
+5. The hardware system clock must be properly set.
+
+These settings can be configured before starting the deployment or during. If
+you require access to the cluster nodes' out-of-band management interfaces to
+perform this configuration then wait until during the deployment. The
+deployment will pause once the out-of-band management interfaces have an IP
+Address.
 
 Network initial condition
 -------------------------
