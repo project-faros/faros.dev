@@ -211,6 +211,11 @@ farosctl deploy nvidia-drivers
 changes to be applied. Each node will need to have their configuration updated
 and be restarted. Watch the cluster console and wait for the operators to
 finish.</p>
+<p>To ensure the GPUs are available, list all the resources on each node.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc get nodes -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&quot;{range .items[*]} {@.metadata.name} {@.status.capacity} {&#39;\n&#39;}&quot;</span>
+</pre></div>
+</div>
+<p>The nodes with GPU’s should include a resources called <cite>nvidia.com/gpu</cite>.</p>
 </div>
 
 
