@@ -28,3 +28,11 @@ After the install is completed, it will take quite some time for all of the
 changes to be applied. Each node will need to have their configuration updated
 and be restarted. Watch the cluster console and wait for the operators to
 finish.
+
+To ensure the GPUs are available, list all the resources on each node.
+
+.. code-block:: bash
+
+   oc get nodes -o jsonpath="{range .items[*]} {@.metadata.name} {@.status.capacity} {'\n'}"
+
+The nodes with GPU's should include a resources called `nvidia.com/gpu`.
