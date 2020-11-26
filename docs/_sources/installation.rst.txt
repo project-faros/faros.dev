@@ -16,6 +16,9 @@ following details are important.
 
   - Configure only the WAN link on the bastion node. It may be either a bonded
     interface or a single interface.
+  - Network interfaces must be configured using NetworkManager. Do not
+    configure network interfaces with legacy ifcfg files as that will cause
+    conflicts when the installer configures the networking on the machine.
   - Statically configure the bastion node's DNS name using the scheme discussed
     before: :code:`bastion.CLUSTER_NAME.CLUSTER_DOMAIN`.
   - It is recomended to install the `RHEL Server without GUI` set of packages.

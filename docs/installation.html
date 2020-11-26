@@ -207,6 +207,9 @@ following details are important.</p>
 <div><ul class="simple">
 <li><p>Configure only the WAN link on the bastion node. It may be either a bonded
 interface or a single interface.</p></li>
+<li><p>Network interfaces must be configured using NetworkManager. Do not
+configure network interfaces with legacy ifcfg files as that will cause
+conflicts when the installer configures the networking on the machine.</p></li>
 <li><p>Statically configure the bastion node’s DNS name using the scheme discussed
 before: <code class="code docutils literal notranslate"><span class="pre">bastion.CLUSTER_NAME.CLUSTER_DOMAIN</span></code>.</p></li>
 <li><p>It is recomended to install the <cite>RHEL Server without GUI</cite> set of packages.
