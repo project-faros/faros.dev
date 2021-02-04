@@ -95,7 +95,7 @@ one of two ways:
     network as it allows direct access to the cluster nodes.
   * PAT Gateway - The bastion node will only forward traffic from the cluster
     network to the public network. The bastion node's firewall will port
-    forward the cluster services to make them available outisde of the cluster.
+    forward the cluster services to make them available outside of the cluster.
     This is safer because only the bastion node is reachable from outside of
     the cluster. This configuration is very similar in function to a consumer
     router.
