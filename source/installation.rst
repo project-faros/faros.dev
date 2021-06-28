@@ -3,7 +3,7 @@
 Faros Installation
 ==================
 
-The Faros reference architecture is deployed by the Faros Cluster Manger. The
+The Faros reference architecture is deployed by the Faros Cluster Manager. The
 cluster manager is controlled via a cli interface called `farosctl`. This CLI
 only needs to be installed on the bastion node.
 
