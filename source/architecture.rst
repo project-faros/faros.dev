@@ -45,7 +45,7 @@ Router
     firewall services, firewalld is used. The default set of rules are
     configurable. DHCP and DNS services for the cluster are also provided by
     the bastion node using ISC DHCP and Bind respectively. In addition to the
-    pubic network link, the bastion node should also have a link to a private
+    public network link, the bastion node should also have a link to a private
     layer 2 switch. If there are more than two NICs on the bastion node,
     additional NICs may be placed on the internal network.
 
