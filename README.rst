@@ -1,7 +1,7 @@
 Faros Documentation
 ===================
 
-Project Faros is a reference implimentation of Red Hat OpenShift 4 on small
+Project Faros is a reference implementation of Red Hat OpenShift 4 on small
 footprint, bare-metal clusters. The project includes reference architectures
 and automated deployment tools. We are looking to bring OpenShift everywhere,
 even to the edge.
