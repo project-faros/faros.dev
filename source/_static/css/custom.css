@@ -2,7 +2,14 @@
     background-color: #19647E;
 }
 
-p.caption, .wy-menu-vertical p.caption{
+.wy-menu-vertical span.caption-text{
     color: #28AFB0;
 }
 
+.wy-menu-vertical p{
+    margin: 0 0 0 7px;
+}
+
+.document li{
+    list-style: outside;
+}
