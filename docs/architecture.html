@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cluster Architecture &mdash; Faros 0.6 documentation</title>
+  <title>Cluster Architecture &mdash; Faros  documentation</title>
   
 
   
@@ -68,10 +69,6 @@
           
             
             
-              <div class="version">
-                0.6
-              </div>
-            
           
 
           
@@ -94,7 +91,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Documentation</span></p>
+              <p><span class="caption-text">Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Cluster Architecture</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#philosophy">Philosophy</a></li>
@@ -113,7 +110,7 @@
 <li class="toctree-l1"><a class="reference internal" href="example.html">Verified Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="farosctl.html">farosctl Usage</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+<p><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">repos</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">devenv</a></li>
@@ -121,7 +118,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">deploys</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">docs</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Community</span></p>
+<p><span class="caption-text">Community</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/projects/1">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/issues">Bug Report</a></li>
@@ -196,9 +193,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="cluster-architecture">
+  <section id="cluster-architecture">
 <h1>Cluster Architecture<a class="headerlink" href="#cluster-architecture" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="philosophy">
+<section id="philosophy">
 <h2>Philosophy<a class="headerlink" href="#philosophy" title="Permalink to this headline">¶</a></h2>
 <p>The Faros reference architecture is specifically designed to support far edge
 environments. For this reason: things like minimal power draw, minimal heat
@@ -208,12 +205,14 @@ but is appropriate for use cases like remote branch offices, remotely
 deployable computing, IoT gateways, and far edge.</p>
 <p>The cluster is also designed to be entirely self-sustaining and not dependent
 on other infrastructure.</p>
-</div>
-<div class="section" id="overview">
+</section>
+<section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<div class="figure align-center" id="id1">
-<img alt="Faros Cluster Overview" src="_images/overview.svg" /><p class="caption"><span class="caption-text">Faros Cluster Overview</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
+<figure class="align-center" id="id1">
+<img alt="Faros Cluster Overview" src="_images/overview.svg" /><figcaption>
+<p><span class="caption-text">Faros Cluster Overview</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>The default deployed cluster will consist of four bare metal machines: a
 bastion node and 3 cluster nodes. The bastion node will host all of the
 infrastructure and services required for the cluster to operate. A layer 2
@@ -222,8 +221,8 @@ public network. Each of the four nodes must also have an out-of-band management
 interface that is on the same layer 2 network as the nodes themselves. The
 bastion node runs Red Hat Enterprise Linux 8 whereas the other three nodes will
 run Red Hat CoreOS.</p>
-</div>
-<div class="section" id="bastion-node-detail">
+</section>
+<section id="bastion-node-detail">
 <h2>Bastion node detail<a class="headerlink" href="#bastion-node-detail" title="Permalink to this headline">¶</a></h2>
 <p>The bastion node serves four primary services to the cluster.</p>
 <dl class="simple">
@@ -232,7 +231,7 @@ responsible for routing traffic and applying firewall policies. For
 firewall services, firewalld is used. The default set of rules are
 configurable. DHCP and DNS services for the cluster are also provided by
 the bastion node using ISC DHCP and Bind respectively. In addition to the
-pubic network link, the bastion node should also have a link to a private
+public network link, the bastion node should also have a link to a private
 layer 2 switch. If there are more than two NICs on the bastion node,
 additional NICs may be placed on the internal network.</p>
 </dd>
@@ -265,8 +264,8 @@ created on the bastion node, but virtual machines can be manually created
 after installation.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="network-detail">
+</section>
+<section id="network-detail">
 <h2>Network detail<a class="headerlink" href="#network-detail" title="Permalink to this headline">¶</a></h2>
 <p>There are only two network requirements for a Faros deployed cluster. One
 uplink/WAN connection to the bastion node and a layer 2 switch connecting all
@@ -281,14 +280,14 @@ recomended when the bastion node is connected to a trusted enterprise
 network as it allows direct access to the cluster nodes.</p></li>
 <li><p>PAT Gateway - The bastion node will only forward traffic from the cluster
 network to the public network. The bastion node’s firewall will port
-forward the cluster services to make them available outisde of the cluster.
+forward the cluster services to make them available outside of the cluster.
 This is safer because only the bastion node is reachable from outside of
 the cluster. This configuration is very similar in function to a consumer
 router.</p></li>
 </ul>
 </div></blockquote>
-</div>
-<div class="section" id="dns-requirements">
+</section>
+<section id="dns-requirements">
 <h2>DNS requirements<a class="headerlink" href="#dns-requirements" title="Permalink to this headline">¶</a></h2>
 <p>Setting up a cluster requires a DNS domain and a cluster name. The cluster will
 be configured to use a subdomain of *.CLUSTER_NAME.CLUSTER_DOMAIN. For
@@ -308,8 +307,8 @@ public DNS A records:</p>
 <li><p>*.apps.CLUSTER_NAME.CLUSTER_DOMAIN</p></li>
 </ul>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

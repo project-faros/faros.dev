@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Verified Implementation &mdash; Faros 0.6 documentation</title>
+  <title>Verified Implementation &mdash; Faros  documentation</title>
   
 
   
@@ -68,10 +69,6 @@
           
             
             
-              <div class="version">
-                0.6
-              </div>
-            
           
 
           
@@ -94,7 +91,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Documentation</span></p>
+              <p><span class="caption-text">Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Cluster Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Faros Installation</a></li>
@@ -117,7 +114,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="farosctl.html">farosctl Usage</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+<p><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">repos</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">devenv</a></li>
@@ -125,7 +122,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">deploys</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">docs</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Community</span></p>
+<p><span class="caption-text">Community</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/projects/1">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/issues">Bug Report</a></li>
@@ -200,13 +197,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="verified-implementation">
+  <section id="verified-implementation">
 <h1>Verified Implementation<a class="headerlink" href="#verified-implementation" title="Permalink to this headline">¶</a></h1>
-<div class="figure align-center" id="id1">
+<figure class="align-center" id="id1">
 <img alt="_images/portrait.jpg" src="_images/portrait.jpg" />
-<p class="caption"><span class="caption-text">Fedora for scale</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
-<div class="section" id="hardware-specifications">
+<figcaption>
+<p><span class="caption-text">Fedora for scale</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<section id="hardware-specifications">
 <h2>Hardware specifications<a class="headerlink" href="#hardware-specifications" title="Permalink to this headline">¶</a></h2>
 <p>The HPE EL8000 makes a great hardware platform for Faros deployed OpenShift
 clusters. A single, 5U, half-width chassis can four blades that can all be
@@ -245,8 +244,8 @@ the wiring to stay internal to the chassis.</p>
 </tbody>
 </table>
 </div></blockquote>
-</div>
-<div class="section" id="chassis-wiring">
+</section>
+<section id="chassis-wiring">
 <h2>Chassis wiring<a class="headerlink" href="#chassis-wiring" title="Permalink to this headline">¶</a></h2>
 <p>As mentioned, the integrated switches on the EL8000 are used extensively to
 minimize external wiring. In total, the example implementation here uses 3
@@ -262,22 +261,26 @@ slower than the other. To prevent issues, the 1gbe links on all of the cluster
 nodes will be added to the ignore list.</p>
 <p>The following diagram shows the logical network layout. Note that black lines
 indicate physical connections that are not integrated into the chassis.</p>
-<div class="figure align-center" id="id2">
-<img alt="_images/wiring.svg" src="_images/wiring.svg" /><p class="caption"><span class="caption-text">Logical wiring diagram</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
+<figure class="align-center" id="id2">
+<img alt="_images/wiring.svg" src="_images/wiring.svg" /><figcaption>
+<p><span class="caption-text">Logical wiring diagram</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>For reference, the following image shows the physical chassis wiring with WAN
 connection, wireless access point, 1gbe switch bridge, and power. It is
 difficult to see the 1gbe switch bridging cable. It is a 6 inch black ethernet
 cable on the bottom right of the chassis.</p>
-<div class="figure align-center" id="id3">
+<figure class="align-center" id="id3">
 <img alt="_images/wiring.jpg" src="_images/wiring.jpg" />
-<p class="caption"><span class="caption-text">Physical cluster wiring</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-<div class="section" id="openshift-cluster-configuration">
+<figcaption>
+<p><span class="caption-text">Physical cluster wiring</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="openshift-cluster-configuration">
 <h2>OpenShift cluster configuration<a class="headerlink" href="#openshift-cluster-configuration" title="Permalink to this headline">¶</a></h2>
 <p>The following values were used for the verified Faros deployment.</p>
-<div class="section" id="router-configuration">
+<section id="router-configuration">
 <h3>Router Configuration<a class="headerlink" href="#router-configuration" title="Permalink to this headline">¶</a></h3>
 <dl class="field-list simple">
 <dt class="field-odd">LAN Interfaces</dt>
@@ -293,8 +296,8 @@ cable on the bottom right of the chassis.</p>
 <dd class="field-even"><p><cite>[‘SSH to Bastion’, ‘HTTPS to Cluster API’, ‘HTTP to Cluster Apps’, ‘HTTPS to Cluster Apps’]</cite></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="cluster-configuration">
+</section>
+<section id="cluster-configuration">
 <h3>Cluster Configuration<a class="headerlink" href="#cluster-configuration" title="Permalink to this headline">¶</a></h3>
 <dl class="field-list simple">
 <dt class="field-odd">Administrator Password</dt>
@@ -304,8 +307,8 @@ cable on the bottom right of the chassis.</p>
 <dd class="field-even"><p><cite>**********</cite></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="host-record-configuration">
+</section>
+<section id="host-record-configuration">
 <h3>Host Record Configuration<a class="headerlink" href="#host-record-configuration" title="Permalink to this headline">¶</a></h3>
 <dl class="field-list simple">
 <dt class="field-odd">Machine Management Provider</dt>
@@ -358,8 +361,8 @@ cable on the bottom right of the chassis.</p>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="extra-dns-dhcp-records">
+</section>
+<section id="extra-dns-dhcp-records">
 <h3>Extra DNS/DHCP Records<a class="headerlink" href="#extra-dns-dhcp-records" title="Permalink to this headline">¶</a></h3>
 <dl class="field-list simple">
 <dt class="field-odd">Extra Records</dt>
@@ -425,9 +428,9 @@ cable on the bottom right of the chassis.</p>
 </ul>
 </dd>
 </dl>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

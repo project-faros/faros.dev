@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cluster Persistent Storage &mdash; Faros 0.6 documentation</title>
+  <title>Cluster Persistent Storage &mdash; Faros  documentation</title>
   
 
   
@@ -68,10 +69,6 @@
           
             
             
-              <div class="version">
-                0.6
-              </div>
-            
           
 
           
@@ -94,7 +91,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Documentation</span></p>
+              <p><span class="caption-text">Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Cluster Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Faros Installation</a></li>
@@ -112,7 +109,7 @@
 <li class="toctree-l1"><a class="reference internal" href="example.html">Verified Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="farosctl.html">farosctl Usage</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+<p><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">repos</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">devenv</a></li>
@@ -120,7 +117,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">deploys</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">docs</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Community</span></p>
+<p><span class="caption-text">Community</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/projects/1">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/issues">Bug Report</a></li>
@@ -195,7 +192,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="cluster-persistent-storage">
+  <section id="cluster-persistent-storage">
 <h1>Cluster Persistent Storage<a class="headerlink" href="#cluster-persistent-storage" title="Permalink to this headline">¶</a></h1>
 <p>There are many options for persistent cluster storage, but OpenShift Container
 Storage (OCS) is preferred for a few reasons:</p>
@@ -208,7 +205,12 @@ Storage (OCS) is preferred for a few reasons:</p>
 </div></blockquote>
 <p>OCS requires full block devices on the nodes and cannot simply use part of a
 partitioned drive.</p>
-<div class="section" id="container-storage-deployment">
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before begining the storage install, make sure you have <a class="reference external" href="https://faros.dev/deploy.html#connecting-to-the-cluster">connected to the
+cluster.</a></p>
+</div>
+<section id="container-storage-deployment">
 <h2>Container storage deployment<a class="headerlink" href="#container-storage-deployment" title="Permalink to this headline">¶</a></h2>
 <p>Before deploying the cluster storage, you must ensure the drives to be used for
 storage are wiped. Wiping the drives has been automated. Use the following
@@ -225,12 +227,8 @@ storage and then which drives on those nodes should be dedicated to storage.
 After completing this menu, OpenShift Container Storage will be deployed and
 the cluster will begin building the hosted Ceph cluster. Wait until the storage
 status indicators on the OpenShift console turn green before continuing.</p>
-<p>There is currently a known issue with storage that causes some nuisance
-warnings to be thrown. If the <em>lib-bucket-provisioner</em> operator is flapping on
-your cluster after a storage install, the instructions to fix this can be found
-<a class="reference external" href="https://access.redhat.com/solutions/5221881">here</a>.</p>
-</div>
-<div class="section" id="set-default-storageclass">
+</section>
+<section id="set-default-storageclass">
 <h2>Set default StorageClass<a class="headerlink" href="#set-default-storageclass" title="Permalink to this headline">¶</a></h2>
 <p>Once storage is available to the cluster, it is a good practice to set the
 default StorageClass. Official documentation is here for <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/storage/dynamic-provisioning.html#change-default-storage-class_dynamic-provisioning">changing the default
@@ -239,47 +237,19 @@ To set the CephFS storage class to be the default, use the following command:</p
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc patch storageclass ocs-storagecluster-cephfs -p <span class="s1">&#39;{&quot;metadata&quot;: {&quot;annotations&quot;: {&quot;storageclass.kubernetes.io/is-default-class&quot;: &quot;true&quot;}}}&#39;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="enable-cluster-registry">
+</section>
+<section id="enable-cluster-registry">
 <h2>Enable cluster registry<a class="headerlink" href="#enable-cluster-registry" title="Permalink to this headline">¶</a></h2>
 <p>Because storage is not originally available in a bare metal deployment, the
 cluster image registry cannot be enabled by default.
 Now that the storage is available, it is time to <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/registry/configuring-registry-operator.html#registry-removed_configuring-registry-operator">enable the cluster registry</a>.</p>
-<p>To enable cluster storage, edit the
-<code class="code docutils literal notranslate"><span class="pre">config.imageregistry.operator.openshift.io/cluster</span></code> resource.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc edit config.imageregistry.operator.openshift.io/cluster
+<p>To enable cluster storage, use the following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch <span class="s1">&#39;{&quot;spec&quot;:{&quot;storage&quot;:{&quot;pvc&quot;:{&quot;claim&quot;:&quot;&quot;}}}}&#39;</span>
+oc patch configs.imageregistry.operator.openshift.io/cluster --type merge -p <span class="s1">&#39;{&quot;spec&quot;:{&quot;managementState&quot;:&quot;Managed&quot;}}&#39;</span>
 </pre></div>
 </div>
-<p>First, change the value for <code class="code docutils literal notranslate"><span class="pre">spec.managementState</span></code> to <em>Managed</em>. Then
-configure <code class="code docutils literal notranslate"><span class="pre">spec.storage</span></code> to create a PersistentVolumeClaim.</p>
-<p>After making these changes, watch the operator status indicator on the
-OpenShift console. When the indicator goes green and doesn’t show anymore
-cluster operators pending, the configuration change is complete.</p>
-<p>Here is an example <code class="code docutils literal notranslate"><span class="pre">config.imageregistry.operator.openshift.io/cluster</span></code> resource.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">imageregistry.operator.openshift.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Config</span>
-<span class="nt">metadata</span><span class="p">:</span>
-  <span class="nt">finalizers</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">imageregistry.operator.openshift.io/finalizer</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cluster</span>
-<span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">logging</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
-  <span class="nt">managementState</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Managed</span>
-  <span class="nt">proxy</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
-  <span class="nt">replicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-  <span class="nt">requests</span><span class="p">:</span>
-    <span class="nt">read</span><span class="p">:</span>
-      <span class="nt">maxWaitInQueue</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
-    <span class="nt">write</span><span class="p">:</span>
-      <span class="nt">maxWaitInQueue</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
-  <span class="nt">rolloutStrategy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">RollingUpdate</span>
-  <span class="nt">storage</span><span class="p">:</span>
-    <span class="nt">pvc</span><span class="p">:</span>
-      <span class="nt">claim</span><span class="p">:</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="enable-registry-pruning">
+</section>
+<section id="enable-registry-pruning">
 <h2>Enable registry pruning<a class="headerlink" href="#enable-registry-pruning" title="Permalink to this headline">¶</a></h2>
 <p>Once the registry is enabled, image pruning should also be enabled to reduce
 clutter. To enable cluster storage, edit the
@@ -305,8 +275,8 @@ definition should look like the following.</p>
   <span class="nt">suspend</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

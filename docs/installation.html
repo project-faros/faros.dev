@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Faros Installation &mdash; Faros 0.6 documentation</title>
+  <title>Faros Installation &mdash; Faros  documentation</title>
   
 
   
@@ -68,10 +69,6 @@
           
             
             
-              <div class="version">
-                0.6
-              </div>
-            
           
 
           
@@ -94,7 +91,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Documentation</span></p>
+              <p><span class="caption-text">Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Cluster Architecture</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Faros Installation</a><ul>
@@ -110,7 +107,7 @@
 <li class="toctree-l1"><a class="reference internal" href="example.html">Verified Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="farosctl.html">farosctl Usage</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+<p><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">repos</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">devenv</a></li>
@@ -118,7 +115,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">deploys</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">docs</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Community</span></p>
+<p><span class="caption-text">Community</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/projects/1">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/issues">Bug Report</a></li>
@@ -193,12 +190,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="faros-installation">
+  <section id="faros-installation">
 <h1>Faros Installation<a class="headerlink" href="#faros-installation" title="Permalink to this headline">¶</a></h1>
-<p>The Faros reference architecture is deployed by the Faros Cluster Manger. The
+<p>The Faros reference architecture is deployed by the Faros Cluster Manager. The
 cluster manager is controlled via a cli interface called <cite>farosctl</cite>. This CLI
 only needs to be installed on the bastion node.</p>
-<div class="section" id="prepare-the-bastion-node">
+<section id="prepare-the-bastion-node">
 <h2>Prepare the bastion node<a class="headerlink" href="#prepare-the-bastion-node" title="Permalink to this headline">¶</a></h2>
 <p>The first action is to prepare the bastion node by installing RHEL 8 onto it.
 In theory, CentOS 8 should also work, but it is not tested. During install, the
@@ -227,8 +224,8 @@ allow root to log in directly.</p></li>
 <p>Once the bastion node’s operating system is installed and the node has
 rebooted, attach the Red Hat system to RHSM and update the operating system to
 the latest set of patches. Reboot the system.</p>
-</div>
-<div class="section" id="install-the-cli">
+</section>
+<section id="install-the-cli">
 <h2>Install the CLI<a class="headerlink" href="#install-the-cli" title="Permalink to this headline">¶</a></h2>
 <p>To install the Faros tooling and dependencies, as the administrative user (not
 the root user), run the following command:</p>
@@ -238,8 +235,8 @@ the root user), run the following command:</p>
 <p>This command will request the user’s password to enable sudo access. The
 command requires sudo in order to <cite>dnf install</cite> dependencies, configure
 SELinux, enable cockpit.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

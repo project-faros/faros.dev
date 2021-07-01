@@ -45,7 +45,7 @@ Router
     firewall services, firewalld is used. The default set of rules are
     configurable. DHCP and DNS services for the cluster are also provided by
     the bastion node using ISC DHCP and Bind respectively. In addition to the
-    pubic network link, the bastion node should also have a link to a private
+    public network link, the bastion node should also have a link to a private
     layer 2 switch. If there are more than two NICs on the bastion node,
     additional NICs may be placed on the internal network.
 
@@ -95,7 +95,7 @@ one of two ways:
     network as it allows direct access to the cluster nodes.
   * PAT Gateway - The bastion node will only forward traffic from the cluster
     network to the public network. The bastion node's firewall will port
-    forward the cluster services to make them available outisde of the cluster.
+    forward the cluster services to make them available outside of the cluster.
     This is safer because only the bastion node is reachable from outside of
     the cluster. This configuration is very similar in function to a consumer
     router.

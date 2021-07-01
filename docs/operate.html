@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Day 2 Cluster Operation &mdash; Faros 0.6 documentation</title>
+  <title>Day 2 Cluster Operation &mdash; Faros  documentation</title>
   
 
   
@@ -68,10 +69,6 @@
           
             
             
-              <div class="version">
-                0.6
-              </div>
-            
           
 
           
@@ -94,7 +91,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Documentation</span></p>
+              <p><span class="caption-text">Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Cluster Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Faros Installation</a></li>
@@ -118,7 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="example.html">Verified Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="farosctl.html">farosctl Usage</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+<p><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">repos</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">devenv</a></li>
@@ -126,7 +123,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">deploys</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">docs</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Community</span></p>
+<p><span class="caption-text">Community</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/projects/1">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/issues">Bug Report</a></li>
@@ -201,9 +198,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="day-2-cluster-operation">
+  <section id="day-2-cluster-operation">
 <h1>Day 2 Cluster Operation<a class="headerlink" href="#day-2-cluster-operation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="start-up-and-shutdown-procedures">
+<section id="start-up-and-shutdown-procedures">
 <h2>Start up and shutdown procedures<a class="headerlink" href="#start-up-and-shutdown-procedures" title="Permalink to this headline">¶</a></h2>
 <p>The Faros tooling includes scripts for automated cluster shutdown and startup:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Safely stop and bring down the cluster</span>
@@ -215,16 +212,16 @@ poweroff
 farosctl startup
 </pre></div>
 </div>
-</div>
-<div class="section" id="updating-the-cluster">
+</section>
+<section id="updating-the-cluster">
 <h2>Updating the cluster<a class="headerlink" href="#updating-the-cluster" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="patch-the-cluster">
+<section id="patch-the-cluster">
 <h3>Patch the cluster<a class="headerlink" href="#patch-the-cluster" title="Permalink to this headline">¶</a></h3>
 <p>The OpenShift cluster may be patched by following the standard procedures. It
 is recomened to use the GUI for patching. The official Red Hat documentation
 containers detailed <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/updating/updating-cluster.html">OpenShift updating instructions</a>.</p>
-</div>
-<div class="section" id="patch-the-bastion-node">
+</section>
+<section id="patch-the-bastion-node">
 <h3>Patch the bastion node<a class="headerlink" href="#patch-the-bastion-node" title="Permalink to this headline">¶</a></h3>
 <p>To patch the bastion node, simply:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf -y update
@@ -233,15 +230,15 @@ reboot
 </div>
 <p>Please note, there will be a cluster disruption while the bastion node is
 patched. Cluster services will continue to run, but they will be unavailable.</p>
-</div>
-</div>
-<div class="section" id="configure-user-accounts">
+</section>
+</section>
+<section id="configure-user-accounts">
 <h2>Configure user accounts<a class="headerlink" href="#configure-user-accounts" title="Permalink to this headline">¶</a></h2>
 <p>There are many options for configuring user accounts in OpenShift. Two common
 methods are <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/authentication/identity_providers/configuring-ldap-identity-provider.html">using LDAP authentication</a>
 or <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/authentication/identity_providers/configuring-htpasswd-identity-provider.html">using an HTPasswd file</a>.</p>
-</div>
-<div class="section" id="deploying-open-data-hub-demo">
+</section>
+<section id="deploying-open-data-hub-demo">
 <h2>Deploying Open Data Hub demo<a class="headerlink" href="#deploying-open-data-hub-demo" title="Permalink to this headline">¶</a></h2>
 <p>To demonstrate the capabilities of OpenShift for data scientists, a demo Open
 Data Hub environment can be quickly deployed using the following command:</p>
@@ -254,22 +251,22 @@ Data Hub environment can be quickly deployed using the following command:</p>
 Deployment of this demo requires that storge and the cluster registry have
 both been configured.</p>
 </div>
-</div>
-<div class="section" id="configure-cluster-https-certs">
+</section>
+<section id="configure-cluster-https-certs">
 <h2>Configure cluster HTTPS certs<a class="headerlink" href="#configure-cluster-https-certs" title="Permalink to this headline">¶</a></h2>
 <p>Not strictly necessary, but often desireable, official documentation is
 available on how to <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/authentication/certificates/replacing-default-ingress-certificate.html">update the application HTTPS certificate</a>
 and on how to <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/authentication/certificates/api-server.html">update the API HTTPS certificate</a>.</p>
-</div>
-<div class="section" id="add-nodes-to-the-cluster">
+</section>
+<section id="add-nodes-to-the-cluster">
 <h2>Add nodes to the cluster<a class="headerlink" href="#add-nodes-to-the-cluster" title="Permalink to this headline">¶</a></h2>
 <p>To add additional application nodes to the cluster, the DHCP and DNS zones on
 the bastion must be manually updated to add records for that host and configure
 them to PXE boot to the CoreOS installer with the worker ignition file.
 Detailed instructions are available for <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/installing/installing_bare_metal/installing-bare-metal.html#installation-user-infra-machines-pxe_installing-bare-metal">creating RHCOS machines with PXE
 booting</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

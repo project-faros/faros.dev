@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>farosctl Usage &mdash; Faros 0.6 documentation</title>
+  <title>farosctl Usage &mdash; Faros  documentation</title>
   
 
   
@@ -67,10 +68,6 @@
           
             
             
-              <div class="version">
-                0.6
-              </div>
-            
           
 
           
@@ -93,7 +90,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Documentation</span></p>
+              <p><span class="caption-text">Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Cluster Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Faros Installation</a></li>
@@ -129,7 +126,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+<p><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">repos</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">devenv</a></li>
@@ -137,7 +134,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">deploys</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">docs</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Community</span></p>
+<p><span class="caption-text">Community</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/projects/1">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/issues">Bug Report</a></li>
@@ -212,21 +209,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="farosctl-usage">
+  <section id="farosctl-usage">
 <h1>farosctl Usage<a class="headerlink" href="#farosctl-usage" title="Permalink to this headline">¶</a></h1>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">COMMAND</span> <span class="pre">[OPTIONS]</span></code></p>
 <p>The farosctl command is responsible for configuring the bastion node/router,
 configuring the OpenShift cluster, and performing some day 2 operations on the
 cluster.</p>
-<div class="section" id="commands">
+<section id="commands">
 <h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
 <p>The following commands are available.</p>
-<div class="section" id="dir">
+<section id="dir">
 <h3>dir<a class="headerlink" href="#dir" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">dir</span></code></p>
 <p>Print the directory used for storing the cluster configuration.</p>
-</div>
-<div class="section" id="extract">
+</section>
+<section id="extract">
 <h3>extract<a class="headerlink" href="#extract" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">extract</span> <span class="pre">SOURCE</span> <span class="pre">DEST</span></code></p>
 <p>Search for the <code class="code docutils literal notranslate"><span class="pre">SOURCE</span></code> file in the binary and export it to <code class="code docutils literal notranslate"><span class="pre">DEST</span></code>
@@ -236,23 +233,23 @@ on the host. This is useful for extracting new versions of the <cite>oc</cite> o
 <dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">extract</span> <span class="pre">oc</span> <span class="pre">~/bin/oc</span></code></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="help">
+</section>
+<section id="help">
 <h3>help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">[SUBCOMMAND]</span> <span class="pre">help</span></code></p>
 <p>Print help documentation.</p>
-</div>
-<div class="section" id="shell">
+</section>
+<section id="shell">
 <h3>shell<a class="headerlink" href="#shell" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">shell</span></code></p>
 <p>Launch a farosctl managment shell. Useful for debugging issues.</p>
-</div>
-<div class="section" id="update">
+</section>
+<section id="update">
 <h3>update<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">update</span></code></p>
 <p>Update faros to the newest version.</p>
-</div>
-<div class="section" id="apply">
+</section>
+<section id="apply">
 <h3>apply<a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">apply</span> <span class="pre">[SUBCOMMAND]</span> <span class="pre">[FLAGS]</span></code></p>
 <p>Apply commands are idempotent and safe to run at any time, even after the
@@ -273,14 +270,14 @@ cluster has been created.</p>
 <dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">apply</span> <span class="pre">host-records</span></code></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="config">
+</section>
+<section id="config">
 <h3>config<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">config</span></code></p>
 <p>Launch the configuration TUI to set the parameters that control the final
 cluster behavior.</p>
-</div>
-<div class="section" id="create">
+</section>
+<section id="create">
 <h3>create<a class="headerlink" href="#create" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">create</span> <span class="pre">SUBCOMMAND</span> <span class="pre">[FLAGS]</span></code></p>
 <p>Create commands are not to be considered idempotent and should (generally) not
@@ -307,8 +304,8 @@ node)</p>
 <dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">create</span> <span class="pre">install-repos</span></code></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="deploy">
+</section>
+<section id="deploy">
 <h3>deploy<a class="headerlink" href="#deploy" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">deploy</span> <span class="pre">SUBCOMMAND</span> <span class="pre">[FLAGS]</span></code></p>
 <p>Deploy commands are generally run after the cluster has been created and are
@@ -342,8 +339,8 @@ to allow the cluster to build UBI images.</p>
 <dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">deploy</span> <span class="pre">container-storage</span></code></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="get">
+</section>
+<section id="get">
 <h3>get<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">get</span> <span class="pre">SUBCOMMAND</span> <span class="pre">[FLAGS]</span></code></p>
 <p>These commands return information about the cluster for convenience.</p>
@@ -364,8 +361,8 @@ cluster</p>
 <dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">get</span> <span class="pre">credentials</span></code></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="identify">
+</section>
+<section id="identify">
 <h3>identify<a class="headerlink" href="#identify" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">identify</span> <span class="pre">HOST_LIST</span></code></p>
 <p>Blink the identification light on the hosts specified via a comma seperated
@@ -374,8 +371,8 @@ list.</p>
 <dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">identify</span> <span class="pre">node-0</span></code></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="install-plan">
+</section>
+<section id="install-plan">
 <h3>install-plan<a class="headerlink" href="#install-plan" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">install-plan</span> <span class="pre">SUBCOMMAND</span> <span class="pre">[FLAGS]</span></code></p>
 <p>Installation plans are a series of farosctl commands that are commonly run
@@ -395,8 +392,8 @@ configure them to support NVIDIA GPUs.</p>
 <dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">install-plan</span> <span class="pre">cluster</span></code></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="oc">
+</section>
+<section id="oc">
 <h3>oc<a class="headerlink" href="#oc" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">oc</span> <span class="pre">[OC</span> <span class="pre">FLAGS</span> <span class="pre">AND</span> <span class="pre">ARGUMENTS]</span></code></p>
 <p>This command runs oc as the kubeadmin user with full cluster rights. This is
@@ -407,20 +404,20 @@ command line instead of relying on farosctl os.</p>
 <dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">oc</span> <span class="pre">get</span> <span class="pre">nodes</span></code></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="poweroff-shutdown">
+</section>
+<section id="poweroff-shutdown">
 <h3>poweroff / shutdown<a class="headerlink" href="#poweroff-shutdown" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">poweroff</span></code>
 <code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">shutdown</span></code></p>
 <p>Safely shutdown the cluster.</p>
-</div>
-<div class="section" id="poweron-startup">
+</section>
+<section id="poweron-startup">
 <h3>poweron / startup<a class="headerlink" href="#poweron-startup" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">poweron</span></code>
 <code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">startup</span></code></p>
 <p>Bring the cluster up.</p>
-</div>
-<div class="section" id="ssh">
+</section>
+<section id="ssh">
 <h3>ssh<a class="headerlink" href="#ssh" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">ssh</span> <span class="pre">NODE_NAME</span></code></p>
 <p>Use SSH to make a connection to any of the nodes in the cluster. Use the
@@ -429,13 +426,13 @@ hostnames for the nodes, not the FQDN.</p>
 <dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">ssh</span> <span class="pre">node-0</span></code></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="version">
+</section>
+<section id="version">
 <h3>version<a class="headerlink" href="#version" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">version</span></code></p>
 <p>Print the version of the current farosctl code.</p>
-</div>
-<div class="section" id="wait-for">
+</section>
+<section id="wait-for">
 <h3>wait-for<a class="headerlink" href="#wait-for" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">wait-for</span> <span class="pre">SUBCOMMAND</span> <span class="pre">[FLAGS]</span></code></p>
 <p>Wait for commands are designed to block the prompt until a condition is met.</p>
@@ -454,9 +451,9 @@ manually verified by the user.</p>
 <dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">wait-for</span> <span class="pre">management-interfaces</span></code></p>
 </dd>
 </dl>
-</div>
-</div>
-<div class="section" id="version-pinning">
+</section>
+</section>
+<section id="version-pinning">
 <h2>Version pinning<a class="headerlink" href="#version-pinning" title="Permalink to this headline">¶</a></h2>
 <p>If it is desired to lock farosctl to a specific release, this can be easily
 done by creating a symbolic link to the farosctl executable with the desired
@@ -475,8 +472,8 @@ ln -s farosctl farosctl.dev
 farosctl.dev version
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
