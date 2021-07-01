@@ -13,6 +13,11 @@ Storage (OCS) is preferred for a few reasons:
 OCS requires full block devices on the nodes and cannot simply use part of a
 partitioned drive.
 
+.. note::
+
+   Before begining the storage install, make sure you have `connected to the
+   cluster. <https://faros.dev/deploy.html#connecting-to-the-cluster>`_
+
 Container storage deployment
 ----------------------------
 
@@ -36,11 +41,6 @@ After completing this menu, OpenShift Container Storage will be deployed and
 the cluster will begin building the hosted Ceph cluster. Wait until the storage
 status indicators on the OpenShift console turn green before continuing.
 
-There is currently a known issue with storage that causes some nuisance
-warnings to be thrown. If the *lib-bucket-provisioner* operator is flapping on
-your cluster after a storage install, the instructions to fix this can be found
-`here <https://access.redhat.com/solutions/5221881>`_.
-
 Set default StorageClass
 ------------------------
 
@@ -60,44 +60,13 @@ Because storage is not originally available in a bare metal deployment, the
 cluster image registry cannot be enabled by default.
 Now that the storage is available, it is time to `enable the cluster registry <https://docs.openshift.com/container-platform/4.4/registry/configuring-registry-operator.html#registry-removed_configuring-registry-operator>`_.
 
-To enable cluster storage, edit the
-:code:`config.imageregistry.operator.openshift.io/cluster` resource.
+To enable cluster storage, use the following commands:
 
 .. code-block:: bash
 
-  oc edit config.imageregistry.operator.openshift.io/cluster
+  oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch '{"spec":{"storage":{"pvc":{"claim":""}}}}'
+  oc patch configs.imageregistry.operator.openshift.io/cluster --type merge -p '{"spec":{"managementState":"Managed"}}'
 
-First, change the value for :code:`spec.managementState` to *Managed*. Then
-configure :code:`spec.storage` to create a PersistentVolumeClaim.
-
-After making these changes, watch the operator status indicator on the
-OpenShift console. When the indicator goes green and doesn't show anymore
-cluster operators pending, the configuration change is complete.
-
-Here is an example :code:`config.imageregistry.operator.openshift.io/cluster` resource.
-
-.. code-block:: yaml
-
-    apiVersion: imageregistry.operator.openshift.io/v1
-    kind: Config
-    metadata:
-      finalizers:
-      - imageregistry.operator.openshift.io/finalizer
-      name: cluster
-    spec:
-      logging: 2
-      managementState: Managed
-      proxy: {}
-      replicas: 1
-      requests:
-        read:
-          maxWaitInQueue: 0s
-        write:
-          maxWaitInQueue: 0s
-      rolloutStrategy: RollingUpdate
-      storage:
-        pvc:
-          claim:
 
 Enable registry pruning
 -----------------------

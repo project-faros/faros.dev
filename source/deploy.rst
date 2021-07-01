@@ -99,8 +99,15 @@ process. If you need to retreive them again, use the following command:
     farosctl get credentials
 
 This will return the cluster API domain, the cluster console domain, and the
-kubeadmin password. You may use these to login to the OpenShift GUI or the
-OpenShift CLI.
+kubeadmin password in a human readable format.
+
+The following command will give you the login information in the form of an `oc
+login` command. Run this command and then execute the string it returns to
+quickly login to the cluster as kubeadmin.
+
+.. code-block:: bash
+
+   /bin/bash -c $(farosctl get oc-login)
 
 Node auth certificates
 ----------------------
