@@ -50,21 +50,6 @@ methods are `using LDAP authentication
 or `using an HTPasswd file
 <https://docs.openshift.com/container-platform/4.4/authentication/identity_providers/configuring-htpasswd-identity-provider.html>`_.
 
-Deploying Open Data Hub demo
-----------------------------
-
-To demonstrate the capabilities of OpenShift for data scientists, a demo Open
-Data Hub environment can be quickly deployed using the following command:
-
-.. code-block:: bash
-
-    farosctl deploy odh-demo
-
-.. note::
-
-    Open Data Hub is a community supported project and not a Red Hat product.
-    Deployment of this demo requires that storge and the cluster registry have
-    both been configured.
 
 Configure cluster HTTPS certs
 -----------------------------
@@ -84,3 +69,34 @@ them to PXE boot to the CoreOS installer with the worker ignition file.
 Detailed instructions are available for `creating RHCOS machines with PXE
 booting
 <https://docs.openshift.com/container-platform/4.4/installing/installing_bare_metal/installing-bare-metal.html#installation-user-infra-machines-pxe_installing-bare-metal>`_.
+
+Destroying the cluster
+----------------------
+
+The installed cluster can be destroyed to safely prepare for another install.
+The following commands perform this procedure.
+
+.. code-block:: bash
+
+   # Destroy the OpenShift cluster and wipe all hard drives in cluster nodes.
+   farosctl destroy cluster
+
+   # Clear all installation sources including CoreOS images and configurations
+   farosctl destroy install-repos
+
+   # Remove the Load Balancer that fronts the cluster
+   farosctl destroy load-balancer
+
+Alternatively, all of these processes can be triggered in succession.
+
+.. code-block:: bash
+
+   farosctl destroy
+
+.. important::
+
+   While ALL disks on ALL cluster nodes will be wiped as part of this process,
+   they are NOT securely wiped. Only the partition tables and volume
+   definitions are erased. To easily ensure the data on these drives can never
+   be accessed again, either securely wipe them using a third party tool or
+   erase the Tang server's keys at /var/db/tang on the bastion server.

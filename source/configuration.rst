@@ -71,7 +71,7 @@ Router Configuration
 The following options are available:
 
 LAN Interfaces
-    Select which NICs on the bastion node should be put onto the cluster
+    Select which NICs on the bastion node should be put onto the cluster's
     internal network.
     Selecting more than one NIC allows connecting more devices to the
     cluster network. For example, you may select a 10gbe NIC and a 1gbe NIC to
@@ -102,6 +102,11 @@ Premitted Ingress Traffic
       * *External to Internal Routing - DANGER* - This configures the gateway
         in NAT mode as opposed to PAT mode. USE WITH CAUTION.
 
+Upstream DNS Forwarders
+    By default, the cluster's DNS server will use 1.1.1.1 to forward out of
+    zone DNS requests. This option may be used to set alternate servers for
+    these purposes.
+
 Cluster Configuration
 +++++++++++++++++++++
 
@@ -113,6 +118,15 @@ Administrator Password
 
 Pull Secret
     Your pull secret from `cloud.redhat.com <https://cloud.redhat.com/openshift/install/pull-secret>`_
+
+FIPS Mode:
+    This option indictes if FIPS mode should be enabled on the cluster.
+
+.. important::
+
+    Enabling FIPS mode on the cluster **WILL NOT** configure FIPS on the bastion
+    node. FIPS on the bastion node should be enabled at install time. Enabling
+    FIPS on the cluster may break the functionality of some applications.
 
 Host Record Configuration
 +++++++++++++++++++++++++
@@ -138,9 +152,29 @@ Control Plane Machines
 
       * *Node Name*: The hostname that will be given to the node. Note: This is
         not the FQDN, just the hostname.
-      * *MAC Address*: The MAC address for the node's cluster connected NIC
-      * *Management MAC Address*: The MAC address for the node's out-of-bande
+      * *Network Interface*: *[OPTIONAL]* The NIC on the node that should be
+        configured on the cluster network.
+
+          * If this is left blank, the network interface will be be configured by DHCP on every boot. A static IP assignement will be made on the DHCP server.
+          * If a single NIC is configured (ex: eno5), after the first boot, the NIC will be configured to manually set the node's IP address without using DHCP.
+          * A network bond can be configured here using the sytax `NIC0,NIC1:MODE` (ex: eno4,eno4:balance-alb). In this situation, the IP address will be statically assigned and the bond will be configured. The node must still be able to boot using a single NIC in order to PXE boot. Configuring the backing network switching architecture to support bonding is out of scope of the installer. For the bonding mode, balance-rr, active-backup, balance-xor, broadcast, and 802.3ad are the only supported options.
+
+      * *MAC Address*: The MAC address for the node's cluster connected NIC. In
+        the case of a bond, this should be the MAC address of the first NIC in
+        the bond. The first NIC in the bond must be able to come up
+        independantly without the second NIC for PXE booting.
+      * *Management MAC Address*: The MAC address for the node's out-of-band
         management interface
+      * *OS Install Drive*: This drive in the node onto which CoreOS will be
+        installed. Address the drive by name only. Eg: sda
+
+Container Cache Disk
+    *[OPTIONAL]* Configuring this setting will move the container cache
+    directories on the host (/var/lib/kubelet and /var/lib/containers) to a
+    secondary disk. This greatly improves the performance on three node
+    clusters. This is less important if an NVME is used for the OS drive. The
+    container cache disk **MUST BE** at least 100 GB. Address the drive by name
+    only. Eg: sdb
 
 Extra DNS/DHCP Records
 ++++++++++++++++++++++
@@ -173,3 +207,36 @@ DHCP Ignored MAC Addresses
 
       * *Entry Name*: A unique name for the record to make it recognizable
       * *MAC Address*: The MAC address for the node's cluster connected NIC
+
+Network Proxy Configuration
+---------------------------
+
+If a network proxy must be used in order to access the internet for
+installation, a seperate config TUI is available to provide the proxy settings.
+When the proxy settings are configured, they will be used on the bastion node
+to pull sources as well as configured on the OpenShift cluster.
+
+.. code-block:: bash
+
+   farosctl config proxy
+
+Proxy Configuration
++++++++++++++++++++
+
+Setup Cluster Proxy
+    A boolean setting to control if the proxy settings should be deployed.
+
+HTTP Proxy
+    The URL to the HTTP proxy in the format :code:`PROTOCOL://USER:PASS@FQDN:PORT`
+
+HTTPS Proxy
+    The URL to the HTTPS proxy in the format :code:`PROTOCOL://USER:PASS@FQDN:PORT`
+
+No Proxy Destinations
+    The IP spaces and domains that should not be filtered through the proxy.
+
+Additional CA Bundle
+    If the proxy inspects HTTPS traffic, its CA Bundle must be uploaded to the
+    cluster during install so that HTTPS traffic will still be trusted. These
+    public certs should be pasted here.
+

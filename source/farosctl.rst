@@ -73,10 +73,19 @@ cluster has been created.
 config
 ------
 
-:code:`farosctl config`
+:code:`farosctl config [SUBCOMMAND]`
 
-Launch the configuration TUI to set the parameters that control the final
+Launch the configuration TUIs to set the parameters that control the final
 cluster behavior.
+
+**Subcommands**
+    :all: *[DEFAULT]* Configure only the main cluster settings
+    :cluster: Configure only the main cluster settings
+    :proxy: Configure proxy settings required to reach the internet
+
+**Example**
+    :code:`farosctl config`
+
 
 create
 ------
@@ -121,6 +130,24 @@ post-install configuration of the cluster.
 **Example**
     :code:`farosctl deploy container-storage`
 
+destroy
+-------
+
+:code:`farosctl destroy SUBCOMMAND [FLAGS]`
+
+Destroy various resouces that are created during the Faros deployment. These
+actions are extremely destructive and should be done with care.
+
+**Subcommands**
+    :all: *[DEFAULT]* Run all of the destroy steps in order
+    :cluster: Destroy the deployed OpenShift cluster and wipe the node disks
+    :install-repos: Clean all local content repositories with OS images and
+                     configs.
+    :load-balancer: Remove the load balancer the fronts the OpenShift cluster
+
+**Example**
+    :code:`farosctl destroy cluster`
+
 get
 ---
 
@@ -129,7 +156,10 @@ get
 These commands return information about the cluster for convenience.
 
 **Subcommands**
+    :cluster-upgrade-status: Show the overall cluster status and health
     :credentials: Return the URLs and passwords required to login to the cluster
+    :ip-addresses: Display a table of all IP addresses on the cluster network
+                   that are known to the faros utility
     :oc-login: Returns the oc command used to login to the cluster
     :public-dns-records: Returns the DNS records that are required external to the
                         cluster
@@ -186,6 +216,13 @@ poweroff / shutdown
 
 Safely shutdown the cluster.
 
+force-poweroff / force-shutdown
+-------------------------------
+
+:code:`farosctl force-poweroff`
+
+Poweroff the cluster without verifying the health of the cluster operators.
+
 poweron / startup
 -----------------
 
@@ -220,10 +257,10 @@ wait-for
 Wait for commands are designed to block the prompt until a condition is met.
 
 **Subcommands**
-    :management-interfaces: Wait for the management interfaces on the cluster nodes
-                            to come online with the expected IP addresses
     :firmware-config: Wait for the cluster node firmware configuration to be
                       manually verified by the user.
+    :management-interfaces: Wait for the management interfaces on the cluster nodes
+                            to come online with the expected IP addresses
 
 **Example**
     :code:`farosctl wait-for management-interfaces`

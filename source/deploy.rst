@@ -56,6 +56,24 @@ This install plan is the equivalent to running all of the following commands.
     # node, and install OpenShift.
     farosctl create cluster
 
+Observing Installation Progress
+-------------------------------
+
+During the install process, the current action being taken is printed to the
+screen. However, once the OpenShift cluster begins bootstrapping and
+installing, the actions become long running and dont provide much feedback.
+During these phases, it is possible to get a detailed status of the progress
+being made on the install.
+
+.. code-block:: bash
+
+   watch farosctl get cluster-upgrade-status
+
+.. important::
+
+   The status percentage at the top of this display will routinely report
+   nuisance errors during cluster installation. These may be safely ignored. If
+   the install process itself reports an error, that should be observed.
 
 Public DNS records
 ------------------
