@@ -98,6 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Cluster Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Cluster Deployment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#deploy-the-cluster">Deploy the cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#observing-installation-progress">Observing Installation Progress</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#public-dns-records">Public DNS records</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#connecting-to-the-cluster">Connecting to the cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#node-auth-certificates">Node auth certificates</a></li>
@@ -241,6 +242,23 @@ farosctl create install-repos
 <span class="c1"># node, and install OpenShift.</span>
 farosctl create cluster
 </pre></div>
+</div>
+</section>
+<section id="observing-installation-progress">
+<h2>Observing Installation Progress<a class="headerlink" href="#observing-installation-progress" title="Permalink to this headline">¶</a></h2>
+<p>During the install process, the current action being taken is printed to the
+screen. However, once the OpenShift cluster begins bootstrapping and
+installing, the actions become long running and dont provide much feedback.
+During these phases, it is possible to get a detailed status of the progress
+being made on the install.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>watch farosctl get cluster-upgrade-status
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The status percentage at the top of this display will routinely report
+nuisance errors during cluster installation. These may be safely ignored. If
+the install process itself reports an error, that should be observed.</p>
 </div>
 </section>
 <section id="public-dns-records">

@@ -198,8 +198,7 @@ only needs to be installed on the bastion node.</p>
 <section id="prepare-the-bastion-node">
 <h2>Prepare the bastion node<a class="headerlink" href="#prepare-the-bastion-node" title="Permalink to this headline">¶</a></h2>
 <p>The first action is to prepare the bastion node by installing RHEL 8 onto it.
-In theory, CentOS 8 should also work, but it is not tested. During install, the
-following details are important.</p>
+During install, the following details are important.</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>Configure only the WAN link on the bastion node. It may be either a bonded
@@ -219,6 +218,10 @@ for the cluster deployment. This user account should be an admin account
 with the ability to sudo.</p></li>
 <li><p>It is not recomended to set a root password. It is best practice to not
 allow root to log in directly.</p></li>
+<li><p>If FIPS mode is desired on the cluster, it should be manually enabled on
+the bastion node at install time.</p></li>
+<li><p>It is <strong>STRONGLY</strong> recommended to encrypt all drives on the bastion node at
+install time. Any RHEL supported method may be used.</p></li>
 </ul>
 </div></blockquote>
 <p>Once the bastion node’s operating system is installed and the node has

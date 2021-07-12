@@ -13,8 +13,17 @@ availability. This architecture is not the best solution for a data center,
 but is appropriate for use cases like remote branch offices, remotely
 deployable computing, IoT gateways, and far edge.
 
-The cluster is also designed to be entirely self-sustaining and not dependent
-on other infrastructure.
+This is acheived with the following priorities:
+
+  1. The system must be entirely self-sustaining and not dependent on other
+     infrastructure.
+  2. Because the physical security of the system cannot be guaranteed, the
+     system must encrypt all data at rest and unlock easily for production use.
+  3. The system must only require a minimal amount of hardware that contains
+     everything needed to operate the system. Optimizations should be made to
+     ensure this is possible.
+  4. High availability and fault tolerance should provided where it can be
+     accomplished without comprimising the preceeding priorities.
 
 Overview
 --------
@@ -28,11 +37,11 @@ Overview
 The default deployed cluster will consist of four bare metal machines: a
 bastion node and 3 cluster nodes. The bastion node will host all of the
 infrastructure and services required for the cluster to operate. A layer 2
-switch will connect all four nodes, and the bastion node will also connect to a
+switch will connect all four nodes. The bastion node will also connect to a
 public network. Each of the four nodes must also have an out-of-band management
-interface that is on the same layer 2 network as the nodes themselves. The
-bastion node runs Red Hat Enterprise Linux 8 whereas the other three nodes will
-run Red Hat CoreOS.
+interface that is on the same layer 2 network as the nodes themselves. The bastion node runs Red Hat Enterprise Linux 8 whereas the other three nodes will
+run Red Hat CoreOS. OpenShift Data Foundations is used to provide a redundant Ceph cluster that
+will make object, file, and block storage available to the containers.
 
 Bastion node detail
 -------------------
@@ -79,6 +88,28 @@ Hypervisor
     unless the cluster is redeployed. Currently, no other virtual machines are
     created on the bastion node, but virtual machines can be manually created
     after installation.
+
+Encrypted Drive Unlocking
+    During installation, all the cluster node drives will automatically be
+    encrypted. A Tang server will be installed on the Bastion node that will
+    unlock the cluster nodes automatically as they boot. For this style of disk
+    encryption, when a cluster node boots, before the switch root step, it will
+    contact the Tang server to decrypt the master key it needs to decrypt the
+    OS partitions. The Tang server will return the decrypted key in a secure
+    fashion using the assymetric keys that are inherint in the protocol. The
+    node will then use the unencrypted master key to unlock the OS partitions.
+
+.. important::
+
+    The combination of the  bastion node's filesystem (/var/db/tang) and the
+    boot drive for the host (initramfs image) contain all of the private keys
+    necessary to decrypt the host's OS drives. The OpenShift Data Foundation's
+    drives are encrypted with keys stored in the etcd database which uses the
+    cluster nodes' OS drives for storage. If the Tang server's private keys are
+    leaked, the security of the entire system can be bypassed. For this reason,
+    encryption on the bastion node is very important. However, it is out of
+    scope for this architecture implimentation and should be setup by the user
+    when installing the operating system on the bastion node.
 
 Network detail
 --------------

@@ -111,11 +111,13 @@
 <li class="toctree-l3"><a class="reference internal" href="#config">config</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#create">create</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#deploy">deploy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#destroy">destroy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#get">get</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#identify">identify</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install-plan">install-plan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#oc">oc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#poweroff-shutdown">poweroff / shutdown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#force-poweroff-force-shutdown">force-poweroff / force-shutdown</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#poweron-startup">poweron / startup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ssh">ssh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#version">version</a></li>
@@ -273,9 +275,25 @@ cluster has been created.</p>
 </section>
 <section id="config">
 <h3>config<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h3>
-<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">config</span></code></p>
-<p>Launch the configuration TUI to set the parameters that control the final
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">config</span> <span class="pre">[SUBCOMMAND]</span></code></p>
+<p>Launch the configuration TUIs to set the parameters that control the final
 cluster behavior.</p>
+<dl class="simple">
+<dt><strong>Subcommands</strong></dt><dd><dl class="field-list simple">
+<dt class="field-odd">all</dt>
+<dd class="field-odd"><p><em>[DEFAULT]</em> Configure only the main cluster settings</p>
+</dd>
+<dt class="field-even">cluster</dt>
+<dd class="field-even"><p>Configure only the main cluster settings</p>
+</dd>
+<dt class="field-odd">proxy</dt>
+<dd class="field-odd"><p>Configure proxy settings required to reach the internet</p>
+</dd>
+</dl>
+</dd>
+<dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">config</span></code></p>
+</dd>
+</dl>
 </section>
 <section id="create">
 <h3>create<a class="headerlink" href="#create" title="Permalink to this headline">¶</a></h3>
@@ -340,14 +358,47 @@ to allow the cluster to build UBI images.</p>
 </dd>
 </dl>
 </section>
+<section id="destroy">
+<h3>destroy<a class="headerlink" href="#destroy" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">destroy</span> <span class="pre">SUBCOMMAND</span> <span class="pre">[FLAGS]</span></code></p>
+<p>Destroy various resouces that are created during the Faros deployment. These
+actions are extremely destructive and should be done with care.</p>
+<dl class="simple">
+<dt><strong>Subcommands</strong></dt><dd><dl class="field-list simple">
+<dt class="field-odd">all</dt>
+<dd class="field-odd"><p><em>[DEFAULT]</em> Run all of the destroy steps in order</p>
+</dd>
+<dt class="field-even">cluster</dt>
+<dd class="field-even"><p>Destroy the deployed OpenShift cluster and wipe the node disks</p>
+</dd>
+<dt class="field-odd">install-repos</dt>
+<dd class="field-odd"><p>Clean all local content repositories with OS images and
+configs.</p>
+</dd>
+<dt class="field-even">load-balancer</dt>
+<dd class="field-even"><p>Remove the load balancer the fronts the OpenShift cluster</p>
+</dd>
+</dl>
+</dd>
+<dt><strong>Example</strong></dt><dd><p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">destroy</span> <span class="pre">cluster</span></code></p>
+</dd>
+</dl>
+</section>
 <section id="get">
 <h3>get<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">get</span> <span class="pre">SUBCOMMAND</span> <span class="pre">[FLAGS]</span></code></p>
 <p>These commands return information about the cluster for convenience.</p>
 <dl class="simple">
 <dt><strong>Subcommands</strong></dt><dd><dl class="field-list simple">
-<dt class="field-odd">credentials</dt>
-<dd class="field-odd"><p>Return the URLs and passwords required to login to the cluster</p>
+<dt class="field-odd">cluster-upgrade-status</dt>
+<dd class="field-odd"><p>Show the overall cluster status and health</p>
+</dd>
+<dt class="field-even">credentials</dt>
+<dd class="field-even"><p>Return the URLs and passwords required to login to the cluster</p>
+</dd>
+<dt class="field-odd">ip-addresses</dt>
+<dd class="field-odd"><p>Display a table of all IP addresses on the cluster network
+that are known to the faros utility</p>
 </dd>
 <dt class="field-even">oc-login</dt>
 <dd class="field-even"><p>Returns the oc command used to login to the cluster</p>
@@ -411,6 +462,11 @@ command line instead of relying on farosctl os.</p>
 <code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">shutdown</span></code></p>
 <p>Safely shutdown the cluster.</p>
 </section>
+<section id="force-poweroff-force-shutdown">
+<h3>force-poweroff / force-shutdown<a class="headerlink" href="#force-poweroff-force-shutdown" title="Permalink to this headline">¶</a></h3>
+<p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">force-poweroff</span></code></p>
+<p>Poweroff the cluster without verifying the health of the cluster operators.</p>
+</section>
 <section id="poweron-startup">
 <h3>poweron / startup<a class="headerlink" href="#poweron-startup" title="Permalink to this headline">¶</a></h3>
 <p><code class="code docutils literal notranslate"><span class="pre">farosctl</span> <span class="pre">poweron</span></code>
@@ -438,13 +494,13 @@ hostnames for the nodes, not the FQDN.</p>
 <p>Wait for commands are designed to block the prompt until a condition is met.</p>
 <dl class="simple">
 <dt><strong>Subcommands</strong></dt><dd><dl class="field-list simple">
-<dt class="field-odd">management-interfaces</dt>
-<dd class="field-odd"><p>Wait for the management interfaces on the cluster nodes
-to come online with the expected IP addresses</p>
-</dd>
-<dt class="field-even">firmware-config</dt>
-<dd class="field-even"><p>Wait for the cluster node firmware configuration to be
+<dt class="field-odd">firmware-config</dt>
+<dd class="field-odd"><p>Wait for the cluster node firmware configuration to be
 manually verified by the user.</p>
+</dd>
+<dt class="field-even">management-interfaces</dt>
+<dd class="field-even"><p>Wait for the management interfaces on the cluster nodes
+to come online with the expected IP addresses</p>
 </dd>
 </dl>
 </dd>

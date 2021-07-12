@@ -11,8 +11,7 @@ Prepare the bastion node
 ------------------------
 
 The first action is to prepare the bastion node by installing RHEL 8 onto it.
-In theory, CentOS 8 should also work, but it is not tested. During install, the
-following details are important.
+During install, the following details are important.
 
   - Configure only the WAN link on the bastion node. It may be either a bonded
     interface or a single interface.
@@ -31,6 +30,10 @@ following details are important.
     with the ability to sudo.
   - It is not recomended to set a root password. It is best practice to not
     allow root to log in directly.
+  - If FIPS mode is desired on the cluster, it should be manually enabled on
+    the bastion node at install time.
+  - It is **STRONGLY** recommended to encrypt all drives on the bastion node at
+    install time. Any RHEL supported method may be used.
 
 Once the bastion node's operating system is installed and the node has
 rebooted, attach the Red Hat system to RHSM and update the operating system to

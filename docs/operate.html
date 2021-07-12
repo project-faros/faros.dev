@@ -107,9 +107,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-user-accounts">Configure user accounts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#deploying-open-data-hub-demo">Deploying Open Data Hub demo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configure-cluster-https-certs">Configure cluster HTTPS certs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#add-nodes-to-the-cluster">Add nodes to the cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#destroying-the-cluster">Destroying the cluster</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Verified Implementation</a></li>
@@ -238,20 +238,6 @@ patched. Cluster services will continue to run, but they will be unavailable.</p
 methods are <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/authentication/identity_providers/configuring-ldap-identity-provider.html">using LDAP authentication</a>
 or <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/authentication/identity_providers/configuring-htpasswd-identity-provider.html">using an HTPasswd file</a>.</p>
 </section>
-<section id="deploying-open-data-hub-demo">
-<h2>Deploying Open Data Hub demo<a class="headerlink" href="#deploying-open-data-hub-demo" title="Permalink to this headline">¶</a></h2>
-<p>To demonstrate the capabilities of OpenShift for data scientists, a demo Open
-Data Hub environment can be quickly deployed using the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl deploy odh-demo
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Open Data Hub is a community supported project and not a Red Hat product.
-Deployment of this demo requires that storge and the cluster registry have
-both been configured.</p>
-</div>
-</section>
 <section id="configure-cluster-https-certs">
 <h2>Configure cluster HTTPS certs<a class="headerlink" href="#configure-cluster-https-certs" title="Permalink to this headline">¶</a></h2>
 <p>Not strictly necessary, but often desireable, official documentation is
@@ -265,6 +251,33 @@ the bastion must be manually updated to add records for that host and configure
 them to PXE boot to the CoreOS installer with the worker ignition file.
 Detailed instructions are available for <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/installing/installing_bare_metal/installing-bare-metal.html#installation-user-infra-machines-pxe_installing-bare-metal">creating RHCOS machines with PXE
 booting</a>.</p>
+</section>
+<section id="destroying-the-cluster">
+<h2>Destroying the cluster<a class="headerlink" href="#destroying-the-cluster" title="Permalink to this headline">¶</a></h2>
+<p>The installed cluster can be destroyed to safely prepare for another install.
+The following commands perform this procedure.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Destroy the OpenShift cluster and wipe all hard drives in cluster nodes.</span>
+farosctl destroy cluster
+
+<span class="c1"># Clear all installation sources including CoreOS images and configurations</span>
+farosctl destroy install-repos
+
+<span class="c1"># Remove the Load Balancer that fronts the cluster</span>
+farosctl destroy load-balancer
+</pre></div>
+</div>
+<p>Alternatively, all of these processes can be triggered in succession.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl destroy
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>While ALL disks on ALL cluster nodes will be wiped as part of this process,
+they are NOT securely wiped. Only the partition tables and volume
+definitions are erased. To easily ensure the data on these drives can never
+be accessed again, either securely wipe them using a third party tool or
+erase the Tang server’s keys at /var/db/tang on the bastion server.</p>
+</div>
 </section>
 </section>
 
