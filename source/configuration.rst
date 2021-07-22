@@ -32,6 +32,8 @@ configured for the installation to work.
 
 5. The hardware system clock must be properly set.
 
+6. Repeat for each node.
+
 These settings can be configured before starting the deployment or during. If
 you require access to the cluster nodes' out-of-band management interfaces to
 perform this configuration then wait until during the deployment. The
