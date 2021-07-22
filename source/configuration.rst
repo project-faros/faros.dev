@@ -159,7 +159,7 @@ Control Plane Machines
 
           * If this is left blank, the network interface will be be configured by DHCP on every boot. A static IP assignement will be made on the DHCP server.
           * If a single NIC is configured (ex: eno5), after the first boot, the NIC will be configured to manually set the node's IP address without using DHCP.
-          * A network bond can be configured here using the sytax `NIC0,NIC1:MODE` (ex: eno4,eno4:balance-alb). In this situation, the IP address will be statically assigned and the bond will be configured. The node must still be able to boot using a single NIC in order to PXE boot. Configuring the backing network switching architecture to support bonding is out of scope of the installer. For the bonding mode, balance-rr, active-backup, balance-xor, broadcast, and 802.3ad are the only supported options.
+          * A network bond can be configured here using the sytax `NIC0,NIC1:MODE` (ex: eno4,eno4:balance-xor). In this situation, the IP address will be statically assigned and the bond will be configured. The node must still be able to boot using a single NIC in order to PXE boot. Configuring the backing network switching architecture to support bonding is out of scope of the installer. For the bonding mode, balance-rr, active-backup, balance-xor, broadcast, and 802.3ad are the only supported options.
 
       * *MAC Address*: The MAC address for the node's cluster connected NIC. In
         the case of a bond, this should be the MAC address of the first NIC in
