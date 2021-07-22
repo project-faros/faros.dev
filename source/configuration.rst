@@ -242,3 +242,5 @@ Additional CA Bundle
     cluster during install so that HTTPS traffic will still be trusted. These
     public certs should be pasted here.
 
+Faros stores stateful configurations made above in `~/.config/faros/default` for 
+reference or backup.
