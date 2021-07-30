@@ -22,9 +22,6 @@ During install, the following details are important.
     before: :code:`bastion.CLUSTER_NAME.CLUSTER_DOMAIN`.
   - It is recomended to install the `RHEL Server without GUI` set of packages.
     In theory, any option that includes additional packages should also work.
-  - The primary drive used to install RHEL on the bastion node is the same
-    drive that will be used on all of the cluster nodes for RHCOS. Primary is
-    defined as the drive that contains the :code:`/boot` partition.
   - During install, it is best to setup a single user account that will be used
     for the cluster deployment. This user account should be an admin account
     with the ability to sudo.
