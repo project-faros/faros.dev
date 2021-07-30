@@ -229,6 +229,7 @@ There should not be an operating system installed on any drive of the
 cluster nodes as this can cause issues booting CoreOS, particularly in UEFI
 mode.</p></li>
 <li><p>The hardware system clock must be properly set.</p></li>
+<li><p>Repeat for each node.</p></li>
 </ol>
 <p>These settings can be configured before starting the deployment or during. If
 you require access to the cluster nodes’ out-of-band management interfaces to
@@ -346,7 +347,7 @@ configured on the cluster network.</p>
 <div><ul class="simple">
 <li><p>If this is left blank, the network interface will be be configured by DHCP on every boot. A static IP assignement will be made on the DHCP server.</p></li>
 <li><p>If a single NIC is configured (ex: eno5), after the first boot, the NIC will be configured to manually set the node’s IP address without using DHCP.</p></li>
-<li><p>A network bond can be configured here using the sytax <cite>NIC0,NIC1:MODE</cite> (ex: eno4,eno4:balance-alb). In this situation, the IP address will be statically assigned and the bond will be configured. The node must still be able to boot using a single NIC in order to PXE boot. Configuring the backing network switching architecture to support bonding is out of scope of the installer. For the bonding mode, balance-rr, active-backup, balance-xor, broadcast, and 802.3ad are the only supported options.</p></li>
+<li><p>A network bond can be configured here using the sytax <cite>NIC0,NIC1:MODE</cite> (ex: eno4,eno4:balance-xor). In this situation, the IP address will be statically assigned and the bond will be configured. The node must still be able to boot using a single NIC in order to PXE boot. Configuring the backing network switching architecture to support bonding is out of scope of the installer. For the bonding mode, balance-rr, active-backup, balance-xor, broadcast, and 802.3ad are the only supported options.</p></li>
 </ul>
 </div></blockquote>
 </li>
@@ -433,6 +434,8 @@ cluster during install so that HTTPS traffic will still be trusted. These
 public certs should be pasted here.</p>
 </dd>
 </dl>
+<p>Faros stores stateful configurations made above in <cite>~/.config/faros/default</cite> for
+reference or backup.</p>
 </section>
 </section>
 </section>

@@ -101,7 +101,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#container-storage-deployment">Container storage deployment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#set-default-storageclass">Set default StorageClass</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#enable-cluster-registry">Enable cluster registry</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#enable-registry-pruning">Enable registry pruning</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="nvidia.html">NVIDIA Support</a></li>
@@ -246,33 +245,6 @@ Now that the storage is available, it is time to <a class="reference external" h
 <p>To enable cluster storage, use the following commands:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch <span class="s1">&#39;{&quot;spec&quot;:{&quot;storage&quot;:{&quot;pvc&quot;:{&quot;claim&quot;:&quot;&quot;}}}}&#39;</span>
 oc patch configs.imageregistry.operator.openshift.io/cluster --type merge -p <span class="s1">&#39;{&quot;spec&quot;:{&quot;managementState&quot;:&quot;Managed&quot;}}&#39;</span>
-</pre></div>
-</div>
-</section>
-<section id="enable-registry-pruning">
-<h2>Enable registry pruning<a class="headerlink" href="#enable-registry-pruning" title="Permalink to this headline">¶</a></h2>
-<p>Once the registry is enabled, image pruning should also be enabled to reduce
-clutter. To enable cluster storage, edit the
-<code class="code docutils literal notranslate"><span class="pre">imagepruner.imageregistry.operator.openshift.io/cluster</span></code> resource.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc edit imagepruner.imageregistry.operator.openshift.io/cluster
-</pre></div>
-</div>
-<p>The value for <code class="code docutils literal notranslate"><span class="pre">spec.suspended</span></code> should be set to <em>false</em>.</p>
-<p>After making this change, watch the operator status indicator on the
-OpenShift console. When the indicator goes green and doesn’t show anymore
-cluster operators pending, the configuration change is complete.</p>
-<p>The <code class="code docutils literal notranslate"><span class="pre">imagepruner.imageregistry.operator.openshift.io/cluster</span></code> resource
-definition should look like the following.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">imageregistry.operator.openshift.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ImagePruner</span>
-<span class="nt">metadata</span><span class="p">:</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cluster</span>
-<span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">failedJobsHistoryLimit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
-  <span class="nt">keepTagRevisions</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
-  <span class="nt">schedule</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
-  <span class="nt">successfulJobsHistoryLimit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
-  <span class="nt">suspend</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
 </pre></div>
 </div>
 </section>

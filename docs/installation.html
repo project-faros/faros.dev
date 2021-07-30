@@ -210,9 +210,6 @@ conflicts when the installer configures the networking on the machine.</p></li>
 before: <code class="code docutils literal notranslate"><span class="pre">bastion.CLUSTER_NAME.CLUSTER_DOMAIN</span></code>.</p></li>
 <li><p>It is recomended to install the <cite>RHEL Server without GUI</cite> set of packages.
 In theory, any option that includes additional packages should also work.</p></li>
-<li><p>The primary drive used to install RHEL on the bastion node is the same
-drive that will be used on all of the cluster nodes for RHCOS. Primary is
-defined as the drive that contains the <code class="code docutils literal notranslate"><span class="pre">/boot</span></code> partition.</p></li>
 <li><p>During install, it is best to setup a single user account that will be used
 for the cluster deployment. This user account should be an admin account
 with the ability to sudo.</p></li>

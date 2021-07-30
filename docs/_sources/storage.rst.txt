@@ -66,37 +66,3 @@ To enable cluster storage, use the following commands:
 
   oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch '{"spec":{"storage":{"pvc":{"claim":""}}}}'
   oc patch configs.imageregistry.operator.openshift.io/cluster --type merge -p '{"spec":{"managementState":"Managed"}}'
-
-
-Enable registry pruning
------------------------
-
-Once the registry is enabled, image pruning should also be enabled to reduce
-clutter. To enable cluster storage, edit the
-:code:`imagepruner.imageregistry.operator.openshift.io/cluster` resource.
-
-.. code-block:: bash
-
-  oc edit imagepruner.imageregistry.operator.openshift.io/cluster
-
-The value for :code:`spec.suspended` should be set to *false*.
-
-After making this change, watch the operator status indicator on the
-OpenShift console. When the indicator goes green and doesn't show anymore
-cluster operators pending, the configuration change is complete.
-
-The :code:`imagepruner.imageregistry.operator.openshift.io/cluster` resource
-definition should look like the following.
-
-.. code-block:: yaml
-
-  apiVersion: imageregistry.operator.openshift.io/v1
-  kind: ImagePruner
-  metadata:
-    name: cluster
-  spec:
-    failedJobsHistoryLimit: 3
-    keepTagRevisions: 3
-    schedule: ""
-    successfulJobsHistoryLimit: 3
-    suspend: false
