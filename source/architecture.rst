@@ -43,6 +43,11 @@ interface that is on the same layer 2 network as the nodes themselves. The basti
 run Red Hat CoreOS. OpenShift Data Foundations is used to provide a redundant Ceph cluster that
 will make object, file, and block storage available to the containers.
 
+Optionally, a virtual machine can be created on the bastion node and added to
+the cluster as an application node. This allows the resources on the bastion
+node to be used for the cluster. Disks, PCI devices, cores, and RAM on the
+bastion node can be made available to the cluster in this way.
+
 Bastion node detail
 -------------------
 

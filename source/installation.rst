@@ -36,6 +36,42 @@ Once the bastion node's operating system is installed and the node has
 rebooted, attach the Red Hat system to RHSM and update the operating system to
 the latest set of patches. Reboot the system.
 
+Prepare PCI Passthrough devices
+-------------------------------
+
+Some installations will require that certain PCI devices are passed through
+from the bastion node to the guest node to be made available to the cluster. In
+order to accomplish this, the PCI device must first be configured to use the
+:code:`pci-stub` Kernel driver. This is a dummy driver that prevents the host
+system from initializing the PCI device so that it will remain available to a
+guest VM. This is configured by adding the following Kernel arguments to the
+Grub configuration:
+
+.. code::
+
+  intel_iommu=on iommu=pt pci-stub.ids=VENDOR_ID:DEVICE_ID,....
+
+For simplicity, the following code snippet will configure all NVIDIA device to
+use the :code:`pci-stub` driver:
+
+.. code::
+
+  grubby --arg "intel_iommu=on iommu=pt pci-stub.ids=$(lspci -n | grep ':
+  10de:' | awk '{ print $3; }' | xargs echo | tr ' ' ',')" --update-kernel ALL;
+  grub2-mkconfig -o /etc/grub2.cfg; grub2-mkconfig -o /etc/grub2-efi.cfg
+
+After this code has been run, reboot the machine and verify that the NVIDIA
+devices are using the desired driver:
+
+.. code::
+
+  # lspci -kD -d 10de:
+  0000:b1:00.0 3D controller: NVIDIA Corporation TU104GL [Tesla T4] (rev a1)
+          Subsystem: NVIDIA Corporation Device 12a2
+          Kernel driver in use: pci-stub
+          Kernel modules: nouveau
+
+
 Install the CLI
 ---------------
 
