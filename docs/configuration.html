@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Cluster Configuration &mdash; Faros  documentation</title>
   
@@ -14,16 +14,20 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
 
   
   
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   
+
   
   
-    <link rel="canonical" href="https://faros.devconfiguration.html"/>
+
   
+    <link rel="canonical" href="faros.dev/configuration.html" />
 
   
   <!--[if lt IE 9]>
@@ -32,10 +36,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -91,7 +95,7 @@
               
             
             
-              <p><span class="caption-text">Documentation</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Cluster Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Faros Installation</a></li>
@@ -102,6 +106,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#router-configuration">Router Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id1">Cluster Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#host-record-configuration">Host Record Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bastion-node-guest">Bastion Node Guest</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#extra-dns-dhcp-records">Extra DNS/DHCP Records</a></li>
 </ul>
 </li>
@@ -118,7 +123,7 @@
 <li class="toctree-l1"><a class="reference internal" href="example.html">Verified Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="farosctl.html">farosctl Usage</a></li>
 </ul>
-<p><span class="caption-text">Contributing</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">repos</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">devenv</a></li>
@@ -126,7 +131,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">deploys</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://faros.dev">docs</a></li>
 </ul>
-<p><span class="caption-text">Community</span></p>
+<p class="caption" role="heading"><span class="caption-text">Community</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/projects/1">Roadmap</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/project-faros/cluster-manager/issues">Bug Report</a></li>
@@ -173,6 +178,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -184,7 +191,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             
               <!-- User defined GitHub URL -->
               <a href="https://github.com/project-faros/faros.dev/blob/master/source/configuration.rst" class="fa fa-github"> Edit on GitHub</a>
@@ -292,7 +299,7 @@ running in the OpenShift cluster via HTTPS</p></li>
 <li><p><em>HTTPS to Cockpit Panel</em> - Allow external nodes to connect to the
 Cockpit control plane running on port 9090 on the bastion via HTTPS</p></li>
 <li><p><em>External to Internal Routing - DANGER</em> - This configures the gateway
-in NAT mode as opposed to PAT mode. USE WITH CAUTION.</p></li>
+in router mode as opposed to port forwarding mode. USE WITH CAUTION.</p></li>
 </ul>
 </div></blockquote>
 </dd>
@@ -371,6 +378,29 @@ only. Eg: sdb</p>
 </dd>
 </dl>
 </section>
+<section id="bastion-node-guest">
+<h3>Bastion Node Guest<a class="headerlink" href="#bastion-node-guest" title="Permalink to this headline">¶</a></h3>
+<p>The following options configure a virtual cluster node on the bastion.</p>
+<dl class="simple">
+<dt>Create app node VM on bastion</dt><dd><p>A switch to enable or disable the bastion node guest VM configuration.</p>
+</dd>
+<dt>Node name</dt><dd><p>The hostname to assign to the VM.</p>
+</dd>
+<dt>Core Count</dt><dd><p>The number of cores that should be mapped to the virtual machine.</p>
+</dd>
+<dt>Memory (GB)</dt><dd><p>The amount of RAM that should be allocated to the virtual machine.</p>
+</dd>
+<dt>Host devices to passthrough</dt><dd><p>Use this option to select PCI devices that are available to be mapped to
+guest virtual machine. For a PCI device to be listed here, it must be
+configured to use the <code class="code docutils literal notranslate"><span class="pre">pci-stub</span></code> Kernel driver. This process is documented
+in detail <cite>here
+&lt;https://faros.dev/https://faros.dev/installation.html#prepare-pci-passthrough-devices&gt;</cite>.</p>
+</dd>
+<dt>Host drives to passthrough</dt><dd><p>Drives that are not currently mounted anywhere on the bastion will be
+listed here. Select them to mount them into the guest node as SCSI devices.</p>
+</dd>
+</dl>
+</section>
 <section id="extra-dns-dhcp-records">
 <h3>Extra DNS/DHCP Records<a class="headerlink" href="#extra-dns-dhcp-records" title="Permalink to this headline">¶</a></h3>
 <p>These options allow for additional configuration of the DNS and DHCP services
@@ -445,37 +475,29 @@ reference or backup.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="deploy.html" class="btn btn-neutral float-right" title="Cluster Deployment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="installation.html" class="btn btn-neutral float-left" title="Faros Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="deploy.html" class="btn btn-neutral float-right" title="Cluster Deployment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Faros Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020, Project Faros Team
+        &#169; Copyright 2020, Project Faros Team.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

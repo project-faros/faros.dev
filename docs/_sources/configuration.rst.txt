@@ -102,7 +102,7 @@ Premitted Ingress Traffic
       * *HTTPS to Cockpit Panel* - Allow external nodes to connect to the
         Cockpit control plane running on port 9090 on the bastion via HTTPS
       * *External to Internal Routing - DANGER* - This configures the gateway
-        in NAT mode as opposed to PAT mode. USE WITH CAUTION.
+        in router mode as opposed to port forwarding mode. USE WITH CAUTION.
 
 Upstream DNS Forwarders
     By default, the cluster's DNS server will use 1.1.1.1 to forward out of
@@ -178,6 +178,34 @@ Container Cache Disk
     container cache disk **MUST BE** at least 100 GB. Address the drive by name
     only. Eg: sdb
 
+Bastion Node Guest
+++++++++++++++++++
+
+The following options configure a virtual cluster node on the bastion.
+
+Create app node VM on bastion
+    A switch to enable or disable the bastion node guest VM configuration.
+
+Node name
+    The hostname to assign to the VM.
+
+Core Count
+    The number of cores that should be mapped to the virtual machine.
+
+Memory (GB)
+    The amount of RAM that should be allocated to the virtual machine.
+
+Host devices to passthrough
+    Use this option to select PCI devices that are available to be mapped to
+    guest virtual machine. For a PCI device to be listed here, it must be
+    configured to use the :code:`pci-stub` Kernel driver. This process is documented
+    in detail `here
+    <https://faros.dev/https://faros.dev/installation.html#prepare-pci-passthrough-devices>`.
+
+Host drives to passthrough
+    Drives that are not currently mounted anywhere on the bastion will be
+    listed here. Select them to mount them into the guest node as SCSI devices.
+
 Extra DNS/DHCP Records
 ++++++++++++++++++++++
 
@@ -242,5 +270,5 @@ Additional CA Bundle
     cluster during install so that HTTPS traffic will still be trusted. These
     public certs should be pasted here.
 
-Faros stores stateful configurations made above in `~/.config/faros/default` for 
+Faros stores stateful configurations made above in `~/.config/faros/default` for
 reference or backup.
