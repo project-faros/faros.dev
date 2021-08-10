@@ -103,6 +103,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Cluster Deployment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#deploy-the-cluster">Deploy the cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#observing-installation-progress">Observing Installation Progress</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-application-nodes-to-the-cluster">Adding Application Nodes to the Cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#public-dns-records">Public DNS records</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#connecting-to-the-cluster">Connecting to the cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#node-auth-certificates">Node auth certificates</a></li>
@@ -265,6 +266,15 @@ being made on the install.</p>
 <p>The status percentage at the top of this display will routinely report
 nuisance errors during cluster installation. These may be safely ignored. If
 the install process itself reports an error, that should be observed.</p>
+</div>
+</section>
+<section id="adding-application-nodes-to-the-cluster">
+<h2>Adding Application Nodes to the Cluster<a class="headerlink" href="#adding-application-nodes-to-the-cluster" title="Permalink to this headline">¶</a></h2>
+<p>Once the first step of the install has completed and the cluster control plane
+is available, the application nodes can be added to the cluster. To do this run
+the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>farosctl apply app-nodes
+</pre></div>
 </div>
 </section>
 <section id="public-dns-records">

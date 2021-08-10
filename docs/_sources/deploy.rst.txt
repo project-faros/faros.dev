@@ -75,6 +75,17 @@ being made on the install.
    nuisance errors during cluster installation. These may be safely ignored. If
    the install process itself reports an error, that should be observed.
 
+Adding Application Nodes to the Cluster
+---------------------------------------
+
+Once the first step of the install has completed and the cluster control plane
+is available, the application nodes can be added to the cluster. To do this run
+the following command:
+
+.. code-block:: bash
+
+    farosctl apply app-nodes
+
 Public DNS records
 ------------------
 
