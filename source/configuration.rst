@@ -165,8 +165,19 @@ Control Plane Machines
         the case of a bond, this should be the MAC address of the first NIC in
         the bond. The first NIC in the bond must be able to come up
         independantly without the second NIC for PXE booting.
-      * *Management MAC Address*: The MAC address for the node's out-of-band
-        management interface
+      * *Management IP*: This field is only required if the *Management MAC
+        Address* is not provided. Using this field to specify on IP address for
+        the out of band management interface allows those interfaces to be on
+        a network seperate from the cluster network. This is better for static
+        installs as it increases availability, but decreases portability.
+      * *Management MAC Address*: This field is only required if the
+        *Management IP* is not provided. Using this field to specify the MAC
+        address of the out of band management interface allows the installer to
+        provision an address for the management interface on the cluster
+        network. This reduces the availability of the management interfaces as
+        the bastion node will need to be on and reachable to interact with the
+        management interfaces. However, it greatly increases portability of the
+        installed cluster as no additional networks are required.
       * *OS Install Drive*: This drive in the node onto which CoreOS will be
         installed. Address the drive by name only. Eg: sda
 

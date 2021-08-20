@@ -41,28 +41,3 @@ After completing this menu, OpenShift Container Storage will be deployed and
 the cluster will begin building the hosted Ceph cluster. Wait until the storage
 status indicators on the OpenShift console turn green before continuing.
 
-Set default StorageClass
-------------------------
-
-Once storage is available to the cluster, it is a good practice to set the
-default StorageClass. Official documentation is here for `changing the default
-StorageClass <https://docs.openshift.com/container-platform/4.4/storage/dynamic-provisioning.html#change-default-storage-class_dynamic-provisioning>`_.
-To set the CephFS storage class to be the default, use the following command:
-
-.. code-block:: bash
-
-  oc patch storageclass ocs-storagecluster-cephfs -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "true"}}}'
-
-Enable cluster registry
------------------------
-
-Because storage is not originally available in a bare metal deployment, the
-cluster image registry cannot be enabled by default.
-Now that the storage is available, it is time to `enable the cluster registry <https://docs.openshift.com/container-platform/4.4/registry/configuring-registry-operator.html#registry-removed_configuring-registry-operator>`_.
-
-To enable cluster storage, use the following commands:
-
-.. code-block:: bash
-
-  oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch '{"spec":{"storage":{"pvc":{"claim":""}}}}'
-  oc patch configs.imageregistry.operator.openshift.io/cluster --type merge -p '{"spec":{"managementState":"Managed"}}'
