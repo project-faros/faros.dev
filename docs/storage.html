@@ -103,8 +103,6 @@
 <li class="toctree-l1"><a class="reference internal" href="deploy.html">Cluster Deployment</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Cluster Persistent Storage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#container-storage-deployment">Container storage deployment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#set-default-storageclass">Set default StorageClass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#enable-cluster-registry">Enable cluster registry</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="nvidia.html">NVIDIA Support</a></li>
@@ -232,27 +230,6 @@ storage and then which drives on those nodes should be dedicated to storage.
 After completing this menu, OpenShift Container Storage will be deployed and
 the cluster will begin building the hosted Ceph cluster. Wait until the storage
 status indicators on the OpenShift console turn green before continuing.</p>
-</section>
-<section id="set-default-storageclass">
-<h2>Set default StorageClass<a class="headerlink" href="#set-default-storageclass" title="Permalink to this headline">¶</a></h2>
-<p>Once storage is available to the cluster, it is a good practice to set the
-default StorageClass. Official documentation is here for <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/storage/dynamic-provisioning.html#change-default-storage-class_dynamic-provisioning">changing the default
-StorageClass</a>.
-To set the CephFS storage class to be the default, use the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc patch storageclass ocs-storagecluster-cephfs -p <span class="s1">&#39;{&quot;metadata&quot;: {&quot;annotations&quot;: {&quot;storageclass.kubernetes.io/is-default-class&quot;: &quot;true&quot;}}}&#39;</span>
-</pre></div>
-</div>
-</section>
-<section id="enable-cluster-registry">
-<h2>Enable cluster registry<a class="headerlink" href="#enable-cluster-registry" title="Permalink to this headline">¶</a></h2>
-<p>Because storage is not originally available in a bare metal deployment, the
-cluster image registry cannot be enabled by default.
-Now that the storage is available, it is time to <a class="reference external" href="https://docs.openshift.com/container-platform/4.4/registry/configuring-registry-operator.html#registry-removed_configuring-registry-operator">enable the cluster registry</a>.</p>
-<p>To enable cluster storage, use the following commands:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch <span class="s1">&#39;{&quot;spec&quot;:{&quot;storage&quot;:{&quot;pvc&quot;:{&quot;claim&quot;:&quot;&quot;}}}}&#39;</span>
-oc patch configs.imageregistry.operator.openshift.io/cluster --type merge -p <span class="s1">&#39;{&quot;spec&quot;:{&quot;managementState&quot;:&quot;Managed&quot;}}&#39;</span>
-</pre></div>
-</div>
 </section>
 </section>
 
